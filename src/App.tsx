@@ -20,9 +20,6 @@ const theme = extendTheme({
 });
 
 function App() {
-  let a = "hej";
-  a = 22;
-
   return (
     <ProductProvider>
       <CartProvider>
