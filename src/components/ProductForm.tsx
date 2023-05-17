@@ -33,11 +33,11 @@ function ProductForm({ product, onSubmit }: Props) {
   const formik = useFormik<Product>({
     initialValues: product || {
       id: Date.now().toString(),
-      title: "",
-      description: "",
-      price: "" as any,
+      title: "" as string,
+      description: "" as string,
+      price: 1 as number,
       image: "",
-      height: "" as any,
+      height: 10 as number,
     },
     validationSchema: ProductSchema,
     onSubmit: (values) => {

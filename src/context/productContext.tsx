@@ -9,14 +9,29 @@ interface ProductContextProps {
   editProduct: (productId: string, updatedProduct: Product) => void;
 }
 
-const ProductContext = createContext<ProductContextProps>(null as any);
+const defaultProductContext: ProductContextProps = {
+  products: [],
+  deleteProduct: () => {
+    throw new Error("deleteProduct function must be overridden");
+  },
+  addNewProduct: () => {
+    throw new Error("addNewProduct function must be overridden");
+  },
+  editProduct: () => {
+    throw new Error("editProduct function must be overridden");
+  },
+};
+
+const ProductContext = createContext<ProductContextProps>(
+  defaultProductContext,
+);
 
 export const useProducts = () => useContext(ProductContext);
 
 export default function ProductProvider(props: PropsWithChildren) {
   const [productList, setProductList] = useLocalStorageState(
     products,
-    "products"
+    "products",
   );
 
   const deleteProduct = (productId: string) => {
@@ -30,8 +45,8 @@ export default function ProductProvider(props: PropsWithChildren) {
   const editProduct = (productId: string, updatedProduct: Product) => {
     setProductList(
       productList.map((product) =>
-        product.id === productId ? updatedProduct : product
-      )
+        product.id === productId ? updatedProduct : product,
+      ),
     );
   };
 

@@ -20,16 +20,14 @@ const theme = extendTheme({
 });
 
 function App() {
-  // if (Math.random() > 0.5) throw new Error("Something went wrong"))
-
   return (
     <ProductProvider>
       <CartProvider>
         <OrderProvider>
           <ChakraProvider theme={theme}>
-            <Box bg="brand.100">
+            <Box bg='brand.100'>
               <Header />
-              <Box as="main" pt={24} minH="calc(100vh - 160px)">
+              <Box as='main' pt={24} minH='calc(100vh - 160px)'>
                 <Outlet />
               </Box>
               <Footer />
