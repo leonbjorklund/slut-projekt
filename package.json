@@ -8,8 +8,9 @@
   "license": "ISC",
   "scripts": {
     "dev": "vite",
-    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "build": "tsc && vite build",
+    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "format": "prettier --check \"src/**/*.{ts,tsx}\"",
     "preview": "vite preview",
     "update": "plugga update",
     "test": "plugga test",
