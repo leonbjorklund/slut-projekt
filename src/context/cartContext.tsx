@@ -41,7 +41,7 @@ export default function CartProvider(props: PropsWithChildren) {
   const updateCartItemQuantity = (itemId: string, newQuantity: number) => {
     const updatedCart = [...cart];
     const itemIndex = updatedCart.findIndex(
-      (cartItem) => cartItem.id === itemId
+      (cartItem) => cartItem.id === itemId,
     );
 
     if (itemIndex !== -1) {

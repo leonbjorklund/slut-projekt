@@ -58,11 +58,11 @@ function AlertDialogDelete({ productId }: Props) {
 
             <AlertDialogFooter>
               <Button
-                variant="outline"
-                borderColor="yellow.400"
-                color="black"
-                borderRadius="none"
-                borderWidth="2px"
+                variant='outline'
+                borderColor='yellow.400'
+                color='black'
+                borderRadius='none'
+                borderWidth='2px'
                 ref={cancelRef}
                 onClick={onClose}
               >
@@ -73,9 +73,9 @@ function AlertDialogDelete({ productId }: Props) {
                 colorScheme='red'
                 onClick={handleDelete}
                 ml={3}
-                borderColor="red"
-                borderRadius="none"
-                borderWidth="2px"
+                borderColor='red'
+                borderRadius='none'
+                borderWidth='2px'
               >
                 Ta bort
               </Button>
