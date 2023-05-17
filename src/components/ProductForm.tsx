@@ -49,8 +49,8 @@ function ProductForm({ product, onSubmit }: Props) {
   return (
     <form onSubmit={formik.handleSubmit} data-cy='product-form'>
       <Box>
-        <Flex flexDirection='column' alignItems='center'>
-          <Flex pb={4} flexDir={{ base: "column", md: "row" }}>
+        <Flex direction='column' align='center'>
+          <Flex pb={4} direction={{ base: "column", md: "row" }}>
             <FormControl mr={4}>
               <FormLabel>Titel:</FormLabel>
               <Input
