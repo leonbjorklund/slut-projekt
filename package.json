@@ -12,11 +12,7 @@
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "format": "prettier --check \"src/**/*.{ts,tsx}\"",
     "preview": "vite preview",
-    "update": "plugga update",
-    "test": "plugga test",
-    "test:run": "plugga test --run",
-    "test:g": "plugga test --run .g.",
-    "test:vg": "plugga test --run .vg."
+    "update": "plugga update"
   },
   "dependencies": {
     "@chakra-ui/react": "^2.5.1",
