@@ -7,7 +7,6 @@
   "author": "Plugga Tech",
   "license": "ISC",
   "scripts": {
-    "postinstall": "plugga init",
     "dev": "vite",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "build": "tsc && vite build",
