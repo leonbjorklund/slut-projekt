@@ -1,0 +1,21 @@
+{
+  "name": "slut-projekt",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "cd server && npm run dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leonbjorklund/slut-projekt.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/leonbjorklund/slut-projekt/issues"
+  },
+  "homepage": "https://github.com/leonbjorklund/slut-projekt#readme"
+}
