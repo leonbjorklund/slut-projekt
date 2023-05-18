@@ -1,9 +1,32 @@
-import { Box, Center, Grid, Heading, Text, Flex } from "@chakra-ui/react";
+import {
+  Box,
+  Center,
+  Flex,
+  Grid,
+  Heading,
+  Tab,
+  TabList,
+  Tabs,
+  Text,
+} from "@chakra-ui/react";
+import { useState } from "react";
 import OverviewCard from "../components/OverviewCard";
 import { useProducts } from "../context/productContext";
 
-function Home() {
+interface ProductsLayoutProps {
+  filterCategory: "glass" | "ceramic" | null;
+}
+
+function Home({ filterCategory }: ProductsLayoutProps) {
   const { products } = useProducts();
+
+  const [selectedCategory, setSelectedCategory] = useState<
+    "glass" | "ceramic" | null
+  >(filterCategory);
+
+  const filteredProductList = selectedCategory
+    ? products.filter((product) => product.category === selectedCategory)
+    : products;
 
   return (
     <div>
@@ -27,9 +50,55 @@ function Home() {
       </Flex>
 
       <Center pt={10}>
-        <Heading fontSize='2xl' fontWeight='normal'>
-          NYHETER
-        </Heading>
+        <Tabs
+          borderRadius='.6rem'
+          variant='unstyled'
+          boxShadow='2px 2px 2px rgb(0,0,0, 0.2)'
+          border='1px solid rgba(0, 0, 0, 0.2)'
+          bg={"white"}
+          my={5}
+          width={["100%", "100%", "98%", "62.5%"]}
+          isFitted
+          onChange={(index) => {
+            if (index === 0) setSelectedCategory(null);
+            if (index === 1) setSelectedCategory("glass");
+            if (index === 2) setSelectedCategory("ceramic");
+          }}
+        >
+          <TabList>
+            <Tab
+              fontSize={[".8rem", ".9rem", "1rem"]}
+              borderRadius='.6rem'
+              _selected={{
+                borderRight: "1px solid rgba(0, 0, 0, 0.4)",
+                fontWeight: "bold",
+              }}
+            >
+              ALL VASES
+            </Tab>
+            <Tab
+              fontSize={[".8rem", ".9rem", "1rem"]}
+              borderRadius='.6rem'
+              _selected={{
+                borderRight: "1px solid rgba(0, 0, 0, 0.4)",
+                borderLeft: "1px solid rgba(0, 0, 0, 0.4)",
+                fontWeight: "bold",
+              }}
+            >
+              GLASS
+            </Tab>
+            <Tab
+              fontSize={[".8rem", ".9rem", "1rem"]}
+              borderRadius='.6rem'
+              _selected={{
+                borderLeft: "1px solid rgba(0, 0, 0, 0.4)",
+                fontWeight: "bold",
+              }}
+            >
+              CERAMIC
+            </Tab>
+          </TabList>
+        </Tabs>
       </Center>
 
       <Center>
@@ -43,7 +112,7 @@ function Home() {
           rowGap={8}
           py={8}
         >
-          {products.map((product) => (
+          {filteredProductList.map((product) => (
             <OverviewCard key={product.id} product={product} />
           ))}
         </Grid>

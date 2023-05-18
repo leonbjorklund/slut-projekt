@@ -5,6 +5,7 @@ export interface Product {
   description: string;
   price: number;
   height: number;
+  category: string;
 }
 
 export interface CartItem extends Product {
@@ -21,6 +22,7 @@ export const products: Product[] = [
     price: 300,
     id: "a1",
     height: 18,
+    category: "ceramic",
   },
   {
     image:
@@ -31,6 +33,7 @@ export const products: Product[] = [
     price: 500,
     id: "a2",
     height: 28,
+    category: "ceramic",
   },
   {
     image:
@@ -41,6 +44,7 @@ export const products: Product[] = [
     price: 500,
     id: "a3",
     height: 33,
+    category: "ceramic",
   },
   {
     image:
@@ -51,6 +55,7 @@ export const products: Product[] = [
     price: 300,
     id: "a4",
     height: 22,
+    category: "ceramic",
   },
   {
     image:
@@ -61,6 +66,7 @@ export const products: Product[] = [
     price: 300,
     id: "a5",
     height: 20,
+    category: "glass",
   },
   {
     image:
@@ -71,6 +77,7 @@ export const products: Product[] = [
     price: 400,
     id: "a6",
     height: 26,
+    category: "glass",
   },
   {
     image:
@@ -81,6 +88,7 @@ export const products: Product[] = [
     price: 300,
     id: "a7",
     height: 21,
+    category: "glass",
   },
   {
     image:
@@ -91,6 +99,7 @@ export const products: Product[] = [
     price: 600,
     id: "a8",
     height: 34,
+    category: "glass",
   },
   {
     image:
@@ -101,5 +110,6 @@ export const products: Product[] = [
     price: 300,
     id: "a9",
     height: 20,
+    category: "glass",
   },
 ];
