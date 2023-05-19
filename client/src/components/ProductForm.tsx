@@ -33,11 +33,12 @@ function ProductForm({ product, onSubmit }: Props) {
   const formik = useFormik<Product>({
     initialValues: product || {
       id: Date.now().toString(),
-      title: "",
-      description: "",
-      price: "" as any,
+      title: "" as string,
+      description: "" as string,
+      price: 1 as number,
       image: "",
-      height: "" as any,
+      height: 10 as number,
+      category: "",
     },
     validationSchema: ProductSchema,
     onSubmit: (values) => {
@@ -49,8 +50,8 @@ function ProductForm({ product, onSubmit }: Props) {
   return (
     <form onSubmit={formik.handleSubmit} data-cy='product-form'>
       <Box>
-        <Flex flexDirection='column' alignItems='center'>
-          <Flex pb={4} flexDir={{ base: "column", md: "row" }}>
+        <Flex direction='column' align='center'>
+          <Flex pb={4} direction={{ base: "column", md: "row" }}>
             <FormControl mr={4}>
               <FormLabel>Titel:</FormLabel>
               <Input

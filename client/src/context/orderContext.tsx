@@ -27,7 +27,7 @@ export default function OrderProvider(props: PropsWithChildren) {
     const orderId = Date.now().toString();
     const totalPrice = cart.reduce(
       (total, item) => total + item.price * item.quantity,
-      0
+      0,
     );
     const order: Order = { id: orderId, cart: cart, formData, totalPrice };
 
