@@ -27,14 +27,19 @@ export async function loginUser(req: Request, res: Response) {
   return res.status(200).json({ message: "Login successful" });
 }
 
+export async function signoutUser(req: Request, res: Response) {
+  // TODO: implement signoutUser
+  res.send("signoutUser");
+}
+
+export async function updateUserAdmin(req: Request, res: Response) {
+  res.send("updateUserAdmin");
+}
+
 export async function getAllUsers(req: Request, res: Response) {
   res.send("getAllUsers");
 }
 
 export async function getUserById(req: Request, res: Response) {
   res.send("getUserById");
-}
-
-export async function updateUser(req: Request, res: Response) {
-  res.send("updateUser");
 }
