@@ -38,6 +38,7 @@ function ProductForm({ product, onSubmit }: Props) {
       price: 1 as number,
       image: "",
       height: 10 as number,
+      category: "",
     },
     validationSchema: ProductSchema,
     onSubmit: (values) => {
