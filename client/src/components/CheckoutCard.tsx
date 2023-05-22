@@ -101,7 +101,7 @@ function CheckoutCard({ product }: { product: CartItem }) {
               <Input
                 border='none'
                 data-cy='product-quantity'
-                isDisabled
+                readOnly
                 value={quantity}
                 size='sm'
                 w='2rem'
