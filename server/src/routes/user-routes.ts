@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  checkAuth,
   createUser,
   getAllUsers,
   getUserById,
@@ -16,5 +17,6 @@ userRouter.post("/api/users/signout", signoutUser);
 userRouter.put("/api/users/:id", updateUserAdmin);
 userRouter.get("/api/users", getAllUsers);
 userRouter.get("/api/users/:id", getUserById);
+userRouter.get("/api/users/auth", checkAuth);
 
 export default userRouter;
