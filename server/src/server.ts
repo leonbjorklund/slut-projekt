@@ -1,12 +1,9 @@
 import dotenv from "dotenv";
-import express from "express";
 import mongoose from "mongoose";
+import { app } from "./app";
 
-const app = express();
 const PORT = 3000;
 dotenv.config();
-
-app.use(express.json());
 
 async function main() {
   if (!process.env.MONGO_URI) {
