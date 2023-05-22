@@ -14,7 +14,13 @@ export async function getAllOrders(req: Request, res: Response) {
 }
 
 export async function getOrderById(req: Request, res: Response) {
-  res.send("getOrderById");
+  const orderId = req.params.id;
+  const order = await OrderModel.findById(orderId);
+
+  if (!order) {
+    return res.status(404).json("Order not found");
+  }
+  return res.status(200).json(order);
 }
 
 export async function updateShippingStatus(req: Request, res: Response) {
