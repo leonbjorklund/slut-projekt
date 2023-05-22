@@ -8,7 +8,7 @@ import TextField from "../components/TextField";
 import { useAccount } from "../context/accountContext";
 
 export default function SignUp() {
-  const { create } = useAccount();
+  const { create, login } = useAccount();
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   return (
@@ -28,8 +28,14 @@ export default function SignUp() {
 
         create(email, password)
           .then(() => {
-            actions.resetForm();
-            navigate("/");
+            login(email, password)
+              .then(() => {
+                actions.resetForm();
+                navigate("/");
+              })
+              .catch((error) => {
+                setError(error.message);
+              });
           })
           .catch((error) => {
             setError(error.message);
