@@ -45,13 +45,32 @@ export async function signoutUser(req: Request, res: Response) {
 }
 
 export async function updateUserAdmin(req: Request, res: Response) {
-  res.send("updateUserAdmin");
+  const userId = req.params.id;
+  const { isAdmin } = req.body;
+  const user = await UserModel.findById(userId);
+
+  if (!user) {
+    return res.status(404).json("User not found");
+  }
+  user.isAdmin = isAdmin;
+  await user.save();
+  return res.status(200).json({
+    _id: user._id,
+    username: user.email,
+    isAdmin: user.isAdmin,
+  });
 }
 
 export async function getAllUsers(req: Request, res: Response) {
-  res.send("getAllUsers");
+  const users = await UserModel.find().select("_id email __v isAdmin");
+  res.status(200).json(users);
 }
 
 export async function getUserById(req: Request, res: Response) {
-  res.send("getUserById");
+  const userId = req.params.id;
+  const user = await UserModel.findById(userId).select("_id email __v isAdmin");
+  if (!user) {
+    return res.status(404).json("User not found");
+  }
+  return res.status(200).json(user);
 }
