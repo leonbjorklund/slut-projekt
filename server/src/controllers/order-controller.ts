@@ -9,7 +9,8 @@ export async function createOrder(req: Request, res: Response) {
 }
 
 export async function getAllOrders(req: Request, res: Response) {
-  res.send("getAllOrders");
+  const orders = await OrderModel.find();
+  res.status(200).json(orders);
 }
 
 export async function getOrderById(req: Request, res: Response) {
