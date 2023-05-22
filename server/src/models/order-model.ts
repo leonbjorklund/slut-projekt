@@ -3,8 +3,6 @@ import { addressSchema } from "./address-schema";
 import { orderItemSchema } from "./orderItem-schema";
 
 const orderSchema = new Schema({
-  // orderID:
-  // userID:
   orderItems: { type: [orderItemSchema], required: true },
   deliveryAddress: { type: addressSchema, required: true },
   isShipped: { type: Boolean, default: false },
@@ -13,4 +11,4 @@ const orderSchema = new Schema({
 
 export type Order = InferSchemaType<typeof orderSchema>;
 
-export const OrderModel = model("Order", orderSchema);
+export const OrderModel = model<Order>("Order", orderSchema);

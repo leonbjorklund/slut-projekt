@@ -1,0 +1,25 @@
+POST http://localhost:3000/api/orders
+Content-Type: application/json
+
+{
+  "orderItems": [
+    {
+      "name": "Product 1",
+      "price": 10.99,
+       "height": 20,
+      "image": "product1.jpg",
+      "description": "Product 1 description",
+    "category": "ceramic",
+      "quantity": 2
+    }
+  ],
+  "deliveryAddress": {
+    "firstName": "John",
+    "lastName": "Doe",
+    "address": "123 Main St",
+    "zipCode": "12345",
+    "city": "City Name",
+    "phoneNumber": 1234567890
+  },
+  "isShipped": true
+}

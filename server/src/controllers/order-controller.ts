@@ -1,7 +1,11 @@
 import { Request, Response } from "express";
+import { OrderModel } from "../models/order-model";
 
 export async function createOrder(req: Request, res: Response) {
-  res.send("createOrder");
+  const order = await OrderModel.create(req.body);
+  await order.save();
+
+  return res.status(201).json(order);
 }
 
 export async function getAllOrders(req: Request, res: Response) {
