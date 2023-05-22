@@ -1,5 +1,7 @@
 import cors from "cors";
 import express from "express";
+import "express-async-errors";
+import { cookieSessionMiddleware } from "./cookieSession";
 import { errorHandler } from "./errorHandler";
 import userRouter from "./routes/user-routes";
 
@@ -12,6 +14,8 @@ app.use(
 );
 
 app.use(express.json());
+
+app.use(cookieSessionMiddleware);
 
 app.use(userRouter);
 
