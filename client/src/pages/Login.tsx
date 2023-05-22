@@ -46,7 +46,7 @@ export default function Login() {
           .then((data) => {
             if (!data) return;
             setUser({ ...data });
-            // navigate("/");
+            navigate("/");
           });
       }}
     >
