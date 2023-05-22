@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 interface User {
   email: string;
@@ -8,16 +8,16 @@ interface User {
 
 interface AccountContextType {
   user: User | null;
-  register: (username: string, password: string) => Promise<void>;
+  create: (username: string, password: string) => Promise<void>;
   login: (username: string, password: string) => Promise<void>;
-  logout: () => Promise<void>;
+  signout: () => Promise<void>;
 }
 
 const AccountContext = createContext<AccountContextType>({
   user: null,
-  register: async () => {},
+  create: async () => {},
   login: async () => {},
-  logout: async () => {},
+  signout: async () => {},
 });
 
 interface AccountProviderProps {
@@ -28,26 +28,26 @@ export const AccountProvider: React.FC<AccountProviderProps> = ({
   children,
 }) => {
   const [user, setUser] = useState<User | null>(null);
-  const [users, setUsers] = useState<User[] | null>(null);
-  const { user: loggedInUser } = useAccount();
+  // const [users, setUsers] = useState<User[] | null>(null);
+  // const { user: loggedInUser } = useAccount();
 
-  useEffect(() => {
-    const checkLoggedIn = async () => {
-      const response = await fetch("/api/users/auth", {
-        method: "GET",
-        credentials: "include",
-      });
-      if (response.ok) {
-        const userFromSession = await response.json();
-        setUser(userFromSession);
-      }
-    };
+  // useEffect(() => {
+  //   const checkLoggedIn = async () => {
+  //     const response = await fetch("http://localhost:3000/api/users/auth", {
+  //       method: "GET",
+  //       credentials: "include",
+  //     });
+  //     if (response.ok) {
+  //       const userFromSession = await response.json();
+  //       setUser(userFromSession);
+  //     }
+  //   };
 
-    checkLoggedIn();
-  }, []);
+  //   checkLoggedIn();
+  // }, []);
 
-  const register = async (email: string, password: string) => {
-    const response = await fetch("/api/users/", {
+  const create = async (email: string, password: string) => {
+    const response = await fetch("http://localhost:3000/api/users/create", {
       method: "POST",
       credentials: "include",
       headers: {
@@ -62,7 +62,7 @@ export const AccountProvider: React.FC<AccountProviderProps> = ({
   };
 
   const login = async (email: string, password: string) => {
-    const response = await fetch("/api/users/login", {
+    const response = await fetch("http://localhost:3000/api/users/login", {
       method: "POST",
       credentials: "include",
       headers: {
@@ -76,8 +76,8 @@ export const AccountProvider: React.FC<AccountProviderProps> = ({
     }
   };
 
-  const logout = async () => {
-    const response = await fetch("/api/users/signout", {
+  const signout = async () => {
+    const response = await fetch("http://localhost:3000/api/users/signout", {
       method: "POST",
       credentials: "include",
     });
@@ -87,7 +87,7 @@ export const AccountProvider: React.FC<AccountProviderProps> = ({
   };
 
   return (
-    <AccountContext.Provider value={{ user, register, login, logout }}>
+    <AccountContext.Provider value={{ user, create, login, signout }}>
       {children}
     </AccountContext.Provider>
   );

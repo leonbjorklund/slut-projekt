@@ -7,8 +7,7 @@ import TextField from "../components/TextField";
 import { useAccount } from "../context/accountContext";
 
 export default function Login() {
-  const { setUser } = useAccount();
-
+  const { login } = useAccount();
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   return (
@@ -24,29 +23,15 @@ export default function Login() {
           .max(28, "Password too long"),
       })}
       onSubmit={(values, actions) => {
-        const vals = { ...values };
-        actions.resetForm();
-        fetch("http://localhost:3000/api/users/login", {
-          method: "POST",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(vals),
-        })
-          .catch((err) => {
-            return err;
-          })
-          .then((res) => {
-            if (!res || !res.ok || res.status >= 400) {
-              return;
-            }
-            return res.json();
-          })
-          .then((data) => {
-            if (!data) return;
-            setUser({ ...data });
+        const { email, password } = values;
+
+        login(email, password)
+          .then(() => {
+            actions.resetForm();
             navigate("/");
+          })
+          .catch((error) => {
+            setError(error.message);
           });
       }}
     >
