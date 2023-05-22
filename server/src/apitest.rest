@@ -1,3 +1,5 @@
+### Create new order
+
 POST http://localhost:3000/api/orders
 Content-Type: application/json
 
@@ -6,10 +8,10 @@ Content-Type: application/json
     {
       "name": "Product 1",
       "price": 10.99,
-       "height": 20,
+      "height": 20,
       "image": "product1.jpg",
       "description": "Product 1 description",
-    "category": "ceramic",
+      "category": "ceramic",
       "quantity": 2
     }
   ],

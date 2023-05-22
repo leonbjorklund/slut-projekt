@@ -1,4 +1,4 @@
-import express from "express";
+import { Router } from "express";
 import {
   createOrder,
   getAllOrders,
@@ -6,18 +6,11 @@ import {
   updateShippingStatus,
 } from "../controllers/order-controller";
 
-const orderRouter = express.Router();
+const orderRouter = Router();
 
-// Create new Order
 orderRouter.post("/api/orders", createOrder);
-
-// Get all orders
 orderRouter.get("/api/orders", getAllOrders);
-
-// Get order by id
 orderRouter.get("/api/orders/:id", getOrderById);
-
-// Update the shipping status on order
 orderRouter.put("/api/orders/:id", updateShippingStatus);
 
 export default orderRouter;

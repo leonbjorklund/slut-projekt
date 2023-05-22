@@ -3,7 +3,7 @@ import { addressSchema } from "./address-schema";
 import { orderItemSchema } from "./orderItem-schema";
 
 const orderSchema = new Schema({
-  // Id
+  // Id?
   orderItems: { type: [orderItemSchema], required: true },
   deliveryAddress: { type: addressSchema, required: true },
   isShipped: { type: Boolean, default: false },
