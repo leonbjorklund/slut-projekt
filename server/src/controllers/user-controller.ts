@@ -24,12 +24,24 @@ export async function loginUser(req: Request, res: Response) {
     return res.status(401).json({ message: "Invalid email or password" });
   }
 
+  req.session!.user = {
+    _id: user.id,
+    email: user.email,
+    isAdmin: user.isAdmin,
+  };
+
+  res.status(200).json({
+    _id: user.id,
+    email: user.email,
+    isAdmin: user.isAdmin,
+  });
+
   return res.status(200).json({ message: "Login successful" });
 }
 
 export async function signoutUser(req: Request, res: Response) {
-  // TODO: implement signoutUser
-  res.send("signoutUser");
+  req.session = null;
+  res.status(204).json({ message: "Signout successful" });
 }
 
 export async function updateUserAdmin(req: Request, res: Response) {
