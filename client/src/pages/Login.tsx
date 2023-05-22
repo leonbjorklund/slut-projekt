@@ -55,7 +55,9 @@ export default function Login() {
         w={{ base: "90%", md: "500px" }}
         m='auto'
         justify='center'
-        h='100vh'
+        h='calc(100vh - 320px)'
+        my='auto'
+        display='flex'
         spacing='1rem'
       >
         <Heading>Log in!</Heading>
@@ -63,9 +65,8 @@ export default function Login() {
           {error}
         </Text>
         <TextField
-          bg='#343541'
-          color='white'
-          border='1px solid rgba(255, 255, 255, 0.2)'
+          color='#1A202C'
+          border='1px solid rgba(0, 0, 0, 0.2)'
           name='email'
           placeholder='Enter email'
           autoComplete='off'
@@ -73,9 +74,8 @@ export default function Login() {
         />
 
         <TextField
-          bg='#343541'
-          color='white'
-          border='1px solid rgba(255, 255, 255, 0.2)'
+          color='#1A202C'
+          border='1px solid rgba(0, 0, 0, 0.2)'
           name='password'
           placeholder='Enter password'
           autoComplete='off'
@@ -83,7 +83,7 @@ export default function Login() {
           type='password'
         />
 
-        <ButtonGroup pt='1rem'>
+        <ButtonGroup pt='1rem' spacing={24}>
           <Button colorScheme='green' type='submit'>
             Log In
           </Button>

@@ -14,19 +14,6 @@ function Header() {
     });
   }
 
-  // const getUserTest = () => {
-  //   fetch("http://localhost:3000/api/users", {
-  //     method: "GET",
-  //     credentials: "include",
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //     });
-  // };
-
-  // getUserTest();
-  // Calculate total quantity of items in cart
   const totalQuantity = cart.reduce((total, item) => total + item.quantity, 0);
 
   return (
@@ -57,6 +44,11 @@ function Header() {
         </Link>
       </Box>
       <Flex alignItems='center' justifyContent='space-between'>
+        <Box pr={{ base: 1, md: 4 }}>
+          <Link to='/login'>
+            <Button>Login</Button>
+          </Link>
+        </Box>
         <Button onClick={() => handleLogout()}>Sign Out</Button>
         <Box pr={{ base: 1, md: 4 }}>
           <Link data-cy='admin-link' to='admin'>
