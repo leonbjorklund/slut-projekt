@@ -11,7 +11,7 @@ import {
 
 export const userRouter = Router();
 
-userRouter.post("/api/users", createUser);
+userRouter.post("/api/users/create", createUser);
 userRouter.post("/api/users/login", loginUser);
 userRouter.post("/api/users/signout", signoutUser);
 userRouter.put("/api/users/:id", updateUserAdmin);
