@@ -10,14 +10,14 @@ interface AccountContextType {
   user: User | null;
   create: (username: string, password: string) => Promise<void>;
   login: (username: string, password: string) => Promise<void>;
-  logout: () => Promise<void>;
+  signout: () => Promise<void>;
 }
 
 const AccountContext = createContext<AccountContextType>({
   user: null,
   create: async () => {},
   login: async () => {},
-  logout: async () => {},
+  signout: async () => {},
 });
 
 interface AccountProviderProps {
@@ -76,7 +76,7 @@ export const AccountProvider: React.FC<AccountProviderProps> = ({
     }
   };
 
-  const logout = async () => {
+  const signout = async () => {
     const response = await fetch("http://localhost:3000/api/users/signout", {
       method: "POST",
       credentials: "include",
@@ -87,7 +87,7 @@ export const AccountProvider: React.FC<AccountProviderProps> = ({
   };
 
   return (
-    <AccountContext.Provider value={{ user, create, login, logout }}>
+    <AccountContext.Provider value={{ user, create, login, signout }}>
       {children}
     </AccountContext.Provider>
   );
