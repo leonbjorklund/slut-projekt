@@ -17,6 +17,7 @@ orderRouter.get("/api/orders", getAllOrders);
 // Get order by id
 orderRouter.get("/api/orders/:id", getOrderById);
 
+// Update the shipping status on order
 orderRouter.put("/api/orders/:id", updateShippingStatus);
 
 export default orderRouter;
