@@ -75,3 +75,11 @@ export async function getUserById(req: Request, res: Response) {
   }
   return res.status(200).json(user);
 }
+
+export function checkAuth(req: Request, res: Response) {
+  if (req.session && req.session.user) {
+    res.status(200).json({ success: true, user: req.session.user });
+  } else {
+    res.status(204).json({ success: false });
+  }
+}
