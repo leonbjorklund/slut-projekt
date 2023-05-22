@@ -5,13 +5,12 @@ import { UserModel } from "../models/user-model";
 export async function createUser(req: Request, res: Response) {
   const user = await UserModel.create(req.body);
   await user.save();
-  console.log(req.body);
+
   return res.status(201).json(user);
 }
 
 export async function loginUser(req: Request, res: Response) {
   const { email, password } = req.body;
-
   const user = await UserModel.findOne({ email });
 
   if (!user) {
@@ -34,9 +33,8 @@ export async function loginUser(req: Request, res: Response) {
     _id: user.id,
     email: user.email,
     isAdmin: user.isAdmin,
+    message: "Login successful",
   });
-
-  return res.status(200).json({ message: "Login successful" });
 }
 
 export async function signoutUser(req: Request, res: Response) {
@@ -52,8 +50,10 @@ export async function updateUserAdmin(req: Request, res: Response) {
   if (!user) {
     return res.status(404).json("User not found");
   }
+
   user.isAdmin = isAdmin;
   await user.save();
+
   return res.status(200).json({
     _id: user._id,
     username: user.email,
@@ -69,6 +69,7 @@ export async function getAllUsers(req: Request, res: Response) {
 export async function getUserById(req: Request, res: Response) {
   const userId = req.params.id;
   const user = await UserModel.findById(userId).select("_id email __v isAdmin");
+
   if (!user) {
     return res.status(404).json("User not found");
   }
