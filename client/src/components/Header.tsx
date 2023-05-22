@@ -2,30 +2,13 @@ import { Badge, Box, Button, Flex, Icon, Image } from "@chakra-ui/react";
 import { IoBagOutline, IoPersonOutline } from "react-icons/io5";
 
 import { Link } from "react-router-dom";
+import { useAccount } from "../context/accountContext";
 import { useCart } from "../context/cartContext";
 
 function Header() {
   const { cart } = useCart();
+  const { user, signout } = useAccount();
 
-  function handleLogout() {
-    fetch("http://localhost:3000/api/users/signout", {
-      method: "POST",
-      credentials: "include",
-    });
-  }
-
-  // const getUserTest = () => {
-  //   fetch("http://localhost:3000/api/users", {
-  //     method: "GET",
-  //     credentials: "include",
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //     });
-  // };
-
-  // getUserTest();
   // Calculate total quantity of items in cart
   const totalQuantity = cart.reduce((total, item) => total + item.quantity, 0);
 
@@ -57,7 +40,13 @@ function Header() {
         </Link>
       </Box>
       <Flex alignItems='center' justifyContent='space-between'>
-        <Button onClick={() => handleLogout()}>Sign Out</Button>
+        {user ? (
+          <Button onClick={() => signout()}>Sign Out</Button>
+        ) : (
+          <Link to='/login'>
+            <Button>Log in</Button>
+          </Link>
+        )}
         <Box pr={{ base: 1, md: 4 }}>
           <Link data-cy='admin-link' to='admin'>
             <Icon boxSize={7} as={IoPersonOutline} />
