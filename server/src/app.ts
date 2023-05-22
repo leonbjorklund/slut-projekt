@@ -1,4 +1,5 @@
 import express from "express";
+import "express-async-errors";
 import { cookieSessionMiddleware } from "./cookieSession";
 import { errorHandler } from "./errorHandler";
 import userRouter from "./routes/user-routes";
