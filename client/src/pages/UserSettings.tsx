@@ -7,8 +7,16 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
+import { useEffect } from "react";
+import { useAccount } from "../context/accountContext";
 
 function UserSettings() {
+  const { users, getAllUsers } = useAccount();
+
+  useEffect(() => {
+    getAllUsers();
+  }, [getAllUsers]);
+
   return (
     <>
       <Center>
@@ -34,23 +42,29 @@ function UserSettings() {
             </Heading>
           </Flex>
 
-          <Stack
-            spacing={6}
-            w='100%'
-            display='flex'
-            direction='row'
-            justifyContent='space-between'
-          >
-            <Text>E-mail</Text>
-            <Checkbox
-              size='lg'
-              colorScheme='yellow'
-              variant='outline'
-              borderColor='black'
-            >
-              Admin
-            </Checkbox>
-          </Stack>
+          {users &&
+            users.map((user) => (
+              <Stack
+                key={user.email}
+                spacing={6}
+                w='100%'
+                display='flex'
+                direction='row'
+                justifyContent='space-between'
+              >
+                <Text>{user.email}</Text>
+                <Checkbox
+                  size='lg'
+                  colorScheme='yellow'
+                  variant='outline'
+                  borderColor='black'
+                  isChecked={user.isAdmin}
+                  // Add event handlers or state management if needed
+                >
+                  Admin
+                </Checkbox>
+              </Stack>
+            ))}
         </Box>
       </Center>
     </>
