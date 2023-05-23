@@ -1,4 +1,14 @@
-import { Badge, Box, Flex, Icon, Image } from "@chakra-ui/react";
+import {
+  Badge,
+  Box,
+  Flex,
+  Icon,
+  Image,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+} from "@chakra-ui/react";
 import { IoBagOutline, IoPersonOutline } from "react-icons/io5";
 
 import { Link } from "react-router-dom";
@@ -39,9 +49,25 @@ function Header() {
       </Box>
       <Flex alignItems='center' justifyContent='space-between'>
         <Box pr={{ base: 1, md: 4 }}>
-          <Link data-cy='admin-link' to='admin'>
-            <Icon boxSize={7} as={IoPersonOutline} />
-          </Link>
+          <Menu>
+            <MenuButton as={Link} to='/admin' data-cy='admin-link'>
+              <Icon boxSize={7} as={IoPersonOutline} />
+            </MenuButton>
+            <MenuList>
+              <MenuItem as={Link} to='/admin/orders'>
+                Orders
+              </MenuItem>
+              <MenuItem as={Link} to='/admin/orders/settings'>
+                Order settings
+              </MenuItem>
+              <MenuItem as={Link} to='admin/users'>
+                User settings
+              </MenuItem>
+              <MenuItem as={Link} to='/admin'>
+                Product settings
+              </MenuItem>
+            </MenuList>
+          </Menu>
         </Box>
 
         <Box pos='relative' mr={{ base: 0, md: 4 }}>
