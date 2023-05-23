@@ -8,10 +8,10 @@ Content-Type: application/json
   "orderItems": [
     {
       "name": "Product 1",
-      "price": 10.99,
+      "description": "Product 1 description",
       "height": 20,
       "image": "product1.jpg",
-      "description": "Product 1 description",
+     "price": 10.99,
       "category": "ceramic",
       "quantity": 2
     }

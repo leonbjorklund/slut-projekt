@@ -1,7 +1,6 @@
 import { Schema } from "mongoose";
 
 export const orderItemSchema = new Schema({
-  //   _id: {  },
   name: { type: String, required: true },
   price: { type: Number, required: true },
   height: { type: Number, required: true },
