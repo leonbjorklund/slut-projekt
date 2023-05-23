@@ -5,8 +5,9 @@
 
 @font-face {
   font-family: "losta-masta";
-  src: url(/fonts/LostraMasta-ExtraBold.ttf);
+  src: url(/fonts/LostaMasta-Bold.otf);
 }
+
 body {
   margin: 0;
 }
