@@ -14,7 +14,7 @@ export class CustomError extends Error {
 }
 
 export function errorHandler(
-  err: CustomError,
+  err: CustomError, //TODO: unknown och typa if satser
   req: Request,
   res: Response,
   next: NextFunction
