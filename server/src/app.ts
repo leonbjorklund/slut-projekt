@@ -3,8 +3,8 @@ import express from "express";
 import "express-async-errors";
 import { cookieSessionMiddleware } from "./cookieSession";
 import { errorHandler } from "./errorHandler";
-import userRouter from "./routes/user-routes";
 import productRouter from "./routes/product-router";
+import userRouter from "./routes/user-routes";
 
 export const app = express();
 app.use(
