@@ -1,67 +1,52 @@
-# Webshop - by groove
+# Projektarbete: Webbshop - by Groove
+## Dynamisk Webbutveckling
 
-## Beskrivning
+**Mål:**
+Ni skall bygga en webbshops-applikation inkluderande en klient och en server. Servern ska vara kopplad till en mongodb databas och vara strukturerad baserad på ett REST-API med resurser. Till er hjälp har ni en uppgiftsbeskrivning samt en kravspecifikation.
 
-En webshop skapad med React och Typescript där designsystemet Chakra UI används. Webshopen är gjord utifrån en kravlista som återfinns nedan.
+**Regler**
+Projektet genomförs i grupper om 4 eller 5 personerErt projekt ska skötas från ett gemensamt Github repo. Ni skall använda er av issues och pull request för att strukturera upp erat arbete. I början av projektet skall ni presentera två diagram. Ett ER-diagram över er datastruktur och ett diagram över er server-side kodstruktur. Diagrammen skall uppdateras under projektets gång och lämnas in tillsammans med er kodbas - diagrammen och koden skall stämma överens.Ett gruppkontrakt skall skrivas på och lämnas in.
 
-Skapad av Jennifer Techel, Hanna Petersson, Madeleine Gustafsson och Yehad Moussaoui.
+**Projektledare**
+Er grupp skall utse en projektledare vars roll utöver alla andras är att samla ihop gruppen och försöka ha en mer övergripande roll över projektet. Det här ansvarar projektledaren för:-att alla i gruppen har läst och förstått det här dokumentet.-att projektet flyter på enligt planering och samla gruppen till ev. möten.-att fokus är på rätt saker och att alla har något att göra.-ta kontakt med gruppmedlemmar om dom är frånvarande utan att ha meddelat gruppen.
 
-## Starta Projektet
+**Betyg**
+Projektarbetets betyg beror på er givna idépresentation tillsammans med ert resultat utifrån kravlistan.
 
-Här är en lista på de olika skripten som kan köras i terminalen:
+## Redovisningar
 
-- `npm install` - Installerar alla NodeJS moduler (körs en gång).
-- `npm run dev` - Startar Vite dev servern.
+**Idégodkännande**
+I slutet av veckan ska er grupp presentera en färdig idé på er webbshop tillsammans med en grov sketch på er databasmodell i form av ett enklare ER-Diagram, samt en grov sketch över eran kod i form av ett enklare koddiagram.
 
-## Specifikaktion
+Ni skall även presentera gruppens namn, vem som kommer vara projektledare samt lämna in påskriva gruppkontrakt.
 
-Länk till Chakra UI dokumentation: [Klicka här](https://chakra-ui.com/getting-started).
+**Inlämning av projektet**
+Projektet (kodbas & diagram) skall lämnas in på läroplattformen.
 
-Samtliga produktbilder är tagna från [Jotex](https://www.jotex.se/search?term=vaser).
+Förutom att uppfylla kravspecifikationen, skall erat projekt innehålla en README.md fil där det tydligt skall framgå:Hur projektet installeras och körsVid behov: uppgifter att testa med, så som inloggningsuppgifter.
 
-## Kravlista
+**OBS:**
+Readme filen ska framförallt innehålla en lista över alla kraven i kravspecifikationen nedanför samt en kort kommentar från er - har ni uppfyllt kravet? I så fall, hur?
 
-### Krav för Godkänt
+**Presentation**
+Ni ska hålla i en presentation och genomgång av ert slutresultat för projektarbete. Ni ska i presentationen svara på följande frågor:
 
-- [x] Git & GitHub har använts
-- [x] Projektmappen innehåller en README.md fil - (läs ovan för mer info)
-- [x] Uppgiften lämnas in i tid!
+ - Hur såg ert första ER diagram ut? 
+ - Hur ser ert färdiga, normaliserade databasdiagram ut och hur skiljer det sig mot det första? 
+ - Vad skiljde sig från när ni gjorde slutarbetet i Javascript grundkursen? 
+ - Hur har ni delat upp projektet i moduler, klasser etc? 
+ - Vad känner ni att ni framförallt har lärt er under den här kursen?
 
-**Home**
+Efter er presentation ska ni vara beredda att svara på ytterligare frågor från lärare och från andra elever.
 
-- [x] Ska ha en övergripande layout med header, main & footer.
-- [x] Startsidan ska lista samtliga produkter.
-- [ ] Det ska gå att lägga till produkter i kundvagnen (header + toast + ls).
-- [x] Det ska gå att klicka på en produkt och komma till en detaljsida.
-- [ ] Sidan ska vara responsiv och gå att använda på mobil, tablet & desktop.
+## Tips när ni sätter igång
 
-**Produkt**
+* Prata med varandra - gör en enkel planering - bestäm upplägg, dagar, tider mm
+* Läs hela det här dokumentet, det gäller alla i gruppen!•Viktigt att ni bestämmer er för en mappstruktur, se tips nedan.
+* Börja inte koda för tidigt.
+* Lägg upp det ni väljer att genomföra från kravspecifikationen som issues på Github.
+* Gör er egen grupp i Teams för kommunikation.
+* Jobba agilt, stäm av med teamet varje dag och kolla PR’s ofta.
 
-- [x] Ska ha en övergripande layout med header, main & footer.
-- [x] Detaljsidan ska visa all info om en produkt.
-- [x] Det ska gå att lägga till produkten i kundvagnen (header + toast + ls).
-- [x] Sidan ska vara responsiv och gå att använda på mobil, tablet & desktop.
-
-**Kundvagn & Checkout**
-
-- [x] Ska ha en övergripande layout med header, main & footer.
-- [x] Det ska gå att gå till checkoutsidan och se innehållet i kundvagnen (knapp & url).
-- [x] Det ska gå att se det totala priset i kundvagnen.
-- [x] Det ska gå att ändra produkterna i kundvagnen (header + vyn + pris + ls).
-- [x] Det ska gå att ange leveransuppgifter i ett formulär.
-- [x] Samtliga fält för checkoutsidans formulär ska ha valideringsregler.
-- [x] Formulären vid utcheckningen ska gå att automatiskt fyllas i.
-- [x] Bekräftelsesidan ska visa orderdetaljer och leveransuppgifter.
-
-### Krav för Väl Godkänt
-
-- [x] Ett designsystem/komponentbibliotek används nästintill helt uteslutande för att bygga sidan (ex: MUI, ChakraUI, Mantine, etc).
-
-**Admin**
-
-- [x] Det finns en admin-sida för produkthantering
-- [x] Det ska gå att se alla produkter på admin sidan
-- [x] Det går att lägga till produkter via admin sidan + ls
-- [x] Det går att ta bort produkter via admin sidan + ls
-- [x] Det går att redigera produkter via admin sidan + ls
-- [x] Samtliga fält för adminsidans formulär ska ha valideringsregler
+**Hjälp oss lärare hjälpa er!**
+Fundera ut bra frågor och ställ dem till oss under handledningen så vi kan förklara för er.
