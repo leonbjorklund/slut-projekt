@@ -115,18 +115,33 @@ export const AccountProvider: React.FC<AccountProviderProps> = ({
   };
 
   const updateUserAdmin = async (userId: string, isAdmin: boolean) => {
-    const response = await fetch(`http://localhost:3000/api/users/${userId}`, {
-      method: "PUT",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ isAdmin }),
-    });
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/users/${userId}`,
+        {
+          method: "PUT",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ isAdmin }),
+        },
+      );
 
-    if (response.ok) {
-      const updatedUser = await response.json();
-      setUser(updatedUser);
+      if (response.ok) {
+        const updatedUser = await response.json();
+
+        // Update the user object in the context
+        setUser((prevUser) => {
+          if (prevUser && prevUser._id === updatedUser._id) {
+            // Preserve other properties of the user object
+            return { ...prevUser, isAdmin: updatedUser.isAdmin };
+          }
+          return prevUser;
+        });
+      }
+    } catch (error) {
+      console.error("Error updating user admin status:", error);
     }
   };
 
