@@ -13,7 +13,7 @@ interface AccountContextType {
   login: (username: string, password: string) => Promise<void>;
   signout: () => Promise<void>;
   getAllUsers: () => Promise<void>;
-  updateUserAdmin: (email: string, isAdmin: boolean) => Promise<void>;
+  updateUserAdmin: (userId: string, isAdmin: boolean) => Promise<void>;
 }
 
 const AccountContext = createContext<AccountContextType>({
@@ -113,8 +113,8 @@ export const AccountProvider: React.FC<AccountProviderProps> = ({
     }
   };
 
-  const updateUserAdmin = async (email: string, isAdmin: boolean) => {
-    const response = await fetch(`http://localhost:3000/api/users/${email}`, {
+  const updateUserAdmin = async (userId: string, isAdmin: boolean) => {
+    const response = await fetch(`http://localhost:3000/api/users/${userId}`, {
       method: "PUT",
       credentials: "include",
       headers: {
@@ -125,7 +125,7 @@ export const AccountProvider: React.FC<AccountProviderProps> = ({
 
     if (response.ok) {
       const updatedUser = await response.json();
-      // Handle the updated user as needed
+      setUser(updatedUser);
     }
   };
 
