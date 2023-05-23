@@ -6,7 +6,7 @@ const productSchema = new Schema({
   height: { type: Number, required: true },
   image: { type: String, required: true },
   price: { type: Number, required: true },
-  categories: { type: String, required: true }, // Type: Categories hämta den
+  categories: { type: [String], enum: ["glass", "ceramic"], required: true },
   inStock: { type: Number, required: true },
 });
 
