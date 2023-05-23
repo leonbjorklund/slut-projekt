@@ -1,13 +1,16 @@
-import { Badge, Box, Flex, Icon, Image } from "@chakra-ui/react";
+import { Badge, Box, Button, Flex, Icon, Image } from "@chakra-ui/react";
 import { IoBagOutline, IoPersonOutline } from "react-icons/io5";
 
 import { Link } from "react-router-dom";
+import { useAccount } from "../context/accountContext";
 import { useCart } from "../context/cartContext";
 
 function Header() {
   const { cart } = useCart();
+  const { user, signout } = useAccount();
 
   // Calculate total quantity of items in cart
+
   const totalQuantity = cart.reduce((total, item) => total + item.quantity, 0);
 
   return (
@@ -38,11 +41,20 @@ function Header() {
         </Link>
       </Box>
       <Flex alignItems='center' justifyContent='space-between'>
-        <Box pr={{ base: 1, md: 4 }}>
-          <Link data-cy='admin-link' to='admin'>
-            <Icon boxSize={7} as={IoPersonOutline} />
+        {user ? (
+          <Button onClick={() => signout()}>Sign Out</Button>
+        ) : (
+          <Link to='/login'>
+            <Button>Log in</Button>
           </Link>
-        </Box>
+        )}
+        {user && (
+          <Box pr={{ base: 1, md: 4 }}>
+            <Link data-cy='admin-link' to='admin'>
+              <Icon boxSize={7} as={IoPersonOutline} />
+            </Link>
+          </Box>
+        )}
 
         <Box pos='relative' mr={{ base: 0, md: 4 }}>
           <Link to='checkout' data-cy='cart-link'>

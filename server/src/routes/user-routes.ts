@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  checkAuth,
   createUser,
   getAllUsers,
   getUserById,
@@ -10,8 +11,9 @@ import {
 
 export const userRouter = Router();
 
-userRouter.post("/api/users", createUser);
+userRouter.post("/api/users/create", createUser);
 userRouter.post("/api/users/login", loginUser);
+userRouter.get("/api/users/auth", checkAuth);
 userRouter.post("/api/users/signout", signoutUser);
 userRouter.put("/api/users/:id", updateUserAdmin);
 userRouter.get("/api/users", getAllUsers);
