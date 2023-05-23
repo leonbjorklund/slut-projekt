@@ -8,16 +8,20 @@ interface User {
 
 interface AccountContextType {
   user: User | null;
+  users: User[] | null;
   create: (username: string, password: string) => Promise<void>;
   login: (username: string, password: string) => Promise<void>;
   signout: () => Promise<void>;
+  getAllUsers: () => Promise<void>;
 }
 
 const AccountContext = createContext<AccountContextType>({
   user: null,
+  users: null,
   create: async () => {},
   login: async () => {},
   signout: async () => {},
+  getAllUsers: async () => {},
 });
 
 interface AccountProviderProps {
@@ -28,7 +32,7 @@ export const AccountProvider: React.FC<AccountProviderProps> = ({
   children,
 }) => {
   const [user, setUser] = useState<User | null>(null);
-  // const [users, setUsers] = useState<User[] | null>(null);
+  const [users, setUsers] = useState<User[] | null>(null);
   // const { user: loggedInUser } = useAccount();
 
   const checkLoggedIn = async () => {
@@ -96,8 +100,21 @@ export const AccountProvider: React.FC<AccountProviderProps> = ({
     }
   };
 
+  const getAllUsers = async () => {
+    const response = await fetch("http://localhost:3000/api/users/", {
+      method: "GET",
+      credentials: "include",
+    });
+    if (response.ok) {
+      const users = await response.json();
+      setUsers(users);
+    }
+  };
+
   return (
-    <AccountContext.Provider value={{ user, create, login, signout }}>
+    <AccountContext.Provider
+      value={{ user, users, create, login, signout, getAllUsers }}
+    >
       {children}
     </AccountContext.Provider>
   );
