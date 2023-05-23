@@ -3,19 +3,11 @@ import { NextFunction, Request, Response } from "express";
 import { assert } from "../errorHandler";
 import { UserModel } from "../models/user-model";
 
-export async function createUser(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
-  try {
-    const user = await UserModel.create(req.body);
-    await user.save();
+export async function createUser(req: Request, res: Response) {
+  const user = await UserModel.create(req.body);
+  await user.save();
 
-    return res.status(201).json(user);
-  } catch (err) {
-    next(err);
-  }
+  return res.status(201).json(user);
 }
 
 export async function loginUser(
