@@ -1,6 +1,24 @@
 import { InferSchemaType, model, Schema, SchemaTypes } from "mongoose";
-import { addressSchema } from "./address-schema";
-import { orderItemSchema } from "./orderItem-schema";
+
+const addressSchema = new Schema({
+  firstName: { type: String, required: true },
+  lastName: { type: String, required: true },
+  address: { type: String, default: false },
+  zipCode: { type: Number, default: false },
+  city: { type: String, default: false },
+  phoneNumber: { type: Number, default: false },
+});
+
+const orderItemSchema = new Schema({
+  //   _id: {  },
+  name: { type: String, required: true },
+  price: { type: Number, required: true },
+  height: { type: Number, required: true },
+  image: { type: String, required: true },
+  description: { type: String, required: true },
+  category: { type: String, required: true },
+  quantity: { type: Number, required: true },
+});
 
 const orderSchema = new Schema({
   // userid?
