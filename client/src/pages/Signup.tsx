@@ -44,19 +44,24 @@ export default function SignUp() {
     >
       <VStack
         as={Form}
-        w={{ base: "90%", md: "500px" }}
+        w={{ base: "90%", md: "25%" }}
         m='auto'
         justify='center'
         h='calc(100vh - 320px)'
         spacing='1rem'
       >
-        <Heading>Sign Up</Heading>
+        <Heading as='h2' size='md' textTransform='uppercase'>
+          Sign Up
+        </Heading>
         <Text as='p' color='red.500'>
           {error}
         </Text>
         <TextField
-          color='#1A202C'
-          border='1px solid rgba(0, 0, 0, 0.2)'
+          bg='brand.100'
+          size='md'
+          borderRadius='none'
+          focusBorderColor='blackAlpha.400'
+          borderColor='blackAlpha.400'
           name='email'
           placeholder='Enter email'
           autoComplete='off'
@@ -64,8 +69,11 @@ export default function SignUp() {
         />
 
         <TextField
-          color='#1A202C'
-          border='1px solid rgba(0, 0, 0, 0.2)'
+          bg='brand.100'
+          size='md'
+          borderRadius='none'
+          focusBorderColor='blackAlpha.400'
+          borderColor='blackAlpha.400'
           name='password'
           placeholder='Enter password'
           autoComplete='off'
@@ -74,11 +82,26 @@ export default function SignUp() {
         />
 
         <ButtonGroup pt='1rem'>
-          <Button colorScheme='green' type='submit'>
+          <Button
+            variant='outline'
+            borderColor='yellow.400'
+            color='black'
+            borderRadius='none'
+            borderWidth='1px'
+            fontSize='sm'
+            type='submit'
+            _hover={{ bg: "orange.100" }}
+          >
             Create Account
           </Button>
           <Button
-            colorScheme='blackAlpha'
+            variant='outline'
+            borderColor='yellow.400'
+            color='black'
+            borderRadius='none'
+            borderWidth='1px'
+            fontSize='sm'
+            _hover={{ bg: "orange.100" }}
             onClick={() => navigate("/login")}
             leftIcon={<ArrowBackIcon />}
           >

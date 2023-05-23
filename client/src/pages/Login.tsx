@@ -37,21 +37,25 @@ export default function Login() {
     >
       <VStack
         as={Form}
-        w={{ base: "90%", md: "500px" }}
+        w={{ base: "90%", md: "25%" }}
         m='auto'
         justify='center'
         h='calc(100vh - 320px)'
-        my='auto'
         display='flex'
         spacing='1rem'
       >
-        <Heading>Log in!</Heading>
+        <Heading as='h2' size='md' textTransform='uppercase'>
+          Log in
+        </Heading>
         <Text as='p' color='red.500'>
           {error}
         </Text>
         <TextField
-          color='#1A202C'
-          border='1px solid rgba(0, 0, 0, 0.2)'
+          bg='brand.100'
+          size='md'
+          borderRadius='none'
+          focusBorderColor='blackAlpha.400'
+          borderColor='blackAlpha.400'
           name='email'
           placeholder='Enter email'
           autoComplete='off'
@@ -59,8 +63,11 @@ export default function Login() {
         />
 
         <TextField
-          color='#1A202C'
-          border='1px solid rgba(0, 0, 0, 0.2)'
+          bg='brand.100'
+          size='md'
+          borderRadius='none'
+          borderColor='blackAlpha.400'
+          focusBorderColor='yellow.400'
           name='password'
           placeholder='Enter password'
           autoComplete='off'
@@ -68,11 +75,31 @@ export default function Login() {
           type='password'
         />
 
-        <ButtonGroup pt='1rem' spacing={24}>
-          <Button colorScheme='green' type='submit'>
+        <ButtonGroup pt='1rem' spacing={12}>
+          <Button
+            variant='outline'
+            borderColor='yellow.400'
+            color='black'
+            borderRadius='none'
+            borderWidth='1px'
+            fontSize='sm'
+            w={28}
+            type='submit'
+            _hover={{ bg: "orange.100" }}
+          >
             Log In
           </Button>
-          <Button colorScheme='blackAlpha' onClick={() => navigate("/signup")}>
+          <Button
+            variant='outline'
+            borderColor='yellow.400'
+            color='black'
+            borderRadius='none'
+            borderWidth='1px'
+            fontSize='sm'
+            w={28}
+            _hover={{ bg: "orange.100" }}
+            onClick={() => navigate("/signup")}
+          >
             Sign up
           </Button>
         </ButtonGroup>

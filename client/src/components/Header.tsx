@@ -42,39 +42,51 @@ function Header() {
       </Box>
       <Flex alignItems='center' justifyContent='space-between'>
         {user ? (
-          <Button onClick={() => signout()}>Sign Out</Button>
+          <Button
+            bg='none'
+            _hover={{ bg: "none", textDecoration: "underline" }}
+            onClick={() => signout()}
+          >
+            Sign Out
+          </Button>
         ) : (
           <Link to='/login'>
-            <Button>Log in</Button>
+            <Button
+              bg='none'
+              _hover={{ bg: "none", textDecoration: "underline" }}
+            >
+              Log in
+            </Button>
           </Link>
         )}
         {user && (
-          <Box pr={{ base: 1, md: 4 }}>
-            <Link data-cy='admin-link' to='admin'>
-              <Icon boxSize={7} as={IoPersonOutline} />
-            </Link>
-          </Box>
+          <>
+            <Box pr={{ base: 1, md: 4 }}>
+              <Link data-cy='admin-link' to='admin'>
+                <Icon boxSize={7} as={IoPersonOutline} />
+              </Link>
+            </Box>
+            <Box pos='relative' mr={{ base: 0, md: 4 }}>
+              <Link to='checkout' data-cy='cart-link'>
+                <Icon boxSize={7} as={IoBagOutline} />
+                {totalQuantity > 0 && (
+                  <Badge
+                    position='absolute'
+                    top='-10px'
+                    right='-6px'
+                    colorScheme='yellow'
+                    bg='yellow.400'
+                    fontSize='0.85rem'
+                    borderRadius='10px'
+                    data-cy='cart-items-count-badge'
+                  >
+                    {totalQuantity}
+                  </Badge>
+                )}
+              </Link>
+            </Box>
+          </>
         )}
-
-        <Box pos='relative' mr={{ base: 0, md: 4 }}>
-          <Link to='checkout' data-cy='cart-link'>
-            <Icon boxSize={7} as={IoBagOutline} />
-            {totalQuantity > 0 && (
-              <Badge
-                position='absolute'
-                top='-10px'
-                right='-6px'
-                colorScheme='yellow'
-                bg='yellow.400'
-                fontSize='0.85rem'
-                borderRadius='10px'
-                data-cy='cart-items-count-badge'
-              >
-                {totalQuantity}
-              </Badge>
-            )}
-          </Link>
-        </Box>
       </Flex>
     </Flex>
   );
