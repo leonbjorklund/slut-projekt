@@ -1,10 +1,10 @@
-import { InferSchemaType, Schema, model } from "mongoose";
+import { InferSchemaType, Schema, Types, model } from "mongoose";
 
 const productSchema = new Schema({
   name: { type: String, required: true },
   description: { type: String, required: true },
   height: { type: Number, required: true },
-  image: { type: String, required: true },
+  images: [{ type: Types.ObjectId, ref: "File" }], // Reference to file identifiers
   price: { type: Number, required: true },
   categories: { type: [String], enum: ["glass", "ceramic"], required: true },
   inStock: { type: Number, required: true },
