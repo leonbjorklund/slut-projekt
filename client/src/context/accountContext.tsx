@@ -13,6 +13,7 @@ interface AccountContextType {
   login: (username: string, password: string) => Promise<void>;
   signout: () => Promise<void>;
   getAllUsers: () => Promise<void>;
+  updateUserAdmin: (email: string, isAdmin: boolean) => Promise<void>;
 }
 
 const AccountContext = createContext<AccountContextType>({
@@ -22,6 +23,7 @@ const AccountContext = createContext<AccountContextType>({
   login: async () => {},
   signout: async () => {},
   getAllUsers: async () => {},
+  updateUserAdmin: async () => {},
 });
 
 interface AccountProviderProps {
@@ -111,9 +113,33 @@ export const AccountProvider: React.FC<AccountProviderProps> = ({
     }
   };
 
+  const updateUserAdmin = async (email: string, isAdmin: boolean) => {
+    const response = await fetch(`http://localhost:3000/api/users/${email}`, {
+      method: "PUT",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ isAdmin }),
+    });
+
+    if (response.ok) {
+      const updatedUser = await response.json();
+      // Handle the updated user as needed
+    }
+  };
+
   return (
     <AccountContext.Provider
-      value={{ user, users, create, login, signout, getAllUsers }}
+      value={{
+        user,
+        users,
+        create,
+        login,
+        signout,
+        getAllUsers,
+        updateUserAdmin,
+      }}
     >
       {children}
     </AccountContext.Provider>
