@@ -11,11 +11,28 @@ import { useEffect } from "react";
 import { useAccount } from "../context/accountContext";
 
 function UserSettings() {
-  const { users, getAllUsers } = useAccount();
+  const { user, users, getAllUsers } = useAccount();
 
   useEffect(() => {
     getAllUsers();
   }, [getAllUsers]);
+
+  const isAdmin = user?.isAdmin;
+
+  if (!isAdmin) {
+    return (
+      <Center>
+        <Box py={8}>
+          <Heading as='h2' size='lg' textAlign='center'>
+            Access Denied
+          </Heading>
+          <Text mt={4} textAlign='center'>
+            You do not have permission to view this page.
+          </Text>
+        </Box>
+      </Center>
+    );
+  }
 
   return (
     <>
