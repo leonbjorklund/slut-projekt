@@ -11,7 +11,7 @@ import { useEffect } from "react";
 import { useAccount } from "../context/accountContext";
 
 function UserSettings() {
-  const { user, users, getAllUsers } = useAccount();
+  const { user, users, getAllUsers, updateUserAdmin } = useAccount();
 
   useEffect(() => {
     getAllUsers();
@@ -33,6 +33,15 @@ function UserSettings() {
       </Center>
     );
   }
+
+  const handleAdminStatusChange = async (userId: string, isAdmin: boolean) => {
+    try {
+      await updateUserAdmin(userId, isAdmin);
+      // Optionally, you can update the user list by calling getAllUsers()
+    } catch (error) {
+      console.error("Error updating user admin status:", error);
+    }
+  };
 
   return (
     <>
@@ -76,7 +85,9 @@ function UserSettings() {
                   variant='outline'
                   borderColor='black'
                   isChecked={user.isAdmin}
-                  // Add event handlers or state management if needed
+                  onChange={(e) =>
+                    handleAdminStatusChange(user._id, e.target.checked)
+                  }
                 >
                   Admin
                 </Checkbox>
