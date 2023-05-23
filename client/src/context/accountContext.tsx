@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 interface User {
   email: string;
@@ -31,20 +31,30 @@ export const AccountProvider: React.FC<AccountProviderProps> = ({
   // const [users, setUsers] = useState<User[] | null>(null);
   // const { user: loggedInUser } = useAccount();
 
-  // useEffect(() => {
-  //   const checkLoggedIn = async () => {
-  //     const response = await fetch("http://localhost:3000/api/users/auth", {
-  //       method: "GET",
-  //       credentials: "include",
-  //     });
-  //     if (response.ok) {
-  //       const userFromSession = await response.json();
-  //       setUser(userFromSession);
-  //     }
-  //   };
+  const checkLoggedIn = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/api/users/auth", {
+        credentials: "include",
+      });
+      if (response.status === 204) {
+        setUser(null);
+      } else if (response.ok) {
+        const data = await response.json();
+        if (data.success) {
+          setUser(data.user);
+        }
+      } else {
+        setUser(null);
+      }
+    } catch (error) {
+      console.error("Error checking logged in status:", error);
+      setUser(null);
+    }
+  };
 
-  //   checkLoggedIn();
-  // }, []);
+  useEffect(() => {
+    checkLoggedIn();
+  }, []);
 
   const create = async (email: string, password: string) => {
     const response = await fetch("http://localhost:3000/api/users/create", {
