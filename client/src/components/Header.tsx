@@ -48,11 +48,13 @@ function Header() {
             <Button>Log in</Button>
           </Link>
         )}
-        <Box pr={{ base: 1, md: 4 }}>
-          <Link data-cy='admin-link' to='admin'>
-            <Icon boxSize={7} as={IoPersonOutline} />
-          </Link>
-        </Box>
+        {user && (
+          <Box pr={{ base: 1, md: 4 }}>
+            <Link data-cy='admin-link' to='admin'>
+              <Icon boxSize={7} as={IoPersonOutline} />
+            </Link>
+          </Box>
+        )}
 
         <Box pos='relative' mr={{ base: 0, md: 4 }}>
           <Link to='checkout' data-cy='cart-link'>
