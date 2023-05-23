@@ -5,6 +5,7 @@ import { cookieSessionMiddleware } from "./cookieSession";
 import { errorHandler } from "./errorHandler";
 import userRouter from "./routes/user-routes";
 import productRouter from "./routes/product-router";
+import fileRouter from "./routes/file-router";
 
 export const app = express();
 app.use(
@@ -20,5 +21,6 @@ app.use(cookieSessionMiddleware);
 
 app.use(userRouter);
 app.use(productRouter);
+app.use(fileRouter);
 
 app.use(errorHandler);
