@@ -15,6 +15,7 @@ import Edit from "./pages/Edit";
 import Home from "./pages/Home";
 import MyOrders from "./pages/MyOrders";
 import OrderConfirmation from "./pages/OrderConfirmation";
+import OrderSettings from "./pages/OrderSettings";
 import ProductPage from "./pages/Product";
 
 const router = createBrowserRouter(
@@ -24,9 +25,11 @@ const router = createBrowserRouter(
       <Route path='product/:id' element={<ProductPage />} />
       <Route path='checkout' element={<Checkout />} />
       <Route path='confirmation' element={<OrderConfirmation />} />
+
       <Route path='admin'>
         <Route index element={<Admin />} />
         <Route path='orders' element={<MyOrders />} />
+        <Route path='orders/settings' element={<OrderSettings />} />
         <Route path='product/new' element={<AddProduct />} />
         <Route path='product/:id' element={<Edit />} />
       </Route>
