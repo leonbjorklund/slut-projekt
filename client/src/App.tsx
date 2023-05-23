@@ -3,6 +3,7 @@ import "@fontsource/montserrat/400.css";
 import { Outlet } from "react-router-dom";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import { AccountProvider } from "./context/accountContext";
 import CartProvider from "./context/cartContext";
 import OrderProvider from "./context/orderContext";
 import ProductProvider from "./context/productContext";
@@ -22,19 +23,21 @@ const theme = extendTheme({
 function App() {
   return (
     <ProductProvider>
-      <CartProvider>
-        <OrderProvider>
-          <ChakraProvider theme={theme}>
-            <Box bg='brand.100'>
-              <Header />
-              <Box as='main' pt={24} minH='calc(100vh - 160px)'>
-                <Outlet />
+      <AccountProvider>
+        <CartProvider>
+          <OrderProvider>
+            <ChakraProvider theme={theme}>
+              <Box bg='brand.100'>
+                <Header />
+                <Box as='main' pt={24} minH='calc(100vh - 160px)'>
+                  <Outlet />
+                </Box>
+                <Footer />
               </Box>
-              <Footer />
-            </Box>
-          </ChakraProvider>
-        </OrderProvider>
-      </CartProvider>
+            </ChakraProvider>
+          </OrderProvider>
+        </CartProvider>
+      </AccountProvider>
     </ProductProvider>
   );
 }
