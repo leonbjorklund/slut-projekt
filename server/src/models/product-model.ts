@@ -4,7 +4,7 @@ const productSchema = new Schema({
   name: { type: String, required: true },
   description: { type: String, required: true },
   height: { type: Number, required: true },
-  images: [{ type: Types.ObjectId, ref: "File" }], // Reference to file identifiers
+  image: { type: Types.ObjectId }, // Reference to file identifiers
   price: { type: Number, required: true },
   categories: { type: [String], enum: ["glass", "ceramic"], required: true },
   inStock: { type: Number, required: true },

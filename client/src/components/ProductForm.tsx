@@ -47,6 +47,16 @@ function ProductForm({ product, onSubmit }: Props) {
     },
   });
 
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return;
+    const file = e.target.files[0];
+    // Skicka file till api:et med formData
+    // Få tillbaka ett id
+    const id = "244353521";
+    formik.setFieldValue("image", id);
+    // Ev lägg till en loader
+  };
+
   return (
     <form onSubmit={formik.handleSubmit} data-cy='product-form'>
       <Box>
@@ -128,7 +138,7 @@ function ProductForm({ product, onSubmit }: Props) {
                 data-cy='product-image'
                 bg='whiteAlpha.900'
                 size='md'
-                type='text'
+                type='file'
                 name='image'
                 id='image'
                 focusBorderColor='yellow.400'
@@ -156,7 +166,7 @@ function ProductForm({ product, onSubmit }: Props) {
               id='description'
               focusBorderColor='yellow.400'
               value={formik.values.description}
-              onChange={formik.handleChange}
+              onChange={handleImageUpload} // Gör en separat on change som anropar databas
               onBlur={formik.handleBlur}
             />
             {formik.touched.description && formik.errors.description && (
