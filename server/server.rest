@@ -1,0 +1,44 @@
+### ADD PRODUCTS
+
+POST http://localhost:3000/api/products
+Content-Type: application/json
+
+{
+    "name": "CLAUDE",
+    "description": "Ceramic vase. CLAUDE is handmade and has an irregular shape reminiscent of coral in the sea. The exterior has a matte finish with a sandy texture, while the interior is glazed. Some variation may occur as the vase is handmade. Ceramics can allow moisture to pass through.",
+    "height": 22,
+    "image": "https://assets.ellosgroup.com/i/ellos/b?$jg$&$jm$&$jp$&$jd$&n=jot_1574764-01_Fm&mw=776&fmt=webp",
+    "price": 400, 
+    "categories": "ceramic",
+    "inStock": 4
+}
+
+### GET ALL PRODUCTS 
+
+GET http://localhost:3000/api/products
+Content-Type: application/json
+
+### GET PRODUCT BY ID 
+
+GET http://localhost:3000/api/products/646c7a4b63fd50be6e73780b
+Content-Type: application/json
+
+### UPDATE PRODUCT
+
+PUT http://localhost:3000/api/products/646c82b2200da087df2734be
+Content-Type: application/json
+
+{
+  "name": "hello test",
+  "description": "Updated product description",
+  "height": 50,
+  "image": "https://example.com/updated-image.jpg",
+  "price": 100,
+  "categories": "glass",
+  "inStock": 2
+}
+
+### DELETE PRODUCT
+
+DELETE http://localhost:3000/api/products/646c82b2200da087df2734be
+Content-Type: application/json
