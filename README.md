@@ -42,7 +42,7 @@ Projektarbetets betyg beror på er givna idépresentation tillsammans med ert re
 - [ ] Administratörer ska kunna redigera produkt inklusive vilka kategorier den tillhör (VG)
 - [ ] Administratörer ska kunna lägga till och ta bort produkter (VG)
 - [ ] Backendapplikationen ska ha en fungerande global felhantering (VG)
-- [ ] En administratör ska kunna uppgradera en användare till administratör (VG)
+- [x] En administratör ska kunna uppgradera en användare till administratör (VG)
 - [ ] Administratörer ska kunna markera beställningar som skickade (VG)
 
 ## Redovisningar
