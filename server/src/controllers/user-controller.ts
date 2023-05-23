@@ -33,7 +33,6 @@ export async function loginUser(req: Request, res: Response) {
     _id: user.id,
     email: user.email,
     isAdmin: user.isAdmin,
-    message: "Login successful",
   });
 }
 
@@ -80,6 +79,6 @@ export function checkAuth(req: Request, res: Response) {
   if (req.session && req.session.user) {
     res.status(200).json({ success: true, user: req.session.user });
   } else {
-    res.status(204).json({ success: false });
+    res.status(204).json({ success: false, user: null });
   }
 }
