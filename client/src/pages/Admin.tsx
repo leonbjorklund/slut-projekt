@@ -10,6 +10,16 @@ function Admin() {
     <>
       <Center>
         <Box w='50%' py={8}>
+          <Heading
+            as='h5'
+            size='lg'
+            textTransform='uppercase'
+            mb='5rem'
+            display='flex'
+            justifyContent='center'
+          >
+            Order settings
+          </Heading>
           <Flex
             justifyContent='space-between'
             alignItems='center'
