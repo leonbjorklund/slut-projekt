@@ -7,8 +7,42 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
+import { useEffect } from "react";
+import { useAccount } from "../context/accountContext";
 
 function UserSettings() {
+  const { user, users, getAllUsers, updateUserAdmin } = useAccount();
+
+  useEffect(() => {
+    getAllUsers();
+  }, [getAllUsers]);
+
+  const isAdmin = user?.isAdmin;
+
+  if (!isAdmin) {
+    return (
+      <Center>
+        <Box py={8}>
+          <Heading as='h2' size='lg' textAlign='center'>
+            Access Denied
+          </Heading>
+          <Text mt={4} textAlign='center'>
+            You do not have permission to view this page.
+          </Text>
+        </Box>
+      </Center>
+    );
+  }
+
+  const handleAdminStatusChange = async (userId: string, isAdmin: boolean) => {
+    try {
+      await updateUserAdmin(userId, isAdmin);
+      // Optionally, you can update the user list by calling getAllUsers()
+    } catch (error) {
+      console.error("Error updating user admin status:", error);
+    }
+  };
+
   return (
     <>
       <Center>
@@ -34,23 +68,31 @@ function UserSettings() {
             </Heading>
           </Flex>
 
-          <Stack
-            spacing={6}
-            w='100%'
-            display='flex'
-            direction='row'
-            justifyContent='space-between'
-          >
-            <Text>E-mail</Text>
-            <Checkbox
-              size='lg'
-              colorScheme='yellow'
-              variant='outline'
-              borderColor='black'
-            >
-              Admin
-            </Checkbox>
-          </Stack>
+          {users &&
+            users.map((user) => (
+              <Stack
+                key={user.email}
+                spacing={6}
+                w='100%'
+                display='flex'
+                direction='row'
+                justifyContent='space-between'
+              >
+                <Text>{user.email}</Text>
+                <Checkbox
+                  size='lg'
+                  colorScheme='yellow'
+                  variant='outline'
+                  borderColor='black'
+                  isChecked={user.isAdmin}
+                  onChange={(e) =>
+                    handleAdminStatusChange(user._id, e.target.checked)
+                  }
+                >
+                  Admin
+                </Checkbox>
+              </Stack>
+            ))}
         </Box>
       </Center>
     </>
