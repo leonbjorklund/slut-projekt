@@ -19,6 +19,7 @@ import OrderConfirmation from "./pages/OrderConfirmation";
 import OrderSettings from "./pages/OrderSettings";
 import ProductPage from "./pages/Product";
 import SignUp from "./pages/Signup";
+import UserSettings from "./pages/UserSettings";
 
 const router = createBrowserRouter(
   createRoutesFromElements(

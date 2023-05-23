@@ -1,4 +1,4 @@
-import { Badge, Box, Flex, Icon, Image } from "@chakra-ui/react";
+import { Badge, Box, Button, Flex, Icon, Image } from "@chakra-ui/react";
 import { IoBagOutline, IoPersonOutline } from "react-icons/io5";
 
 import { Link } from "react-router-dom";
