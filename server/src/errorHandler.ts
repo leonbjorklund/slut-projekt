@@ -9,6 +9,5 @@ export function errorHandler(
   if (res.headersSent) {
     return next(err);
   }
-  res.status(500);
-  res.send("testar error handler");
+  res.status(500).json(err.message);
 }
