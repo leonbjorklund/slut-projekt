@@ -14,6 +14,7 @@ import Checkout from "./pages/Checkout";
 import Edit from "./pages/Edit";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import MyOrders from "./pages/MyOrders";
 import OrderConfirmation from "./pages/OrderConfirmation";
 import ProductPage from "./pages/Product";
 import SignUp from "./pages/Signup";
@@ -29,6 +30,7 @@ const router = createBrowserRouter(
       <Route path='confirmation' element={<OrderConfirmation />} />
       <Route path='admin'>
         <Route index element={<Admin />} />
+        <Route path='orders' element={<MyOrders />} />
         <Route path='product/new' element={<AddProduct />} />
         <Route path='product/:id' element={<Edit />} />
       </Route>
