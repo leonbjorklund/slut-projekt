@@ -14,14 +14,22 @@ export class CustomError extends Error {
 }
 
 export function errorHandler(
-  err: CustomError, //TODO: unknown och typa if satser
+  err: unknown,
   req: Request,
   res: Response,
   next: NextFunction
 ) {
-  const { statusCode, message } = err;
-  console.error(err);
-  res.status(statusCode || 500).json(message);
+  if (err instanceof CustomError) {
+    const { statusCode, message } = err;
+    console.error(err);
+    res.status(statusCode || 500).json(message);
+  } else if (err instanceof Error) {
+    console.error(err);
+    res.status(500).json(err.message);
+  } else {
+    console.error(err);
+    res.status(500).json("An unknown error occurred.");
+  }
 }
 
 export function assert(
