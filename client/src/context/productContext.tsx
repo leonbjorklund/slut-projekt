@@ -6,8 +6,8 @@ import {
   useEffect,
 } from "react";
 
-interface Product {
-  id: string;
+export interface Product {
+  _id: string;
   name: string;
   description: string;
   image: string;
@@ -52,7 +52,7 @@ export default function ProductProvider(props: PropsWithChildren) {
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch("/api/products");
+      const response = await fetch("http://localhost:3000/api/products");
       if (response.ok) {
         const fetchedProducts = await response.json();
         setProducts(fetchedProducts);
@@ -65,7 +65,7 @@ export default function ProductProvider(props: PropsWithChildren) {
   };
 
   const deleteProduct = (productId: string) => {
-    setProducts(products.filter((product) => product.id !== productId));
+    setProducts(products.filter((product) => product._id !== productId));
   };
 
   const addNewProduct = (product: Product) => {
@@ -75,7 +75,7 @@ export default function ProductProvider(props: PropsWithChildren) {
   const editProduct = (productId: string, updatedProduct: Product) => {
     setProducts(
       products.map((product) =>
-        product.id === productId ? updatedProduct : product,
+        product._id === productId ? updatedProduct : product,
       ),
     );
   };
