@@ -10,14 +10,14 @@ import {
 } from "@chakra-ui/react";
 import { AiOutlineEdit } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import { Product } from "../../data";
 import AlertDialogDelete from "../components/AlertDialog";
+import { Product } from "../context/productContext";
 
 function AdminCard({ product }: { product: Product }) {
   return (
     <Card
       data-cy='product'
-      key={product.id}
+      key={product._id}
       direction={{ base: "column", sm: "row" }}
       overflow='hidden'
       bg='brand.100'
@@ -34,7 +34,7 @@ function AdminCard({ product }: { product: Product }) {
           maxW={{ base: "100%", md: "200px" }}
           w='auto'
           src={product.image}
-          alt={product.title}
+          alt={product.name}
         />
 
         <Stack
@@ -49,12 +49,12 @@ function AdminCard({ product }: { product: Product }) {
           >
             <Box>
               <Heading data-cy='product-title' as='h3' size='md' mb={2}>
-                {product.title}
+                {product.name}
               </Heading>
               <Flex>
                 <Text>Id:&nbsp; </Text>
                 <Text data-cy='product-id' mb={4}>
-                  {product.id}
+                  {product._id}
                 </Text>
               </Flex>
               <Flex>
@@ -82,7 +82,7 @@ function AdminCard({ product }: { product: Product }) {
             alignItems='flex-end'
             direction={{ base: "row", md: "column" }}
           >
-            <Link to={"product/" + product.id}>
+            <Link to={"product/" + product._id}>
               <Icon
                 bg='base.100'
                 color='black'
@@ -95,7 +95,7 @@ function AdminCard({ product }: { product: Product }) {
                 _hover={{ bg: "none", transform: "scale(1.2)" }}
               />
             </Link>
-            <AlertDialogDelete productId={product.id} />
+            <AlertDialogDelete productId={product._id} />
           </Flex>
         </Box>
       </Flex>

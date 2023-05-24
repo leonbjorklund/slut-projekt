@@ -25,7 +25,7 @@ function Home({ filterCategory }: ProductsLayoutProps) {
   >(filterCategory);
 
   const filteredProductList = selectedCategory
-    ? products.filter((product) => product.category === selectedCategory)
+    ? products.filter((product) => product.categories[0] === selectedCategory)
     : products;
 
   return (
@@ -106,7 +106,7 @@ function Home({ filterCategory }: ProductsLayoutProps) {
           py={8}
         >
           {filteredProductList.map((product) => (
-            <OverviewCard key={product.id} product={product} />
+            <OverviewCard key={product._id} product={product} />
           ))}
         </Grid>
       </Center>
