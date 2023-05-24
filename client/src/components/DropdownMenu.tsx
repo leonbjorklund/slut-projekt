@@ -19,27 +19,49 @@ function DropdownMenu() {
         as={Button}
         bg='none'
         _hover={{ bg: "none", textDecoration: "underline" }}
+        _focus={{ outline: "none", boxShadow: "none" }}
       >
         <Icon boxSize={7} as={IoPersonOutline} />
       </MenuButton>
-      <MenuList>
-        <MenuItem as={Link} to='/admin/orders'>
+      <MenuList
+        borderWidth='1px'
+        borderColor='gray.400'
+        borderRadius='none'
+        p={2}
+        fontSize='md'
+      >
+        <MenuItem
+          as={Link}
+          to='/orders'
+          _hover={{ borderBottom: "1px solid black", bg: "transparent" }}
+        >
           My orders
         </MenuItem>
-        {user &&
-          user.isAdmin && ( // Add isAdmin check for the following menu items
-            <>
-              <MenuItem as={Link} to='/admin/users'>
-                Settings users
-              </MenuItem>
-              <MenuItem as={Link} to='/admin/orders/settings'>
-                Settings orders
-              </MenuItem>
-              <MenuItem as={Link} to='/admin'>
-                Settings products
-              </MenuItem>
-            </>
-          )}
+        {user && user.isAdmin && (
+          <>
+            <MenuItem
+              as={Link}
+              to='/admin/users'
+              _hover={{ borderBottom: "1px solid black", bg: "transparent" }}
+            >
+              Settings users
+            </MenuItem>
+            <MenuItem
+              as={Link}
+              to='/admin/orders/settings'
+              _hover={{ borderBottom: "1px solid black", bg: "transparent" }}
+            >
+              Settings orders
+            </MenuItem>
+            <MenuItem
+              as={Link}
+              to='/admin'
+              _hover={{ borderBottom: "1px solid black", bg: "transparent" }}
+            >
+              Settings products
+            </MenuItem>
+          </>
+        )}
       </MenuList>
     </Menu>
   );
