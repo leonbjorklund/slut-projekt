@@ -11,8 +11,8 @@ import {
   useBreakpointValue,
 } from "@chakra-ui/react";
 import React, { useEffect } from "react";
+import AccessDenied from "../components/AccessDenied";
 import { useAccount } from "../context/accountContext";
-import AccessDenied from "./AccessDenied";
 
 function UserSettings() {
   const { user, users, getAllUsers, updateUserAdmin } = useAccount();

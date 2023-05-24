@@ -1,9 +1,9 @@
 import { Box, Button, Center, Flex, Heading, Stack } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import AccessDenied from "../components/AccessDenied";
 import AdminCard from "../components/AdminCard";
 import { useAccount } from "../context/accountContext";
 import { useProducts } from "../context/productContext";
-import AccessDenied from "./AccessDenied";
 
 function Admin() {
   const { products } = useProducts();
