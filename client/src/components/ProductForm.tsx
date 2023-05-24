@@ -12,7 +12,7 @@ import {
 import { useFormik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
-import { Product } from "../../data";
+import { Product } from "../context/productContext";
 
 const ProductSchema = Yup.object().shape({
   title: Yup.string().required("Vänligen ange ett produktnamn"),
@@ -32,13 +32,14 @@ function ProductForm({ product, onSubmit }: Props) {
   const navigate = useNavigate();
   const formik = useFormik<Product>({
     initialValues: product || {
-      id: Date.now().toString(),
-      title: "" as string,
+      _id: Date.now().toString(),
+      name: "" as string,
       description: "" as string,
       price: 1 as number,
       image: "",
       height: 10 as number,
-      category: "",
+      categories: [""],
+      inStock: 0 as number,
     },
     validationSchema: ProductSchema,
     onSubmit: (values) => {
@@ -62,13 +63,13 @@ function ProductForm({ product, onSubmit }: Props) {
                 name='title'
                 id='title'
                 focusBorderColor='yellow.400'
-                value={formik.values.title}
+                value={formik.values.name}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
               />
-              {formik.touched.title && formik.errors.title && (
+              {formik.touched.name && formik.errors.name && (
                 <Text color='red' fontSize='xs' data-cy='product-title-error'>
-                  {formik.errors.title}
+                  {formik.errors.name}
                 </Text>
               )}
             </FormControl>

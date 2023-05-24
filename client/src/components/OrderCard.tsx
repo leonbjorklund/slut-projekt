@@ -1,5 +1,5 @@
 import { Box, Card, CardBody, Flex, Image, Text } from "@chakra-ui/react";
-import { CartItem } from "../../data";
+import { CartItem } from "../context/cartContext";
 
 interface OrderCardProps {
   cart: CartItem[];
@@ -10,7 +10,7 @@ function OrderCard({ cart }: OrderCardProps) {
     <>
       {cart.map((item) => (
         <Card
-          key={item.id}
+          key={item._id}
           direction={{ base: "column", sm: "row" }}
           overflow='hidden'
           size='sm'
@@ -28,7 +28,7 @@ function OrderCard({ cart }: OrderCardProps) {
           <CardBody px={6}>
             <Flex flexDirection='column' justifyContent='center' h='100%'>
               <Text fontSize={18} pb={4}>
-                {item.title}
+                {item.name}
               </Text>
               <Text fontSize={14}>Antal: {item.quantity} st</Text>
               <Text fontSize={14}>Pris: {item.price} SEK</Text>

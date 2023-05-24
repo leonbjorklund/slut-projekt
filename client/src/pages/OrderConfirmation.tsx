@@ -8,7 +8,7 @@ function OrderConfirmation() {
   return (
     <Center w='100%' flexDirection='column' py={6}>
       <Box py={8}>
-        <Heading fontSize='1.5rem'>Tack för din beställning!</Heading>
+        <Heading fontSize='1.5rem'>Tack för din beställning! </Heading>
       </Box>
       <Box
         w='40%'
@@ -20,7 +20,7 @@ function OrderConfirmation() {
         <Text fontSize='1.1rem'>Ordernummer: {order?.id}</Text>
       </Box>
       {order?.cart.map((cartItem) => (
-        <Box key={cartItem.id} w='100%'>
+        <Box key={cartItem._id} w='100%'>
           <Center>
             <OrderCard cart={[cartItem]} />
           </Center>

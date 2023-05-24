@@ -21,7 +21,7 @@ function ShoppingCart() {
 
       <Box width='100%'>
         {cart.map((item) => (
-          <Center key={item.id}>
+          <Center key={item._id}>
             <CheckoutCard product={item} />
           </Center>
         ))}
