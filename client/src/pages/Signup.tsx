@@ -81,7 +81,7 @@ export default function SignUp() {
           type='password'
         />
 
-        <ButtonGroup pt='1rem'>
+        <ButtonGroup pt='1rem' spacing={12}>
           <Button
             variant='outline'
             borderColor='yellow.400'
