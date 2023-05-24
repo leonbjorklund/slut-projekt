@@ -11,8 +11,8 @@ import {
   Text,
   useToast,
 } from "@chakra-ui/react";
-import { Product } from "../../data";
 import { useCart } from "../context/cartContext";
+import { Product } from "../context/productContext";
 
 function ProductCard({ product }: { product: Product }) {
   const { addToCart } = useCart();
@@ -40,7 +40,7 @@ function ProductCard({ product }: { product: Product }) {
             maxW={{ base: "100%", sm: "100%" }}
             minW='200px'
             src={product.image}
-            alt={product.title}
+            alt={product.name}
           />
         </Flex>
         <Flex flex={1} alignItems='center' justifyContent='space-between'>
@@ -52,7 +52,7 @@ function ProductCard({ product }: { product: Product }) {
                 fontSize='xl'
                 fontWeight='normal'
               >
-                {product.title}
+                {product.name}
               </Heading>
               <Text margin='3px 10px 10px 10px'>
                 Höjd: {product.height}
@@ -95,7 +95,7 @@ function ProductCard({ product }: { product: Product }) {
                         p={3}
                         bg='white'
                       >
-                        {product.title} har lagts till i varukorgen!
+                        {product.name} har lagts till i varukorgen!
                       </Box>
                     ),
                   });
