@@ -1,5 +1,5 @@
 import { ArrowBackIcon } from "@chakra-ui/icons";
-import { Button, ButtonGroup, Heading, Text, VStack } from "@chakra-ui/react";
+import { Button, ButtonGroup, Heading, VStack } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import { useState } from "react";
 import { useNavigate } from "react-router";
@@ -33,7 +33,8 @@ export default function SignUp() {
             navigate("/");
           })
           .catch((error) => {
-            setError(error.message);
+            console.log(error);
+            setError(error);
           });
       }}
     >
@@ -48,9 +49,11 @@ export default function SignUp() {
         <Heading as='h2' size='md' textTransform='uppercase'>
           Sign Up
         </Heading>
-        <Text as='p' color='red.500'>
+
+        {/* <Text as='p' color='red.500'>
           {error}
-        </Text>
+        </Text> */}
+
         <TextField
           bg='brand.100'
           size='md'

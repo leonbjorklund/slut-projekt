@@ -72,12 +72,14 @@ export const AccountProvider: React.FC<AccountProviderProps> = ({
       },
       body: JSON.stringify({ email, password }),
     });
+
     if (response.ok) {
       const user = await response.json();
       setUser(user);
     } else {
       const errorData = await response.json();
-      throw new Error(errorData.message);
+      console.log("Error data:", errorData);
+      throw { message: errorData.message };
     }
   };
 
