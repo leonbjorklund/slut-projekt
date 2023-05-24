@@ -1,7 +1,7 @@
 import { Badge, Box, Button, Flex, Icon, Image } from "@chakra-ui/react";
 import { IoBagOutline } from "react-icons/io5";
 
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useAccount } from "../context/accountContext";
 import { useCart } from "../context/cartContext";
 import DropdownMenu from "./DropdownMenu";
@@ -9,6 +9,9 @@ import DropdownMenu from "./DropdownMenu";
 function Header() {
   const { cart } = useCart();
   const { user, signout } = useAccount();
+  const location = useLocation();
+  const showLoginButton =
+    location.pathname !== "/login" && location.pathname !== "/signup";
 
   // Calculate total quantity of items in cart
 
@@ -51,14 +54,16 @@ function Header() {
             Sign Out
           </Button>
         ) : (
-          <Link to='/login'>
-            <Button
-              bg='none'
-              _hover={{ bg: "none", textDecoration: "underline" }}
-            >
-              Log in
-            </Button>
-          </Link>
+          showLoginButton && (
+            <Link to='/login'>
+              <Button
+                bg='none'
+                _hover={{ bg: "none", textDecoration: "underline" }}
+              >
+                Log in
+              </Button>
+            </Link>
+          )
         )}
         {user && (
           <Box pr={{ base: 1, md: 4 }}>
