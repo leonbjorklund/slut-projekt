@@ -1,9 +1,10 @@
 import { Badge, Box, Button, Flex, Icon, Image } from "@chakra-ui/react";
-import { IoBagOutline, IoPersonOutline } from "react-icons/io5";
+import { IoBagOutline } from "react-icons/io5";
 
 import { Link } from "react-router-dom";
 import { useAccount } from "../context/accountContext";
 import { useCart } from "../context/cartContext";
+import DropdownMenu from "./DropdownMenu";
 
 function Header() {
   const { cart } = useCart();
@@ -61,9 +62,7 @@ function Header() {
         )}
         {user && (
           <Box pr={{ base: 1, md: 4 }}>
-            <Link data-cy='admin-link' to='admin'>
-              <Icon boxSize={7} as={IoPersonOutline} />
-            </Link>
+            <DropdownMenu />
           </Box>
         )}
         <Box pos='relative' mr={{ base: 0, md: 4 }}>

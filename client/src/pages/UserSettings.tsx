@@ -77,6 +77,8 @@ function UserSettings() {
                 display='flex'
                 direction='row'
                 justifyContent='space-between'
+                borderBottom='1px solid black'
+                p='1.5rem'
               >
                 <Text>{user.email}</Text>
                 <Checkbox
