@@ -85,6 +85,7 @@ function Home({ filterCategory }: ProductsLayoutProps) {
             <Tab
               fontSize={[".8rem", ".9rem", "1rem"]}
               _selected={{
+                borderLeft: "1px solid rgba(0, 0, 0, 0.4)",
                 fontWeight: "bold",
               }}
             >
