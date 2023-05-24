@@ -113,7 +113,7 @@ function Home({ filterCategory }: ProductsLayoutProps) {
           py={8}
         >
           {products.map((product) => (
-            <OverviewCard key={product.id} product={product} />
+            <OverviewCard key={product._id} product={product} />
           ))}
         </Grid>
       </Center>

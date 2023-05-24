@@ -12,8 +12,8 @@ import {
 } from "@chakra-ui/react";
 import { IoMdAdd } from "react-icons/io";
 import { Link } from "react-router-dom";
-import type { Product } from "../../data";
 import { useCart } from "../context/cartContext";
+import { Product } from "../context/productContext";
 
 function OverviewCard({ product }: { product: Product }) {
   const { addToCart } = useCart();
@@ -36,19 +36,19 @@ function OverviewCard({ product }: { product: Product }) {
       }}
     >
       <CardBody>
-        <Link to={"/product/" + product.id} key={product.id}>
+        <Link to={"/product/" + product._id} key={product._id}>
           <Image
             maxW='95%'
             maxH='100%'
             m={2}
             src={product.image}
-            alt={product.title}
+            alt={product.name}
           />
         </Link>
         <Flex justifyContent='space-between' pt={3}>
           <Box>
             <Heading fontSize='md' fontWeight='normal' data-cy='product-title'>
-              {product.title}
+              {product.name}
             </Heading>
             <Text data-cy='product-price'>
               {product.price}
@@ -77,7 +77,7 @@ function OverviewCard({ product }: { product: Product }) {
                     p={3}
                     bg='white'
                   >
-                    {product.title} har lagts till i varukorgen!
+                    {product.name} har lagts till i varukorgen!
                   </Box>
                 ),
               });
