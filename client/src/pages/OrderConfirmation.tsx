@@ -1,4 +1,4 @@
-import { Box, Center, Heading, Text } from "@chakra-ui/react";
+import { Box, Center, Flex, Heading, Text } from "@chakra-ui/react";
 import OrderCard from "../components/OrderCard";
 import { useOrder } from "../context/orderContext";
 
@@ -8,7 +8,7 @@ function OrderConfirmation() {
   return (
     <Center w='100%' flexDirection='column' py={6}>
       <Box py={8}>
-        <Heading fontSize='1.5rem'>Tack för din beställning! </Heading>
+        <Heading fontSize='1.5rem'>Thank you for your order! </Heading>
       </Box>
       <Box
         w='40%'
@@ -17,7 +17,7 @@ function OrderConfirmation() {
         pt={6}
         pb={2}
       >
-        <Text fontSize='1.1rem'>Ordernummer: {order?.id}</Text>
+        <Text fontSize='1.1rem'>Order number: {order?.id}</Text>
       </Box>
       {order?.cart.map((cartItem) => (
         <Box key={cartItem._id} w='100%'>
@@ -39,10 +39,15 @@ function OrderConfirmation() {
         borderColor='yellow.400'
       >
         <Text fontSize='1rem' fontWeight={800} textTransform='uppercase' pb={4}>
-          Dina uppgifter
+          Your information:
         </Text>
-        <Text>{order?.formData.name}</Text>
+        <Flex gap='0.3rem'>
+          <Text>{order?.formData.firstName}</Text>
+          <Text>{order?.formData.lastName}</Text>
+        </Flex>
         <Text>{order?.formData.address}</Text>
+        <Text>{order?.formData.zipcode}</Text>
+        <Text>{order?.formData.city}</Text>
         <Text pt={2}>{order?.formData.email}</Text>
         <Text>{order?.formData.phone}</Text>
       </Box>

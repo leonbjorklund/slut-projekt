@@ -28,7 +28,7 @@ function Checkout() {
               height='45px'
               _hover={{ bg: "orange.100" }}
             >
-              Börja shoppa
+              Start shopping
             </Button>
           </Link>
         </Flex>
@@ -41,7 +41,7 @@ function Checkout() {
       <ShoppingCart />
       <Center>
         <Heading as='h3' size='md' p={4} textTransform='uppercase'>
-          Dina uppgifter
+          Your information:
         </Heading>
       </Center>
       <CustomerForm />

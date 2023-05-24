@@ -15,7 +15,7 @@ function ShoppingCart() {
     <Box py={6}>
       <Center>
         <Heading as='h3' size='md' p='4' textTransform='uppercase'>
-          Din varukorg
+          Your cart
         </Heading>
       </Center>
 
@@ -29,7 +29,7 @@ function ShoppingCart() {
 
       <Center>
         <Flex pt={3} justifyContent='space-between' w='80%' px={4}>
-          <Text>Totalt:</Text>
+          <Text>Total:</Text>
           <Text data-cy='total-price'>
             {totalPrice}
             <Text as='span' fontSize='xs'>
