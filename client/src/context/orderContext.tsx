@@ -11,7 +11,9 @@ interface Order {
 
 interface OrderContextProps {
   order?: Order;
+  orders?: Order[];
   handleOrderSubmit: (formData: CustomerValues) => void;
+  getAllOrders: () => Promise<void>;
 }
 
 const OrderContext = createContext<OrderContextProps>(null as any);
@@ -20,6 +22,7 @@ export const useOrder = () => useContext(OrderContext);
 
 export default function OrderProvider(props: PropsWithChildren) {
   const [order, setOrder] = useState<Order>();
+  const [orders, setOrders] = useState<Order[]>([]);
   const { cart, clearCart } = useCart();
 
   const handleOrderSubmit = (formData: CustomerValues) => {
@@ -34,8 +37,27 @@ export default function OrderProvider(props: PropsWithChildren) {
     clearCart();
   };
 
+  const getAllOrders = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/api/orders", {
+        method: "GET",
+        credentials: "include",
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setOrders(data);
+      } else {
+        console.error("Failed to fetch orders:", response.status);
+      }
+    } catch (error) {
+      console.error("Error while fetching orders:", error);
+    }
+  };
+
   return (
-    <OrderContext.Provider value={{ order, handleOrderSubmit }}>
+    <OrderContext.Provider
+      value={{ order, orders, handleOrderSubmit, getAllOrders }}
+    >
       {props.children}
     </OrderContext.Provider>
   );
