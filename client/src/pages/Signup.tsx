@@ -27,15 +27,10 @@ export default function SignUp() {
         const { email, password } = values;
 
         create(email, password)
+          .then(() => login(email, password))
           .then(() => {
-            login(email, password)
-              .then(() => {
-                actions.resetForm();
-                navigate("/");
-              })
-              .catch((error) => {
-                setError(error.message);
-              });
+            actions.resetForm();
+            navigate("/");
           })
           .catch((error) => {
             setError(error.message);
