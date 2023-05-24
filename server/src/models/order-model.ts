@@ -10,18 +10,11 @@ const addressSchema = new Schema({
 });
 
 const orderItemSchema = new Schema({
-  //   _id: {  },
-  name: { type: String, required: true },
-  price: { type: Number, required: true },
-  height: { type: Number, required: true },
-  image: { type: String, required: true },
-  description: { type: String, required: true },
-  category: { type: String, required: true },
+  product: { type: SchemaTypes.ObjectId, ref: "Product", required: true },
   quantity: { type: Number, required: true },
 });
 
 const orderSchema = new Schema({
-  // userid?
   userId: { type: SchemaTypes.ObjectId, ref: "User", required: true },
   orderItems: { type: [orderItemSchema], required: true },
   deliveryAddress: { type: addressSchema, required: true },
