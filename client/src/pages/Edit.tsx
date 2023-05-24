@@ -2,7 +2,7 @@ import { Box, Center, Heading, Text } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import ProductForm from "../components/ProductForm";
 import { useAccount } from "../context/accountContext";
-import { useProducts } from "../context/productContext";
+import { Product, useProducts } from "../context/productContext";
 
 function Edit() {
   const { products, editProduct } = useProducts();
