@@ -46,7 +46,7 @@ function Admin() {
             </Flex>
             <Stack spacing={6} w='100%'>
               {products.map((product) => (
-                <AdminCard key={product.id} product={product} />
+                <AdminCard key={product._id} product={product} />
               ))}
             </Stack>
           </Box>
