@@ -20,12 +20,11 @@ Content-Type: application/json
     "lastName": "Doe",
     "address": "123 Street",
     "zipCode": 12345,
-    "city": "City",
+    "city": "Göteborg",
     "phoneNumber": 1234567890
   },
   "isShipped": false
 }
-
 
 
 ### Create new order
