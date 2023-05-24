@@ -42,10 +42,21 @@ function Header() {
       </Box>
       <Flex alignItems='center' justifyContent='space-between'>
         {user ? (
-          <Button onClick={() => signout()}>Sign Out</Button>
+          <Button
+            bg='none'
+            _hover={{ bg: "none", textDecoration: "underline" }}
+            onClick={() => signout()}
+          >
+            Sign Out
+          </Button>
         ) : (
           <Link to='/login'>
-            <Button>Log in</Button>
+            <Button
+              bg='none'
+              _hover={{ bg: "none", textDecoration: "underline" }}
+            >
+              Log in
+            </Button>
           </Link>
         )}
         {user && (
@@ -55,7 +66,6 @@ function Header() {
             </Link>
           </Box>
         )}
-
         <Box pos='relative' mr={{ base: 0, md: 4 }}>
           <Link to='checkout' data-cy='cart-link'>
             <Icon boxSize={7} as={IoBagOutline} />
