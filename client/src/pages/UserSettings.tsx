@@ -2,12 +2,15 @@ import {
   Box,
   Center,
   Checkbox,
+  Divider,
   Flex,
   Heading,
   Stack,
+  StackDirection,
   Text,
+  useBreakpointValue,
 } from "@chakra-ui/react";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useAccount } from "../context/accountContext";
 
 function UserSettings() {
@@ -19,10 +22,23 @@ function UserSettings() {
 
   const isAdmin = user?.isAdmin;
 
+  const boxWidth = useBreakpointValue({
+    base: "100%",
+    sm: "80%",
+    md: "60%",
+    lg: "50%",
+  });
+
+  const stackDirection: StackDirection | undefined = useBreakpointValue({
+    base: "column",
+    sm: "row",
+  });
+  const stackSpacing = useBreakpointValue({ base: 5, sm: 6 });
+
   if (!isAdmin) {
     return (
       <Center>
-        <Box py={8}>
+        <Box w={boxWidth} py={8}>
           <Heading as='h2' size='lg' textAlign='center'>
             Access Denied
           </Heading>
@@ -37,7 +53,6 @@ function UserSettings() {
   const handleAdminStatusChange = async (userId: string, isAdmin: boolean) => {
     try {
       await updateUserAdmin(userId, isAdmin);
-      // Optionally, you can update the user list by calling getAllUsers()
     } catch (error) {
       console.error("Error updating user admin status:", error);
     }
@@ -46,7 +61,7 @@ function UserSettings() {
   return (
     <>
       <Center>
-        <Box w='50%' py={8}>
+        <Box w={boxWidth} py={8}>
           <Flex
             justifyContent='center'
             alignItems='center'
@@ -69,29 +84,32 @@ function UserSettings() {
           </Flex>
 
           {users &&
-            users.map((user) => (
-              <Stack
-                key={user.email}
-                spacing={6}
-                w='100%'
-                display='flex'
-                direction='row'
-                justifyContent='space-between'
-              >
-                <Text>{user.email}</Text>
-                <Checkbox
-                  size='lg'
-                  colorScheme='yellow'
-                  variant='outline'
-                  borderColor='black'
-                  isChecked={user.isAdmin}
-                  onChange={(e) =>
-                    handleAdminStatusChange(user._id, e.target.checked)
-                  }
+            users.map((user, index) => (
+              <React.Fragment key={user.email}>
+                {index !== 0 && <Divider my={stackSpacing} />}
+                <Stack
+                  spacing={stackSpacing}
+                  w='100%'
+                  display='flex'
+                  direction={stackDirection}
+                  justifyContent='space-between'
+                  alignItems='center'
                 >
-                  Admin
-                </Checkbox>
-              </Stack>
+                  <Text>{user.email}</Text>
+                  <Checkbox
+                    size='lg'
+                    colorScheme='yellow'
+                    variant='outline'
+                    borderColor='black'
+                    isChecked={user.isAdmin}
+                    onChange={(e) =>
+                      handleAdminStatusChange(user._id, e.target.checked)
+                    }
+                  >
+                    Admin
+                  </Checkbox>
+                </Stack>
+              </React.Fragment>
             ))}
         </Box>
       </Center>
