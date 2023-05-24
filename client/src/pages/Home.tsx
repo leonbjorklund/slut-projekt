@@ -51,11 +51,8 @@ function Home({ filterCategory }: ProductsLayoutProps) {
 
       <Center pt={10}>
         <Tabs
-          borderRadius='.6rem'
           variant='unstyled'
-          boxShadow='2px 2px 2px rgb(0,0,0, 0.2)'
           border='1px solid rgba(0, 0, 0, 0.2)'
-          bg={"white"}
           my={5}
           width={["100%", "100%", "98%", "62.5%"]}
           isFitted
@@ -68,7 +65,6 @@ function Home({ filterCategory }: ProductsLayoutProps) {
           <TabList>
             <Tab
               fontSize={[".8rem", ".9rem", "1rem"]}
-              borderRadius='.6rem'
               _selected={{
                 borderRight: "1px solid rgba(0, 0, 0, 0.4)",
                 fontWeight: "bold",
@@ -78,7 +74,6 @@ function Home({ filterCategory }: ProductsLayoutProps) {
             </Tab>
             <Tab
               fontSize={[".8rem", ".9rem", "1rem"]}
-              borderRadius='.6rem'
               _selected={{
                 borderRight: "1px solid rgba(0, 0, 0, 0.4)",
                 borderLeft: "1px solid rgba(0, 0, 0, 0.4)",
@@ -89,9 +84,7 @@ function Home({ filterCategory }: ProductsLayoutProps) {
             </Tab>
             <Tab
               fontSize={[".8rem", ".9rem", "1rem"]}
-              borderRadius='.6rem'
               _selected={{
-                borderLeft: "1px solid rgba(0, 0, 0, 0.4)",
                 fontWeight: "bold",
               }}
             >

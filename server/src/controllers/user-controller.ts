@@ -44,20 +44,25 @@ export async function signoutUser(req: Request, res: Response) {
 export async function updateUserAdmin(req: Request, res: Response) {
   const userId = req.params.id;
   const { isAdmin } = req.body;
-  const user = await UserModel.findById(userId);
 
-  if (!user) {
-    return res.status(404).json("User not found");
+  try {
+    const user = await UserModel.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    user.isAdmin = isAdmin;
+    await user.save();
+
+    return res.status(200).json({
+      _id: user._id,
+      email: user.email,
+      isAdmin: user.isAdmin,
+    });
+  } catch (error) {
+    console.error("Error updating user:", error);
+    return res.status(500).json({ message: "Internal Server Error" });
   }
-
-  user.isAdmin = isAdmin;
-  await user.save();
-
-  return res.status(200).json({
-    _id: user._id,
-    username: user.email,
-    isAdmin: user.isAdmin,
-  });
 }
 
 export async function getAllUsers(req: Request, res: Response) {
