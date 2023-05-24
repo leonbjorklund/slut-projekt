@@ -38,7 +38,7 @@ function UserSettings() {
   if (!isAdmin) {
     return (
       <Center>
-        <Box w={boxWidth} py={8}>
+        <Box py={8}>
           <Heading as='h2' size='lg' textAlign='center'>
             Access Denied
           </Heading>
