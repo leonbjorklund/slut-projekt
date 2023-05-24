@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { assert } from "../errorHandler";
 import { OrderModel } from "../models/order-model";
 
 // Create new order
@@ -20,9 +21,8 @@ export async function getOrderById(req: Request, res: Response) {
   const orderId = req.params.id;
   const order = await OrderModel.findById(orderId);
 
-  if (!order) {
-    return res.status(404).json("Order not found");
-  }
+  assert(order !== null, 404, "Order not found");
+
   return res.status(200).json(order);
 }
 
@@ -31,18 +31,12 @@ export async function updateShippingStatus(req: Request, res: Response) {
   const orderId = req.params.id;
   const { isShipped } = req.body;
 
-  try {
-    const order = await OrderModel.findById(orderId);
+  const order = await OrderModel.findById(orderId);
 
-    if (!order) {
-      return res.status(404).json("Order not found");
-    }
+  assert(order !== null, 404, "Order not found");
 
-    order.isShipped = isShipped;
-    await order.save();
+  order!.isShipped = isShipped;
+  await order!.save();
 
-    return res.status(200).json(order);
-  } catch (error) {
-    return res.status(500).json("Failed to update shipping status");
-  }
+  return res.status(200).json(order);
 }

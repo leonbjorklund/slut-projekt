@@ -1,62 +1,47 @@
 import { Request, Response } from "express";
+import { assert } from "../errorHandler";
 import { Product, ProductModel } from "../models/product-model";
 
 export async function addProduct(req: Request, res: Response) {
-  try {
-    const newProduct: Product = req.body;
-    const product = await ProductModel.create(newProduct);
-    res.status(201).json(product);
-  } catch (error) {
-    res.status(500).json({ error: "Failed to add product" });
-  }
+  const newProduct: Product = req.body;
+  const product = await ProductModel.create(newProduct);
+  res.status(201).json(product);
 }
 
 export async function getAllProducts(req: Request, res: Response) {
-  try {
-    const products: Product[] = await ProductModel.find();
-    res.json(products);
-  } catch (error) {
-    res.status(500).json({ error: "Failed to get products" });
-  }
+  const products: Product[] = await ProductModel.find();
+  res.json(products);
 }
 
 export async function getProductById(req: Request, res: Response) {
-  try {
-    const productId = req.params.id;
-    await ProductModel.findById(productId);
-    res.status(200).json({ message: "Product successfully found" });
-  } catch (error) {
-    res.status(500).json({ error: "Product not found " });
-  }
+  const productId = req.params.id;
+  const product = await ProductModel.findById(productId);
+
+  assert(product !== null, 404, "Product not found");
+
+  res.status(200).json(product);
 }
 
 export async function updateProduct(req: Request, res: Response) {
-  try {
-    const productId = req.params.id;
-    const updatedProductData: Product = req.body;
+  const productId = req.params.id;
+  const updatedProductData: Product = req.body;
 
-    const updatedProduct = await ProductModel.findByIdAndUpdate(
-      productId,
-      updatedProductData,
-      { new: true }
-    );
+  const updatedProduct = await ProductModel.findByIdAndUpdate(
+    productId,
+    updatedProductData,
+    { new: true }
+  );
 
-    if (!updatedProduct) {
-      return res.status(404).json({ error: "Product not found" });
-    }
+  assert(updatedProduct !== null, 404, "Product not found");
 
-    res.status(200).json(updatedProduct);
-  } catch (error) {
-    res.status(500).json({ error: "Failed to update product" });
-  }
+  res.status(200).json(updatedProduct);
 }
 
 export async function deleteProduct(req: Request, res: Response) {
-  try {
-    const productId = req.params.id;
-    await ProductModel.findByIdAndDelete(productId);
-    res.status(200).json({ message: "Product deleted successfully" });
-  } catch (error) {
-    res.status(500).json({ error: "Failed to delete product" });
-  }
+  const productId = req.params.id;
+  const product = await ProductModel.findByIdAndDelete(productId);
+
+  assert(product !== null, 404, "Product not found");
+
+  res.status(200).json({ message: "Product deleted successfully" });
 }
