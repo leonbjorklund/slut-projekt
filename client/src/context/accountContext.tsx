@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
 interface User {
+  _id: string;
   email: string;
   password: string;
   isAdmin: boolean;
@@ -8,16 +9,22 @@ interface User {
 
 interface AccountContextType {
   user: User | null;
+  users: User[] | null;
   create: (username: string, password: string) => Promise<void>;
   login: (username: string, password: string) => Promise<void>;
   signout: () => Promise<void>;
+  getAllUsers: () => Promise<void>;
+  updateUserAdmin: (userId: string, isAdmin: boolean) => Promise<void>;
 }
 
 const AccountContext = createContext<AccountContextType>({
   user: null,
+  users: null,
   create: async () => {},
   login: async () => {},
   signout: async () => {},
+  getAllUsers: async () => {},
+  updateUserAdmin: async () => {},
 });
 
 interface AccountProviderProps {
@@ -28,7 +35,7 @@ export const AccountProvider: React.FC<AccountProviderProps> = ({
   children,
 }) => {
   const [user, setUser] = useState<User | null>(null);
-  // const [users, setUsers] = useState<User[] | null>(null);
+  const [users, setUsers] = useState<User[] | null>(null);
   // const { user: loggedInUser } = useAccount();
 
   const checkLoggedIn = async () => {
@@ -96,8 +103,60 @@ export const AccountProvider: React.FC<AccountProviderProps> = ({
     }
   };
 
+  const getAllUsers = async () => {
+    const response = await fetch("http://localhost:3000/api/users/", {
+      method: "GET",
+      credentials: "include",
+    });
+    if (response.ok) {
+      const users = await response.json();
+      setUsers(users);
+    }
+  };
+
+  const updateUserAdmin = async (userId: string, isAdmin: boolean) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/users/${userId}`,
+        {
+          method: "PUT",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ isAdmin }),
+        },
+      );
+
+      if (response.ok) {
+        const updatedUser = await response.json();
+
+        // Update the user object in the context
+        setUser((prevUser) => {
+          if (prevUser && prevUser._id === updatedUser._id) {
+            // Preserve other properties of the user object
+            return { ...prevUser, isAdmin: updatedUser.isAdmin };
+          }
+          return prevUser;
+        });
+      }
+    } catch (error) {
+      console.error("Error updating user admin status:", error);
+    }
+  };
+
   return (
-    <AccountContext.Provider value={{ user, create, login, signout }}>
+    <AccountContext.Provider
+      value={{
+        user,
+        users,
+        create,
+        login,
+        signout,
+        getAllUsers,
+        updateUserAdmin,
+      }}
+    >
       {children}
     </AccountContext.Provider>
   );

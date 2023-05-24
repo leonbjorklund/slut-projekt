@@ -40,6 +40,7 @@ export function signoutUser(req: Request, res: Response) {
 export async function updateUserAdmin(req: Request, res: Response) {
   const userId = req.params.id;
   const { isAdmin } = req.body;
+
   const user = await UserModel.findById(userId);
 
   assert(user !== null, 404, "User not found");
@@ -49,7 +50,7 @@ export async function updateUserAdmin(req: Request, res: Response) {
 
   return res.status(200).json({
     _id: user!._id,
-    username: user!.email,
+    email: user!.email,
     isAdmin: user!.isAdmin,
   });
 }
