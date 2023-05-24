@@ -8,8 +8,11 @@ import {
 } from "@chakra-ui/react";
 import { IoPersonOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
+import { useAccount } from "../context/accountContext";
 
 function DropdownMenu() {
+  const { user } = useAccount();
+
   return (
     <Menu>
       <MenuButton
@@ -23,15 +26,20 @@ function DropdownMenu() {
         <MenuItem as={Link} to='/admin/orders'>
           My orders
         </MenuItem>
-        <MenuItem as={Link} to='/admin/users'>
-          Settings users
-        </MenuItem>
-        <MenuItem as={Link} to='/admin/orders/settings'>
-          Settings orders
-        </MenuItem>
-        <MenuItem as={Link} to='/admin'>
-          Settings products
-        </MenuItem>
+        {user &&
+          user.isAdmin && ( // Add isAdmin check for the following menu items
+            <>
+              <MenuItem as={Link} to='/admin/users'>
+                Settings users
+              </MenuItem>
+              <MenuItem as={Link} to='/admin/orders/settings'>
+                Settings orders
+              </MenuItem>
+              <MenuItem as={Link} to='/admin'>
+                Settings products
+              </MenuItem>
+            </>
+          )}
       </MenuList>
     </Menu>
   );
