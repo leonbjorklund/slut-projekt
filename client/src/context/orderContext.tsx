@@ -1,7 +1,6 @@
 import { createContext, PropsWithChildren, useContext, useState } from "react";
-import { CartItem } from "../../data";
 import { CustomerValues } from "../components/CustomerForm";
-import { useCart } from "./cartContext";
+import { CartItem, useCart } from "./cartContext";
 
 interface Order {
   id: string;
