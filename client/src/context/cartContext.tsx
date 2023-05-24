@@ -1,7 +1,10 @@
 import { createContext, PropsWithChildren, useContext } from "react";
-import type { CartItem, Product } from "../../data";
 import { useLocalStorageState } from "../hooks/useLocalStorageState";
+import { Product } from "./productContext";
 
+export interface CartItem extends Product {
+  quantity: number;
+}
 interface CartContextProps {
   cart: CartItem[];
   addToCart: (item: Product) => void;
@@ -19,7 +22,7 @@ export default function CartProvider(props: PropsWithChildren) {
 
   const addToCart = (item: Product) => {
     // Kolla om produkten redan finns i kundkorgen
-    const itemIndex = cart.findIndex((cartItem) => cartItem.id === item.id);
+    const itemIndex = cart.findIndex((cartItem) => cartItem._id === item._id);
 
     if (itemIndex === -1) {
       // Om produkten inte finns: Lägg till med 1
@@ -34,14 +37,14 @@ export default function CartProvider(props: PropsWithChildren) {
 
   const removeFromCart = (itemId: string) => {
     // Filtrera bort produkt baserat på id
-    const updatedCart = cart.filter((cartItem) => cartItem.id !== itemId);
+    const updatedCart = cart.filter((cartItem) => cartItem._id !== itemId);
     setCart(updatedCart);
   };
 
   const updateCartItemQuantity = (itemId: string, newQuantity: number) => {
     const updatedCart = [...cart];
     const itemIndex = updatedCart.findIndex(
-      (cartItem) => cartItem.id === itemId,
+      (cartItem) => cartItem._id === itemId,
     );
 
     if (itemIndex !== -1) {

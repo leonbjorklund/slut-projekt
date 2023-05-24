@@ -11,14 +11,13 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { AiOutlineDelete } from "react-icons/ai";
-import { CartItem } from "../../data";
-import { useCart } from "../context/cartContext";
+import { CartItem, useCart } from "../context/cartContext";
 import { useLocalStorageState } from "../hooks/useLocalStorageState";
 
 function CheckoutCard({ product }: { product: CartItem }) {
   const [quantity, setQuantity] = useLocalStorageState<number>(
     product.quantity,
-    "cartQuantity-" + product.id,
+    "cartQuantity-" + product._id,
   );
 
   const { removeFromCart, updateCartItemQuantity } = useCart();
@@ -29,16 +28,16 @@ function CheckoutCard({ product }: { product: CartItem }) {
   const incrementQuantity = () => {
     const newQuantity = quantity + 1;
     setQuantity(newQuantity);
-    updateCartItemQuantity(product.id, newQuantity);
+    updateCartItemQuantity(product._id, newQuantity);
   };
 
   const decrementQuantity = () => {
     if (quantity > 1) {
       const newQuantity = quantity - 1;
       setQuantity(newQuantity);
-      updateCartItemQuantity(product.id, newQuantity);
+      updateCartItemQuantity(product._id, newQuantity);
     } else {
-      handleRemoveFromCart(product.id);
+      handleRemoveFromCart(product._id);
     }
   };
 
@@ -59,7 +58,7 @@ function CheckoutCard({ product }: { product: CartItem }) {
       <Box>
         <Image
           src={product.image}
-          alt={product.title}
+          alt={product.name}
           maxW='160px'
           maxH='100%'
           m={2}
@@ -70,7 +69,7 @@ function CheckoutCard({ product }: { product: CartItem }) {
           <Flex pl={4} justifyContent='space-between' flexDirection='column'>
             <Box>
               <Text fontSize='xl' data-cy='product-title'>
-                {product.title}
+                {product.name}
               </Text>
               <Text fontSize='sm'>
                 Höjd: &nbsp;
@@ -123,7 +122,7 @@ function CheckoutCard({ product }: { product: CartItem }) {
             <Button
               bg='none'
               _hover={{ bg: "none", transform: "scale(1.2)" }}
-              onClick={() => handleRemoveFromCart(product.id)}
+              onClick={() => handleRemoveFromCart(product._id)}
             >
               <Icon boxSize={6} as={AiOutlineDelete} />
             </Button>
