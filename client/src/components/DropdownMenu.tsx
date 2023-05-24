@@ -33,7 +33,11 @@ function DropdownMenu() {
         <MenuItem
           as={Link}
           to='/orders'
-          _hover={{ borderBottom: "1px solid black", bg: "transparent" }}
+          _hover={{
+            borderBottom: "1px solid black",
+            bg: "transparent",
+            fontWeight: "bold",
+          }}
         >
           My orders
         </MenuItem>
@@ -42,21 +46,33 @@ function DropdownMenu() {
             <MenuItem
               as={Link}
               to='/admin/users'
-              _hover={{ borderBottom: "1px solid black", bg: "transparent" }}
+              _hover={{
+                borderBottom: "1px solid black",
+                bg: "transparent",
+                fontWeight: "bold",
+              }}
             >
               Settings users
             </MenuItem>
             <MenuItem
               as={Link}
               to='/admin/orders/settings'
-              _hover={{ borderBottom: "1px solid black", bg: "transparent" }}
+              _hover={{
+                borderBottom: "1px solid black",
+                bg: "transparent",
+                fontWeight: "bold",
+              }}
             >
               Settings orders
             </MenuItem>
             <MenuItem
               as={Link}
               to='/admin'
-              _hover={{ borderBottom: "1px solid black", bg: "transparent" }}
+              _hover={{
+                borderBottom: "1px solid black",
+                bg: "transparent",
+                fontWeight: "bold",
+              }}
             >
               Settings products
             </MenuItem>
