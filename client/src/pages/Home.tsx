@@ -24,9 +24,9 @@ function Home({ filterCategory }: ProductsLayoutProps) {
     "glass" | "ceramic" | null
   >(filterCategory);
 
-  const filteredProductList = selectedCategory
-    ? products.filter((product) => product.category === selectedCategory)
-    : products;
+  // const filteredProductList = selectedCategory
+  //   ? products.filter((product) => product.category === selectedCategory)
+  //   : products;
 
   return (
     <div>
@@ -112,7 +112,7 @@ function Home({ filterCategory }: ProductsLayoutProps) {
           rowGap={8}
           py={8}
         >
-          {filteredProductList.map((product) => (
+          {products.map((product) => (
             <OverviewCard key={product.id} product={product} />
           ))}
         </Grid>

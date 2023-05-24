@@ -1,6 +1,21 @@
-import { createContext, PropsWithChildren, useContext } from "react";
-import { Product, products } from "../../data";
-import { useLocalStorageState } from "../hooks/useLocalStorageState";
+import {
+  createContext,
+  PropsWithChildren,
+  useContext,
+  useState,
+  useEffect,
+} from "react";
+
+interface Product {
+  id: string;
+  name: string;
+  description: string;
+  image: string;
+  height: number;
+  price: number;
+  categories: string[];
+  inStock: number;
+}
 
 interface ProductContextProps {
   products: Product[];
@@ -29,22 +44,37 @@ const ProductContext = createContext<ProductContextProps>(
 export const useProducts = () => useContext(ProductContext);
 
 export default function ProductProvider(props: PropsWithChildren) {
-  const [productList, setProductList] = useLocalStorageState(
-    products,
-    "products",
-  );
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const fetchProducts = async () => {
+    try {
+      const response = await fetch("/api/products");
+      if (response.ok) {
+        const fetchedProducts = await response.json();
+        setProducts(fetchedProducts);
+      } else {
+        console.error("Failed to fetch products:", response.status);
+      }
+    } catch (error) {
+      console.error("Failed to fetch products:", error);
+    }
+  };
 
   const deleteProduct = (productId: string) => {
-    setProductList(productList.filter((product) => product.id !== productId));
+    setProducts(products.filter((product) => product.id !== productId));
   };
 
   const addNewProduct = (product: Product) => {
-    setProductList([...productList, product]);
+    setProducts([...products, product]);
   };
 
   const editProduct = (productId: string, updatedProduct: Product) => {
-    setProductList(
-      productList.map((product) =>
+    setProducts(
+      products.map((product) =>
         product.id === productId ? updatedProduct : product,
       ),
     );
@@ -53,7 +83,7 @@ export default function ProductProvider(props: PropsWithChildren) {
   return (
     <ProductContext.Provider
       value={{
-        products: productList,
+        products: products,
         deleteProduct,
         addNewProduct,
         editProduct,
