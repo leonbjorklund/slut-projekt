@@ -72,9 +72,13 @@ export const AccountProvider: React.FC<AccountProviderProps> = ({
       },
       body: JSON.stringify({ email, password }),
     });
+
     if (response.ok) {
       const user = await response.json();
       setUser(user);
+    } else {
+      const errorData = await response.json();
+      throw new Error(JSON.stringify(errorData));
     }
   };
 
@@ -92,7 +96,7 @@ export const AccountProvider: React.FC<AccountProviderProps> = ({
       setUser(user);
     } else {
       const errorData = await response.json();
-      throw new Error(errorData.message);
+      throw new Error(JSON.stringify(errorData));
     }
   };
 
