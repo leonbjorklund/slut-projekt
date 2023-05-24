@@ -12,6 +12,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { useAccount } from "../context/accountContext";
+import AccessDenied from "./AccessDenied";
 
 function UserSettings() {
   const { user, users, getAllUsers, updateUserAdmin } = useAccount();
@@ -36,18 +37,7 @@ function UserSettings() {
   const stackSpacing = useBreakpointValue({ base: 5, sm: 6 });
 
   if (!isAdmin) {
-    return (
-      <Center>
-        <Box py={8}>
-          <Heading as='h2' size='lg' textAlign='center'>
-            Access Denied
-          </Heading>
-          <Text mt={4} textAlign='center'>
-            You do not have permission to view this page.
-          </Text>
-        </Box>
-      </Center>
-    );
+    return <AccessDenied />;
   }
 
   const handleAdminStatusChange = async (userId: string, isAdmin: boolean) => {

@@ -1,16 +1,9 @@
-import {
-  Box,
-  Button,
-  Center,
-  Flex,
-  Heading,
-  Stack,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Button, Center, Flex, Heading, Stack } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import AdminCard from "../components/AdminCard";
 import { useAccount } from "../context/accountContext";
 import { useProducts } from "../context/productContext";
+import AccessDenied from "./AccessDenied";
 
 function Admin() {
   const { products } = useProducts();
@@ -18,18 +11,7 @@ function Admin() {
   const isAdmin = user && user.isAdmin;
 
   if (!isAdmin) {
-    return (
-      <Center>
-        <Box py={8}>
-          <Heading as='h2' size='lg' textAlign='center'>
-            Access Denied
-          </Heading>
-          <Text mt={4} textAlign='center'>
-            You do not have permission to view this page.
-          </Text>
-        </Box>
-      </Center>
-    );
+    return <AccessDenied />;
   }
 
   return (
