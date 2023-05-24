@@ -1,4 +1,5 @@
-import { Box, Center, Flex, Heading, Stack, Text } from "@chakra-ui/react";
+import { Box, Center, Flex, Heading, Stack } from "@chakra-ui/react";
+import AccessDenied from "../components/AccessDenied";
 import AdminOrders from "../components/AdminOrders";
 import { useAccount } from "../context/accountContext";
 
@@ -7,18 +8,7 @@ function OrderSettings() {
   const isAdmin = user?.isAdmin;
 
   if (!isAdmin) {
-    return (
-      <Center>
-        <Box py={8}>
-          <Heading as='h2' size='lg' textAlign='center'>
-            Access Denied
-          </Heading>
-          <Text mt={4} textAlign='center'>
-            You do not have permission to view this page.
-          </Text>
-        </Box>
-      </Center>
-    );
+    return <AccessDenied />;
   }
 
   return (

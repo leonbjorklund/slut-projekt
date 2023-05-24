@@ -1,4 +1,5 @@
-import { Box, Center, Heading, Text } from "@chakra-ui/react";
+import { Box, Center, Heading } from "@chakra-ui/react";
+import AccessDenied from "../components/AccessDenied";
 
 import ProductForm from "../components/ProductForm";
 import { useAccount } from "../context/accountContext";
@@ -11,18 +12,7 @@ function AddProduct() {
   const isAdmin = user?.isAdmin;
 
   if (!isAdmin) {
-    return (
-      <Center>
-        <Box py={8}>
-          <Heading as='h2' size='lg' textAlign='center'>
-            Access Denied
-          </Heading>
-          <Text mt={4} textAlign='center'>
-            You do not have permission to view this page.
-          </Text>
-        </Box>
-      </Center>
-    );
+    return <AccessDenied />;
   }
 
   return (
