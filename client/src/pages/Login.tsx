@@ -31,7 +31,9 @@ export default function Login() {
             navigate("/");
           })
           .catch((error) => {
-            setError(error.message);
+            const errorMessage = JSON.parse(error.message);
+            console.log(errorMessage);
+            setError(errorMessage);
           });
       }}
     >
@@ -47,9 +49,6 @@ export default function Login() {
         <Heading as='h2' size='md' textTransform='uppercase'>
           Log in
         </Heading>
-        <Text as='p' color='red.500'>
-          {error}
-        </Text>
         <TextField
           bg='brand.100'
           size='md'
@@ -75,6 +74,9 @@ export default function Login() {
           type='password'
         />
 
+        <Text as='p' color='red.500'>
+          {error}
+        </Text>
         <ButtonGroup pt='1rem' spacing={12}>
           <Button
             variant='outline'

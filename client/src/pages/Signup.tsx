@@ -1,5 +1,5 @@
 import { ArrowBackIcon } from "@chakra-ui/icons";
-import { Button, ButtonGroup, Heading, VStack } from "@chakra-ui/react";
+import { Button, ButtonGroup, Heading, Text, VStack } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import { useState } from "react";
 import { useNavigate } from "react-router";
@@ -27,14 +27,15 @@ export default function SignUp() {
         const { email, password } = values;
 
         create(email, password)
-          .then(() => login(email, password))
           .then(() => {
+            login(email, password);
             actions.resetForm();
             navigate("/");
           })
           .catch((error) => {
-            console.log(error);
-            setError(error);
+            const errorMessage = JSON.parse(error.message);
+            console.log(errorMessage);
+            setError(errorMessage);
           });
       }}
     >
@@ -49,10 +50,6 @@ export default function SignUp() {
         <Heading as='h2' size='md' textTransform='uppercase'>
           Sign Up
         </Heading>
-
-        {/* <Text as='p' color='red.500'>
-          {error}
-        </Text> */}
 
         <TextField
           bg='brand.100'
@@ -78,6 +75,9 @@ export default function SignUp() {
           label='Password'
           type='password'
         />
+        <Text as='p' color='red.500'>
+          {error}
+        </Text>
 
         <ButtonGroup pt='1rem' spacing={12}>
           <Button
