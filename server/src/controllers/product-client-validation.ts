@@ -20,7 +20,6 @@ export function validateBody(schema: z.Schema) {
     if (validationResult.success) {
       next();
     } else {
-      // If trying to update a product, we need to check if the product exists
       if (req.params.id) {
         const post = await ProductModel.findById(req.params.id);
         if (!post) {
