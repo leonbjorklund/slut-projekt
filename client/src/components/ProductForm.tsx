@@ -50,7 +50,7 @@ function ProductForm({ product, onSubmit }: Props) {
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
-    const file = e.target.files[0];
+    // const file = e.target.files[0];
     // Skicka file till api:et med formData
     // Få tillbaka ett id
     const id = "244353521";
