@@ -8,7 +8,7 @@ import {
 import { CustomerValues } from "../components/CustomerForm";
 import { CartItem, useCart } from "./cartContext";
 
-interface Order {
+export interface Order {
   _id: string;
   createdAt: string;
   cart: CartItem[];

@@ -7,8 +7,9 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
+import { Order } from "../context/orderContext";
 
-function AdminOrders() {
+function AdminOrders({ order }: { order: Order }) {
   return (
     <Card
       data-cy='product'
@@ -63,22 +64,26 @@ function AdminOrders() {
               </Flex>
               <Flex>
                 <Text data-cy='product-id' mb={4}>
-                  Date
+                  Date: {order.createdAt}
                 </Text>
               </Flex>
               <Flex direction='column'>
                 <Text mb={2}>CUSTOMER INFO:</Text>
-
                 <Text>e-mail</Text>
-                <Text> Förnamn Efternamn</Text>
-                <Text>Address</Text>
-                <Text mb={4}>Postnr Stad</Text>
+                <Text>
+                  {order.deliveryAddress.firstName}{" "}
+                  {order.deliveryAddress.lastName}
+                </Text>
+                <Text>{order.deliveryAddress.address}</Text>
+                <Text>
+                  {order.deliveryAddress.zipCode} {order.deliveryAddress.city}
+                </Text>
               </Flex>
               <Flex>
                 <Text mb={2}>ORDER INFO:</Text>
               </Flex>
               <Flex>
-                <Text>1 x </Text> <Text> Gaston vas</Text>
+                <Text>1 x</Text> <Text>Gaston vas</Text>
               </Flex>
               <Flex direction='row' justifyContent='space-between'>
                 <Text>Total price:</Text> <Text>Shipping status:</Text>

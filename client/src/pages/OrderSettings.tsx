@@ -1,4 +1,4 @@
-import { Box, Center, Flex, Heading, Stack, Text } from "@chakra-ui/react";
+import { Box, Center, Flex, Heading, Stack } from "@chakra-ui/react";
 import { useEffect } from "react";
 import AccessDenied from "../components/AccessDenied";
 import AdminOrders from "../components/AdminOrders";
@@ -40,17 +40,10 @@ function OrderSettings() {
           </Heading>
           {orders &&
             orders.map((order, index) => (
-              <Box key={index} borderWidth='1px' p={4}>
-                <Text>OrderID: {order._id}</Text>
-                <Text> Date: {order.createdAt} </Text>
-                <Text>
-                  Address:
-                  {Object.values(order.deliveryAddress).join(" ")}
-                </Text>
-              </Box>
+              <AdminOrders key={index} order={order} />
             ))}
           <Stack spacing={6} w='100%'>
-            <AdminOrders />
+            {/* <AdminOrders /> */}
           </Stack>
         </Box>
       </Center>
