@@ -19,7 +19,9 @@ function UserSettings() {
 
   useEffect(() => {
     getAllUsers();
-  }, [getAllUsers]);
+  }, []);
+
+  console.log(users);
 
   const isAdmin = user?.isAdmin;
 

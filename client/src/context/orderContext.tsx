@@ -37,20 +37,30 @@ export default function OrderProvider(props: PropsWithChildren) {
     clearCart();
   };
 
+  // const getAllOrders = async () => {
+  //   try {
+  //     const response = await fetch("http://localhost:3000/api/orders", {
+  //       method: "GET",
+  //       credentials: "include",
+  //     });
+  //     if (response.ok) {
+  //       const data = await response.json();
+  //       setOrders(data);
+  //     } else {
+  //       console.error("Failed to fetch orders:", response.status);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error while fetching orders:", error);
+  //   }
+  // };
+
   const getAllOrders = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/orders", {
-        method: "GET",
-        credentials: "include",
-      });
-      if (response.ok) {
-        const data = await response.json();
-        setOrders(data);
-      } else {
-        console.error("Failed to fetch orders:", response.status);
-      }
+      const response = await fetch("/http://lapi/orders");
+      const data = await response.json();
+      setOrders(data);
     } catch (error) {
-      console.error("Error while fetching orders:", error);
+      console.error("Error fetching orders:", error);
     }
   };
 
