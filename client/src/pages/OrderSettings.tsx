@@ -44,13 +44,8 @@ function OrderSettings() {
                 <Text>OrderID: {order._id}</Text>
                 <Text> Date: {order.createdAt} </Text>
                 <Text>
-                  Adress:
-                  {order.deliveryAddress.firstName}
-                  {order.deliveryAddress.lastName}
-                  {order.deliveryAddress.address}
-                  {order.deliveryAddress.zipCode}
-                  {order.deliveryAddress.city}
-                  {order.deliveryAddress.phoneNumber}
+                  Address:
+                  {Object.values(order.deliveryAddress).join(" ")}
                 </Text>
               </Box>
             ))}
