@@ -1,12 +1,27 @@
-import { createContext, PropsWithChildren, useContext, useState } from "react";
+import {
+  createContext,
+  PropsWithChildren,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { CustomerValues } from "../components/CustomerForm";
 import { CartItem, useCart } from "./cartContext";
 
 interface Order {
-  id: string;
+  _id: string;
+  createdAt: string;
   cart: CartItem[];
   formData: CustomerValues;
   totalPrice: number;
+  deliveryAddress: {
+    firstName: string;
+    lastName: string;
+    address: string;
+    zipCode: number;
+    city: string;
+    phoneNumber: string;
+  };
 }
 
 interface OrderContextProps {
@@ -31,38 +46,55 @@ export default function OrderProvider(props: PropsWithChildren) {
       (total, item) => total + item.price * item.quantity,
       0,
     );
-    const order: Order = { id: orderId, cart: cart, formData, totalPrice };
+    const order: Order = {
+      _id: orderId,
+      cart: cart,
+      formData,
+      totalPrice,
+      createdAt: "",
+      deliveryAddress: {
+        firstName: "",
+        lastName: "",
+        address: "",
+        city: "",
+        zipCode: 0,
+        phoneNumber: "",
+      },
+    };
 
     setOrder(order);
     clearCart();
   };
 
-  // const getAllOrders = async () => {
-  //   try {
-  //     const response = await fetch("http://localhost:3000/api/orders", {
-  //       method: "GET",
-  //       credentials: "include",
-  //     });
-  //     if (response.ok) {
-  //       const data = await response.json();
-  //       setOrders(data);
-  //     } else {
-  //       console.error("Failed to fetch orders:", response.status);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error while fetching orders:", error);
-  //   }
-  // };
+  useEffect(() => {
+    getAllOrders();
+  }, []);
 
   const getAllOrders = async () => {
     try {
-      const response = await fetch("/http://lapi/orders");
-      const data = await response.json();
-      setOrders(data);
+      const response = await fetch("http://localhost:3000/api/orders");
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        setOrders(data);
+      } else {
+        console.error("Failed to fetch products:", response.status);
+      }
     } catch (error) {
-      console.error("Error fetching orders:", error);
+      console.error("Failed to fetch products:", error);
     }
   };
+
+  // const getAllOrders = async () => {
+  //   try {
+  //     const response = await fetch("/http://lapi/orders");
+  //     const data = await response.json();
+  //     console.log(data);
+  //     setOrders(data);
+  //   } catch (error) {
+  //     console.error("Error fetching orders:", error);
+  //   }
+  // };
 
   return (
     <OrderContext.Provider

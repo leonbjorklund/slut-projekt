@@ -1,11 +1,19 @@
-import { Box, Center, Flex, Heading, Stack } from "@chakra-ui/react";
+import { Box, Center, Flex, Heading, Stack, Text } from "@chakra-ui/react";
+import { useEffect } from "react";
 import AccessDenied from "../components/AccessDenied";
 import AdminOrders from "../components/AdminOrders";
 import { useAccount } from "../context/accountContext";
+import { useOrder } from "../context/orderContext";
 
 function OrderSettings() {
   const { user } = useAccount();
   const isAdmin = user?.isAdmin;
+
+  const { orders, getAllOrders } = useOrder();
+
+  useEffect(() => {
+    getAllOrders();
+  }, []);
 
   if (!isAdmin) {
     return <AccessDenied />;
@@ -26,6 +34,26 @@ function OrderSettings() {
               Order settings
             </Heading>
           </Flex>
+
+          <Heading as='h6' size='md' mb={4}>
+            Orders
+          </Heading>
+          {orders &&
+            orders.map((order, index) => (
+              <Box key={index} borderWidth='1px' p={4}>
+                <Text>OrderID: {order._id}</Text>
+                <Text> Date: {order.createdAt} </Text>
+                <Text>
+                  Adress:
+                  {order.deliveryAddress.firstName}
+                  {order.deliveryAddress.lastName}
+                  {order.deliveryAddress.address}
+                  {order.deliveryAddress.zipCode}
+                  {order.deliveryAddress.city}
+                  {order.deliveryAddress.phoneNumber}
+                </Text>
+              </Box>
+            ))}
           <Stack spacing={6} w='100%'>
             <AdminOrders />
           </Stack>
