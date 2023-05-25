@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { validateCreateUser } from "../controllers/user-client-validation";
 import {
   checkAuth,
   createUser,
@@ -11,7 +12,7 @@ import {
 
 export const userRouter = Router();
 
-userRouter.post("/api/users/create", createUser);
+userRouter.post("/api/users/create", validateCreateUser, createUser);
 userRouter.post("/api/users/login", loginUser);
 userRouter.get("/api/users/auth", checkAuth);
 userRouter.post("/api/users/signout", signoutUser);
