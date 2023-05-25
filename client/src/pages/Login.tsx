@@ -39,11 +39,11 @@ export default function Login() {
     >
       <VStack
         as={Form}
-        w={{ base: "90%", md: "25%" }}
+        w={{ base: "60%" }}
+        minW='280px'
         m='auto'
         justify='center'
         h='calc(100vh - 320px)'
-        display='flex'
         spacing='1rem'
       >
         <Heading as='h2' size='md' textTransform='uppercase'>
