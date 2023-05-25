@@ -18,8 +18,8 @@ function AddProduct() {
   return (
     <Box>
       <Center>
-        <Heading size='md' py={14} textTransform='uppercase'>
-          Lägg till ny produkt
+        <Heading size='md' py={8} textTransform='uppercase'>
+          Add new product
         </Heading>
       </Center>
       <Center>
