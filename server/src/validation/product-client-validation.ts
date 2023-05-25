@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { z } from "zod";
-import { ProductModel } from "./../models/product-model";
+import { ProductModel } from "../models/product-model";
 
 export const postCreateSchema = z
   .object({

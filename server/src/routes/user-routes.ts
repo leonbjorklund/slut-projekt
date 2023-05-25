@@ -1,5 +1,4 @@
 import { Router } from "express";
-import { validateCreateUser } from "../controllers/user-client-validation";
 import {
   checkAuth,
   createUser,
@@ -9,6 +8,7 @@ import {
   signoutUser,
   updateUserAdmin,
 } from "../controllers/user-controller";
+import { validateCreateUser } from "../validation/user-client-validation";
 
 export const userRouter = Router();
 
