@@ -47,10 +47,10 @@ export default function ProductProvider(props: PropsWithChildren) {
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
-    fetchProducts();
+    getAllProducts();
   }, []);
 
-  const fetchProducts = async () => {
+  const getAllProducts = async () => {
     try {
       const response = await fetch("http://localhost:3000/api/products");
       if (response.ok) {
@@ -64,12 +64,25 @@ export default function ProductProvider(props: PropsWithChildren) {
     }
   };
 
-  const deleteProduct = (productId: string) => {
-    setProducts(products.filter((product) => product._id !== productId));
+  const addNewProduct = async () => {
+    const response = await fetch("http://localhost:3000/api/products", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.ok) {
+      const newProduct = await response.json();
+      setProducts(newProduct);
+    } else {
+      console.error("Failed to create new product:", response.status);
+    }
   };
 
-  const addNewProduct = (product: Product) => {
-    setProducts([...products, product]);
+  const deleteProduct = (productId: string) => {
+    setProducts(products.filter((product) => product._id !== productId));
   };
 
   const editProduct = (productId: string, updatedProduct: Product) => {
