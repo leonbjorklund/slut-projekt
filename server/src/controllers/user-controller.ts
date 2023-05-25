@@ -1,8 +1,17 @@
 import bcrypt from "bcrypt";
 import { Request, Response } from "express";
+import { assert } from "../errorHandler";
 import { UserModel } from "../models/user-model";
 
 export async function createUser(req: Request, res: Response) {
+  const { email } = req.body;
+
+  // check if user with given email already exists
+  const existingUser = await UserModel.findOne({ email });
+
+  // if user already exists, throw an error
+  assert(existingUser === null, 409, "User already exists!");
+
   const user = await UserModel.create(req.body);
   await user.save();
 
@@ -13,30 +22,26 @@ export async function loginUser(req: Request, res: Response) {
   const { email, password } = req.body;
   const user = await UserModel.findOne({ email });
 
-  if (!user) {
-    return res.status(401).json({ message: "Invalid email or password" });
-  }
+  assert(user !== null, 401, "Invalid email or password");
 
-  const passwordMatch = await bcrypt.compare(password, user.password);
+  const passwordMatch = await bcrypt.compare(password, user!.password);
 
-  if (!passwordMatch) {
-    return res.status(401).json({ message: "Invalid email or password" });
-  }
+  assert(passwordMatch, 401, "Invalid email or password");
 
   req.session!.user = {
-    _id: user.id,
-    email: user.email,
-    isAdmin: user.isAdmin,
+    _id: user!.id,
+    email: user!.email,
+    isAdmin: user!.isAdmin,
   };
 
   res.status(200).json({
-    _id: user.id,
-    email: user.email,
-    isAdmin: user.isAdmin,
+    _id: user!.id,
+    email: user!.email,
+    isAdmin: user!.isAdmin,
   });
 }
 
-export async function signoutUser(req: Request, res: Response) {
+export function signoutUser(req: Request, res: Response) {
   req.session = null;
   res.status(204).json({ message: "Signout successful" });
 }
@@ -45,24 +50,18 @@ export async function updateUserAdmin(req: Request, res: Response) {
   const userId = req.params.id;
   const { isAdmin } = req.body;
 
-  try {
-    const user = await UserModel.findById(userId);
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
+  const user = await UserModel.findById(userId);
 
-    user.isAdmin = isAdmin;
-    await user.save();
+  assert(user !== null, 404, "User not found");
 
-    return res.status(200).json({
-      _id: user._id,
-      email: user.email,
-      isAdmin: user.isAdmin,
-    });
-  } catch (error) {
-    console.error("Error updating user:", error);
-    return res.status(500).json({ message: "Internal Server Error" });
-  }
+  user!.isAdmin = isAdmin;
+  await user!.save();
+
+  return res.status(200).json({
+    _id: user!._id,
+    email: user!.email,
+    isAdmin: user!.isAdmin,
+  });
 }
 
 export async function getAllUsers(req: Request, res: Response) {
@@ -74,9 +73,8 @@ export async function getUserById(req: Request, res: Response) {
   const userId = req.params.id;
   const user = await UserModel.findById(userId).select("_id email __v isAdmin");
 
-  if (!user) {
-    return res.status(404).json("User not found");
-  }
+  assert(user !== null, 404, "User not found");
+
   return res.status(200).json(user);
 }
 

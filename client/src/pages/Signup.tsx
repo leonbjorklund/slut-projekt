@@ -28,35 +28,36 @@ export default function SignUp() {
 
         create(email, password)
           .then(() => {
-            login(email, password)
-              .then(() => {
-                actions.resetForm();
-                navigate("/");
-              })
-              .catch((error) => {
-                setError(error.message);
-              });
+            login(email, password);
+            actions.resetForm();
+            navigate("/");
           })
           .catch((error) => {
-            setError(error.message);
+            const errorMessage = JSON.parse(error.message);
+            console.log(errorMessage);
+            setError(errorMessage);
           });
       }}
     >
       <VStack
         as={Form}
-        w={{ base: "90%", md: "500px" }}
+        w={{ base: "60%" }}
+        minW='280px'
         m='auto'
         justify='center'
         h='calc(100vh - 320px)'
         spacing='1rem'
       >
-        <Heading>Sign Up</Heading>
-        <Text as='p' color='red.500'>
-          {error}
-        </Text>
+        <Heading as='h2' size='md' textTransform='uppercase'>
+          Sign Up
+        </Heading>
+
         <TextField
-          color='#1A202C'
-          border='1px solid rgba(0, 0, 0, 0.2)'
+          bg='brand.100'
+          size='md'
+          borderRadius='none'
+          focusBorderColor='blackAlpha.400'
+          borderColor='blackAlpha.400'
           name='email'
           placeholder='Enter email'
           autoComplete='off'
@@ -64,21 +65,42 @@ export default function SignUp() {
         />
 
         <TextField
-          color='#1A202C'
-          border='1px solid rgba(0, 0, 0, 0.2)'
+          bg='brand.100'
+          size='md'
+          borderRadius='none'
+          focusBorderColor='blackAlpha.400'
+          borderColor='blackAlpha.400'
           name='password'
           placeholder='Enter password'
           autoComplete='off'
           label='Password'
           type='password'
         />
+        <Text as='p' color='red.500'>
+          {error}
+        </Text>
 
-        <ButtonGroup pt='1rem'>
-          <Button colorScheme='green' type='submit'>
+        <ButtonGroup pt='1rem' spacing={12}>
+          <Button
+            variant='outline'
+            borderColor='yellow.400'
+            color='black'
+            borderRadius='none'
+            borderWidth='1px'
+            fontSize='sm'
+            type='submit'
+            _hover={{ bg: "orange.100" }}
+          >
             Create Account
           </Button>
           <Button
-            colorScheme='blackAlpha'
+            variant='outline'
+            borderColor='yellow.400'
+            color='black'
+            borderRadius='none'
+            borderWidth='1px'
+            fontSize='sm'
+            _hover={{ bg: "orange.100" }}
             onClick={() => navigate("/login")}
             leftIcon={<ArrowBackIcon />}
           >

@@ -1,13 +1,17 @@
 import { Badge, Box, Button, Flex, Icon, Image } from "@chakra-ui/react";
-import { IoBagOutline, IoPersonOutline } from "react-icons/io5";
+import { IoBagOutline } from "react-icons/io5";
 
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useAccount } from "../context/accountContext";
 import { useCart } from "../context/cartContext";
+import DropdownMenu from "./DropdownMenu";
 
 function Header() {
   const { cart } = useCart();
   const { user, signout } = useAccount();
+  const location = useLocation();
+  const showLoginButton =
+    location.pathname !== "/login" && location.pathname !== "/signup";
 
   // Calculate total quantity of items in cart
 
@@ -31,6 +35,7 @@ function Header() {
         position='absolute'
         left={{ base: "15%", md: "50%" }}
         transform='translateX(-50%)'
+        pl={{ base: "25px", sm: "0" }}
       >
         <Link to='/'>
           <Image
@@ -42,20 +47,30 @@ function Header() {
       </Box>
       <Flex alignItems='center' justifyContent='space-between'>
         {user ? (
-          <Button onClick={() => signout()}>Sign Out</Button>
+          <Button
+            bg='none'
+            _hover={{ bg: "none", textDecoration: "underline" }}
+            onClick={() => signout()}
+          >
+            Sign Out
+          </Button>
         ) : (
-          <Link to='/login'>
-            <Button>Log in</Button>
-          </Link>
+          showLoginButton && (
+            <Link to='/login'>
+              <Button
+                bg='none'
+                _hover={{ bg: "none", textDecoration: "underline" }}
+              >
+                Log in
+              </Button>
+            </Link>
+          )
         )}
         {user && (
           <Box pr={{ base: 1, md: 4 }}>
-            <Link data-cy='admin-link' to='admin'>
-              <Icon boxSize={7} as={IoPersonOutline} />
-            </Link>
+            <DropdownMenu />
           </Box>
         )}
-
         <Box pos='relative' mr={{ base: 0, md: 4 }}>
           <Link to='checkout' data-cy='cart-link'>
             <Icon boxSize={7} as={IoBagOutline} />

@@ -25,13 +25,14 @@ function Home({ filterCategory }: ProductsLayoutProps) {
   >(filterCategory);
 
   const filteredProductList = selectedCategory
-    ? products.filter((product) => product.category === selectedCategory)
+    ? products.filter((product) => product.categories[0] === selectedCategory)
     : products;
 
   return (
     <div>
       <Flex
         w='full'
+        p={{ base: "1rem", md: "0" }}
         h='65vh'
         bgImage='linear-gradient(to bottom, rgba(255,255,255,0.2), rgba(255,255,255,0.3)), url(/hero-md.svg)'
         bgSize='cover'
@@ -51,11 +52,9 @@ function Home({ filterCategory }: ProductsLayoutProps) {
 
       <Center pt={10}>
         <Tabs
-          borderRadius='.6rem'
           variant='unstyled'
-          boxShadow='2px 2px 2px rgb(0,0,0, 0.2)'
+          mx={{ base: "1rem", md: "0" }}
           border='1px solid rgba(0, 0, 0, 0.2)'
-          bg={"white"}
           my={5}
           width={["100%", "100%", "98%", "62.5%"]}
           isFitted
@@ -68,7 +67,6 @@ function Home({ filterCategory }: ProductsLayoutProps) {
           <TabList>
             <Tab
               fontSize={[".8rem", ".9rem", "1rem"]}
-              borderRadius='.6rem'
               _selected={{
                 borderRight: "1px solid rgba(0, 0, 0, 0.4)",
                 fontWeight: "bold",
@@ -78,7 +76,6 @@ function Home({ filterCategory }: ProductsLayoutProps) {
             </Tab>
             <Tab
               fontSize={[".8rem", ".9rem", "1rem"]}
-              borderRadius='.6rem'
               _selected={{
                 borderRight: "1px solid rgba(0, 0, 0, 0.4)",
                 borderLeft: "1px solid rgba(0, 0, 0, 0.4)",
@@ -89,7 +86,6 @@ function Home({ filterCategory }: ProductsLayoutProps) {
             </Tab>
             <Tab
               fontSize={[".8rem", ".9rem", "1rem"]}
-              borderRadius='.6rem'
               _selected={{
                 borderLeft: "1px solid rgba(0, 0, 0, 0.4)",
                 fontWeight: "bold",
@@ -113,7 +109,7 @@ function Home({ filterCategory }: ProductsLayoutProps) {
           py={8}
         >
           {filteredProductList.map((product) => (
-            <OverviewCard key={product.id} product={product} />
+            <OverviewCard key={product._id} product={product} />
           ))}
         </Grid>
       </Center>

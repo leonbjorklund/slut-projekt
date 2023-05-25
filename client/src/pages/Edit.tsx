@@ -1,17 +1,25 @@
 import { Box, Center, Heading } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
-import { Product } from "../../data";
+import AccessDenied from "../components/AccessDenied";
 import ProductForm from "../components/ProductForm";
-import { useProducts } from "../context/productContext";
+import { useAccount } from "../context/accountContext";
+import { Product, useProducts } from "../context/productContext";
 
 function Edit() {
   const { products, editProduct } = useProducts();
   const params = useParams();
-  const editProductInfo = products.find((product) => product.id === params.id);
+  const editProductInfo = products.find((product) => product._id === params.id);
 
   const handleSubmit = (updatedProduct: Product) => {
     editProduct(params.id as string, updatedProduct);
   };
+
+  const { user } = useAccount();
+  const isAdmin = user?.isAdmin;
+
+  if (!isAdmin) {
+    return <AccessDenied />;
+  }
 
   return (
     <Center>

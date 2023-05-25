@@ -31,27 +31,30 @@ export default function Login() {
             navigate("/");
           })
           .catch((error) => {
-            setError(error.message);
+            const errorMessage = JSON.parse(error.message);
+            console.log(errorMessage);
+            setError(errorMessage);
           });
       }}
     >
       <VStack
         as={Form}
-        w={{ base: "90%", md: "500px" }}
+        w={{ base: "60%" }}
+        minW='280px'
         m='auto'
         justify='center'
         h='calc(100vh - 320px)'
-        my='auto'
-        display='flex'
         spacing='1rem'
       >
-        <Heading>Log in!</Heading>
-        <Text as='p' color='red.500'>
-          {error}
-        </Text>
+        <Heading as='h2' size='md' textTransform='uppercase'>
+          Log in
+        </Heading>
         <TextField
-          color='#1A202C'
-          border='1px solid rgba(0, 0, 0, 0.2)'
+          bg='brand.100'
+          size='md'
+          borderRadius='none'
+          focusBorderColor='blackAlpha.400'
+          borderColor='blackAlpha.400'
           name='email'
           placeholder='Enter email'
           autoComplete='off'
@@ -59,8 +62,11 @@ export default function Login() {
         />
 
         <TextField
-          color='#1A202C'
-          border='1px solid rgba(0, 0, 0, 0.2)'
+          bg='brand.100'
+          size='md'
+          borderRadius='none'
+          borderColor='blackAlpha.400'
+          focusBorderColor='yellow.400'
           name='password'
           placeholder='Enter password'
           autoComplete='off'
@@ -68,11 +74,34 @@ export default function Login() {
           type='password'
         />
 
-        <ButtonGroup pt='1rem' spacing={24}>
-          <Button colorScheme='green' type='submit'>
+        <Text as='p' color='red.500'>
+          {error}
+        </Text>
+        <ButtonGroup pt='1rem' spacing={12}>
+          <Button
+            variant='outline'
+            borderColor='yellow.400'
+            color='black'
+            borderRadius='none'
+            borderWidth='1px'
+            fontSize='sm'
+            w={28}
+            type='submit'
+            _hover={{ bg: "orange.100" }}
+          >
             Log In
           </Button>
-          <Button colorScheme='blackAlpha' onClick={() => navigate("/signup")}>
+          <Button
+            variant='outline'
+            borderColor='yellow.400'
+            color='black'
+            borderRadius='none'
+            borderWidth='1px'
+            fontSize='sm'
+            w={28}
+            _hover={{ bg: "orange.100" }}
+            onClick={() => navigate("/signup")}
+          >
             Sign up
           </Button>
         </ButtonGroup>

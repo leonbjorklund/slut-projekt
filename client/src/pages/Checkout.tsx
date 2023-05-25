@@ -2,10 +2,12 @@ import { Button, Center, Flex, Heading, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import CustomerForm from "../components/CustomerForm";
 import ShoppingCart from "../components/ShoppingCart";
+import { useAccount } from "../context/accountContext";
 import { useCart } from "../context/cartContext";
 
 function Checkout() {
   const { cart } = useCart();
+  const { user } = useAccount();
 
   if (cart.length === 0) {
     return (
@@ -41,10 +43,23 @@ function Checkout() {
       <ShoppingCart />
       <Center>
         <Heading as='h3' size='md' p={4} textTransform='uppercase'>
-          Dina uppgifter
+          Your credentials
         </Heading>
       </Center>
-      <CustomerForm />
+      {user ? (
+        <CustomerForm />
+      ) : (
+        <Center>
+          <Link to='/login'>
+            <Button
+              bg='none'
+              _hover={{ bg: "none", textDecoration: "underline" }}
+            >
+              Please log in to complete your order
+            </Button>
+          </Link>
+        </Center>
+      )}
     </>
   );
 }

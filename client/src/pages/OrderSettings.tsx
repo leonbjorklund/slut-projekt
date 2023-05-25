@@ -1,7 +1,16 @@
 import { Box, Center, Flex, Heading, Stack } from "@chakra-ui/react";
+import AccessDenied from "../components/AccessDenied";
 import AdminOrders from "../components/AdminOrders";
+import { useAccount } from "../context/accountContext";
 
 function OrderSettings() {
+  const { user } = useAccount();
+  const isAdmin = user?.isAdmin;
+
+  if (!isAdmin) {
+    return <AccessDenied />;
+  }
+
   return (
     <>
       <Center>
