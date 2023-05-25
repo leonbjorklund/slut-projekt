@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Flex,
   FormControl,
@@ -8,6 +7,7 @@ import {
   InputGroup,
   InputRightAddon,
   Text,
+  Textarea,
 } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
@@ -50,11 +50,11 @@ function ProductForm({ product, onSubmit }: Props) {
 
   return (
     <form onSubmit={formik.handleSubmit} data-cy='product-form'>
-      <Box>
+      <Flex direction='row'>
         <Flex direction='column' align='center'>
-          <Flex pb={4} direction={{ base: "column", md: "row" }}>
+          <Flex pb={4} w='100%' direction={{ base: "column", md: "row" }}>
             <FormControl mr={4}>
-              <FormLabel>Titel:</FormLabel>
+              <FormLabel>Name:</FormLabel>
               <Input
                 data-cy='product-title'
                 bg='whiteAlpha.900'
@@ -75,7 +75,7 @@ function ProductForm({ product, onSubmit }: Props) {
             </FormControl>
 
             <FormControl>
-              <FormLabel>Höjd:</FormLabel>
+              <FormLabel>Height:</FormLabel>
               <InputGroup>
                 <Input
                   bg='whiteAlpha.900'
@@ -98,9 +98,33 @@ function ProductForm({ product, onSubmit }: Props) {
             </FormControl>
           </Flex>
 
-          <Flex pb={4} flexDir={{ base: "column", md: "row" }}>
+          <Flex pb={4} w='100%' direction={{ base: "column", md: "row" }}>
+            <FormControl>
+              <FormLabel>Image:</FormLabel>
+              <Input
+                data-cy='product-image'
+                bg='whiteAlpha.900'
+                size='md'
+                type='file'
+                name='image'
+                id='image'
+                focusBorderColor='yellow.400'
+                value={formik.values.image}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+              />
+
+              {formik.touched.image && formik.errors.image && (
+                <Text data-cy='product-image-error' fontSize='xs' color='red'>
+                  {formik.errors.image}
+                </Text>
+              )}
+            </FormControl>
+          </Flex>
+
+          <Flex w='100%' pb={4} flexDir={{ base: "column", md: "row" }}>
             <FormControl mr={4}>
-              <FormLabel>Pris:</FormLabel>
+              <FormLabel>Price:</FormLabel>
               <InputGroup>
                 <Input
                   data-cy='product-price'
@@ -122,54 +146,55 @@ function ProductForm({ product, onSubmit }: Props) {
                 </Text>
               )}
             </FormControl>
-
-            <FormControl>
-              <FormLabel>Bild URL:</FormLabel>
-              <Input
-                data-cy='product-image'
-                bg='whiteAlpha.900'
-                size='md'
-                type='text'
-                name='image'
-                id='image'
-                focusBorderColor='yellow.400'
-                value={formik.values.image}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
-
-              {formik.touched.image && formik.errors.image && (
-                <Text data-cy='product-image-error' fontSize='xs' color='red'>
-                  {formik.errors.image}
+            <FormControl mr={4}>
+              <FormLabel>Stock quantity:</FormLabel>
+              <InputGroup>
+                <Input
+                  data-cy='product-price'
+                  bg='whiteAlpha.900'
+                  size='md'
+                  type='text'
+                  name='price'
+                  id='price'
+                  focusBorderColor='yellow.400'
+                  value={formik.values.price}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+              </InputGroup>
+              {formik.touched.price && formik.errors.price && (
+                <Text data-cy='product-price-error' fontSize='xs' color='red'>
+                  {formik.errors.price}
                 </Text>
               )}
             </FormControl>
           </Flex>
 
-          <FormControl>
-            <FormLabel>Beskrivning:</FormLabel>
-            <Input
-              data-cy='product-description'
-              bg='whiteAlpha.900'
-              size='md'
-              type='text'
-              name='description'
-              id='description'
-              focusBorderColor='yellow.400'
-              value={formik.values.description}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            />
-            {formik.touched.description && formik.errors.description && (
-              <Text
-                data-cy='product-description-error'
-                fontSize='xs'
-                color='red'
-              >
-                {formik.errors.description}
-              </Text>
-            )}
-          </FormControl>
+          <Flex w='100%' direction={{ base: "column", md: "row" }}>
+            <FormControl>
+              <FormLabel>Description:</FormLabel>
+              <Textarea
+                data-cy='product-description'
+                bg='whiteAlpha.900'
+                size='md'
+                name='description'
+                id='description'
+                focusBorderColor='yellow.400'
+                value={formik.values.description}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+              />
+              {formik.touched.description && formik.errors.description && (
+                <Text
+                  data-cy='product-description-error'
+                  fontSize='xs'
+                  color='red'
+                >
+                  {formik.errors.description}
+                </Text>
+              )}
+            </FormControl>
+          </Flex>
 
           <Flex py={8}>
             <Button
@@ -183,7 +208,7 @@ function ProductForm({ product, onSubmit }: Props) {
               mr={24}
               _hover={{ bg: "orange.100" }}
             >
-              Spara
+              Save
             </Button>
             <Link to='/admin'>
               <Button
@@ -195,12 +220,12 @@ function ProductForm({ product, onSubmit }: Props) {
                 w={28}
                 _hover={{ bg: "orange.100" }}
               >
-                Avbryt
+                Exit
               </Button>
             </Link>
           </Flex>
         </Flex>
-      </Box>
+      </Flex>
     </form>
   );
 }
