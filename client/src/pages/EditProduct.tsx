@@ -5,7 +5,7 @@ import ProductForm from "../components/ProductForm";
 import { useAccount } from "../context/accountContext";
 import { Product, useProducts } from "../context/productContext";
 
-function Edit() {
+function EditProduct() {
   const { products, editProduct } = useProducts();
   const params = useParams();
   const editProductInfo = products.find((product) => product._id === params.id);
@@ -26,7 +26,7 @@ function Edit() {
       <Box>
         <Center>
           <Heading size='md' py={14} textTransform='uppercase'>
-            Redigera produkt
+            Edit product
           </Heading>
         </Center>
         <ProductForm product={editProductInfo} onSubmit={handleSubmit} />
@@ -35,4 +35,4 @@ function Edit() {
   );
 }
 
-export default Edit;
+export default EditProduct;
