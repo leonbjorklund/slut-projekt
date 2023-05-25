@@ -15,12 +15,14 @@ import * as Yup from "yup";
 import { Product } from "../context/productContext";
 
 const ProductSchema = Yup.object().shape({
-  title: Yup.string().required("Vänligen ange ett produktnamn"),
-  description: Yup.string().required("Vänligen ange en beskrivning"),
+  name: Yup.string().required("Please provide a productname"),
+  description: Yup.string().required("Please provide a description"),
   price: Yup.number()
-    .positive("Ange ett pris över 0")
-    .required("Vänligen ange ett pris"),
-  image: Yup.string().url("Ogiltig url").required("Vänligen lägg till en bild"),
+    .positive("Price must be higher than 0")
+    .required("Please add a price"),
+  image: Yup.string().required("Please add a valid image"),
+  categories: Yup.string().required("Choose one or mutiple category"),
+  inStock: Yup.number().required("Choose stock quantitys"),
 });
 
 interface Props {
@@ -60,8 +62,8 @@ function ProductForm({ product, onSubmit }: Props) {
                 bg='whiteAlpha.900'
                 size='md'
                 type='text'
-                name='title'
-                id='title'
+                name='name'
+                id='name'
                 focusBorderColor='yellow.400'
                 value={formik.values.name}
                 onChange={formik.handleChange}
@@ -150,21 +152,20 @@ function ProductForm({ product, onSubmit }: Props) {
               <FormLabel>Stock quantity:</FormLabel>
               <InputGroup>
                 <Input
-                  data-cy='product-price'
                   bg='whiteAlpha.900'
                   size='md'
                   type='text'
-                  name='price'
-                  id='price'
+                  name='inStock'
+                  id='inStock'
                   focusBorderColor='yellow.400'
-                  value={formik.values.price}
+                  value={formik.values.inStock}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
               </InputGroup>
-              {formik.touched.price && formik.errors.price && (
-                <Text data-cy='product-price-error' fontSize='xs' color='red'>
-                  {formik.errors.price}
+              {formik.touched.inStock && formik.errors.inStock && (
+                <Text fontSize='xs' color='red'>
+                  {formik.errors.inStock}
                 </Text>
               )}
             </FormControl>
@@ -175,6 +176,7 @@ function ProductForm({ product, onSubmit }: Props) {
               <FormLabel>Description:</FormLabel>
               <Textarea
                 data-cy='product-description'
+                placeholder='Add you description here..'
                 bg='whiteAlpha.900'
                 size='md'
                 name='description'
