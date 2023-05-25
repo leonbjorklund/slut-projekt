@@ -1,0 +1,20 @@
+### Retrieve file
+GET http://localhost:3000/api/file/646c9fb67d9a766cff31f6ca
+
+### Delete file
+DELETE http://localhost:3000/api/file/646c9d78272039d135e30928
+
+### Upload image
+POST http://localhost:3000/api/file
+Content-Type: multipart/form-data; boundary=FormDataRow
+
+--FormDataRow
+Content-Disposition: form-data; name="image"; filename="ralph.webp"
+Content-Type: image/jpeg
+
+< ./assets/ralph.webp
+--FormDataRow--
+
+### Tänk på följande:
+### ALLA boundary's måste BÖRJA med --
+### SISTA boundary'n måste AVSLUTAS med --

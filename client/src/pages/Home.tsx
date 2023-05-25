@@ -32,6 +32,7 @@ function Home({ filterCategory }: ProductsLayoutProps) {
     <div>
       <Flex
         w='full'
+        p={{ base: "1rem", md: "0" }}
         h='65vh'
         bgImage='linear-gradient(to bottom, rgba(255,255,255,0.2), rgba(255,255,255,0.3)), url(/hero-md.svg)'
         bgSize='cover'
@@ -52,6 +53,7 @@ function Home({ filterCategory }: ProductsLayoutProps) {
       <Center pt={10}>
         <Tabs
           variant='unstyled'
+          mx={{ base: "1rem", md: "0" }}
           border='1px solid rgba(0, 0, 0, 0.2)'
           my={5}
           width={["100%", "100%", "98%", "62.5%"]}

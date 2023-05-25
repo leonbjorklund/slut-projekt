@@ -35,6 +35,7 @@ function Header() {
         position='absolute'
         left={{ base: "15%", md: "50%" }}
         transform='translateX(-50%)'
+        pl={{ base: "25px", sm: "0" }}
       >
         <Link to='/'>
           <Image
