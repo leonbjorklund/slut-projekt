@@ -122,7 +122,7 @@ function ProductForm({ product, onSubmit }: Props) {
                 id='image'
                 focusBorderColor='yellow.400'
                 value={formik.values.image}
-                onChange={formik.handleChange}
+                onChange={handleImageUpload}
                 onBlur={formik.handleBlur}
               />
 
