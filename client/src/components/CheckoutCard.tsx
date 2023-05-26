@@ -57,7 +57,7 @@ function CheckoutCard({ product }: { product: CartItem }) {
     >
       <Box>
         <Image
-          src={product.image}
+          src={product.imageUrl}
           alt={product.name}
           maxW='160px'
           maxH='100%'

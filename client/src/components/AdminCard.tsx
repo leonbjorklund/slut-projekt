@@ -33,7 +33,7 @@ function AdminCard({ product }: { product: Product }) {
           objectFit='cover'
           maxW={{ base: "100%", md: "200px" }}
           w='auto'
-          src={product.image}
+          src={product.imageUrl}
           alt={product.name}
         />
 
