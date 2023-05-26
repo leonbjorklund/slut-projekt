@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node dist/server.js",
     "dev": "nodemon --transpile-only src/server.ts",
-    "test": "vitest"
+    "test": "vitest --config tests/vitest.config.ts"
   },
   "keywords": [],
   "author": "",
