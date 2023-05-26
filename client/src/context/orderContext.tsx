@@ -6,17 +6,16 @@ import {
   useState,
 } from "react";
 import { CustomerValues } from "../components/CustomerForm";
-import { CartItem, useCart } from "./cartContext";
+import { useCart } from "./cartContext";
+import { Product } from "./productContext";
 
 export interface Order {
   _id: string;
   createdAt: string;
-  // orderItem: {
-  //   product:
-  //   quantity:
-  // }
-  cart: CartItem[];
-  formData: CustomerValues;
+  orderItems: {
+    product: Product;
+    quantity: number;
+  }[];
   totalPrice: number;
   deliveryAddress: {
     firstName: string;
@@ -44,7 +43,7 @@ export default function OrderProvider(props: PropsWithChildren) {
   const [orders, setOrders] = useState<Order[]>([]);
   const { cart, clearCart } = useCart();
 
-  const handleOrderSubmit = (formData: CustomerValues) => {
+  const handleOrderSubmit = (deliveryAddress: CustomerValues) => {
     const orderId = Date.now().toString();
     const totalPrice = cart.reduce(
       (total, item) => total + item.price * item.quantity,
@@ -52,18 +51,13 @@ export default function OrderProvider(props: PropsWithChildren) {
     );
     const order: Order = {
       _id: orderId,
-      cart: cart,
-      formData,
+      orderItems: cart.map((cartItem) => ({
+        product: cartItem,
+        quantity: cartItem.quantity,
+      })),
       totalPrice,
       createdAt: "",
-      deliveryAddress: {
-        firstName: "",
-        lastName: "",
-        address: "",
-        city: "",
-        zipCode: 0,
-        phoneNumber: "",
-      },
+      deliveryAddress,
     };
 
     setOrder(order);
