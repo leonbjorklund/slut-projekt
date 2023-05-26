@@ -21,7 +21,7 @@ Projektarbetets betyg beror på er givna idépresentation tillsammans med ert re
 - [ ] Alla sidor skall vara responsiva. (G)
 - [x] Arbetet ska implementeras med en React frontend och en Express backend. (G)
 - [ ] Express backenden ska ha validering på samtliga endpoints. (G)
-- [x] Skapa ett ER diagram och koddiagram, detta ska lämnas in vid idégodkännandet G)
+- [x] Skapa ett ER diagram och koddiagram, detta ska lämnas in vid idégodkännandet (G)
 - [x] Beskriv er företagsidé i en kort textuell presentation, detta ska lämnas in vid idégodkännandet (G)
 - [ ] All data som programmet utnyttjar ska vara sparat i en Mongo-databas (produkter, beställningar, konton mm) (G)
 - [x] Man ska kunna logga in som administratör i systemet (G)
@@ -37,7 +37,7 @@ Projektarbetets betyg beror på er givna idépresentation tillsammans med ert re
 
 **VG**
 
-- [ ] Ett CI flöde ska sättas upp (i början av projektet) som kontrollerar prettier, eslint, typescript & tester i varje PR, tester kan lånas ifrån tidigare uppgifter (VG)
+- [x] Ett CI flöde ska sättas upp (i början av projektet) som kontrollerar prettier, eslint, typescript & tester i varje PR, tester kan lånas ifrån tidigare uppgifter (VG)
 - [ ] När man är inloggad som kund ska man kunna se sina gjorda beställning och om det är skickade eller inte (VG)
 - [ ] Administratörer ska kunna redigera produkt inklusive vilka kategorier den tillhör (VG)
 - [ ] Administratörer ska kunna lägga till och ta bort produkter (VG)

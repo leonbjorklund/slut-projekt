@@ -10,8 +10,8 @@ interface User {
 interface AccountContextType {
   user: User | null;
   users: User[] | null;
-  create: (username: string, password: string) => Promise<void>;
-  login: (username: string, password: string) => Promise<void>;
+  create: (email: string, password: string) => Promise<void>;
+  login: (email: string, password: string) => Promise<void>;
   signout: () => Promise<void>;
   getAllUsers: () => Promise<void>;
   updateUserAdmin: (userId: string, isAdmin: boolean) => Promise<void>;
