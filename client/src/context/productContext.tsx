@@ -84,7 +84,19 @@ export default function ProductProvider(props: PropsWithChildren) {
   };
 
   const deleteProduct = (productId: string) => {
-    setProducts(products.filter((product) => product._id !== productId));
+    fetch(`/api/products/${productId}`, {
+      method: "DELETE",
+    })
+      .then((response) => {
+        if (response.ok) {
+          setProducts(products.filter((product) => product._id !== productId));
+        } else {
+          console.error("Failed to delete product:", response.status);
+        }
+      })
+      .catch((error) => {
+        console.error("Failed to delete product:", error);
+      });
   };
 
   const editProduct = (productId: string, updatedProduct: Product) => {
