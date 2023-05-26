@@ -1,12 +1,12 @@
 import { User, UserModel } from "../../src/models/user-model";
 import { toJSON } from "../support/utils";
 export function getMockUser(
-  username = "user@plugga.se",
+  email = "user@plugga.se",
   password = 123123,
   isAdmin = false
 ) {
   return {
-    username,
+    email,
     password,
     isAdmin,
   };
