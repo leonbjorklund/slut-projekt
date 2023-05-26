@@ -13,13 +13,13 @@ export function sorted<T extends { _id: any }>(document: T[]): T[] {
 
 export async function loginUser(
   agent: SuperAgentTest | SuperTest<any>,
-  username = "user@plugga.se",
+  email = "user@plugga.se",
   password = "123123"
 ) {
   return await agent
     .post("/api/users/login")
     .set("content-type", "application/json")
-    .send({ username, password });
+    .send({ email, password });
 }
 
 export function expectDocumentListsToBeTheSame<T extends { _id: any }>(

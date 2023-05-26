@@ -56,7 +56,7 @@ describe("Authenticating a user (POST)", () => {
   it("should be possible to logout (200)", async () => {
     const agent = request.agent(app);
     await loginUser(agent);
-    const response = await agent.post("/api/users/logout");
+    const response = await agent.post("/api/users/signout");
 
     // Assert response is correct
     expect(response.status).toBe(204);
