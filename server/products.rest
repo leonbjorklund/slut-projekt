@@ -42,3 +42,14 @@ Content-Type: application/json
 
 DELETE http://localhost:3000/api/products/646c82b2200da087df2734be
 Content-Type: application/json
+
+### CREATE ACCOUNT 
+
+POST http://localhost:3000/api/users/create
+Content-Type: application/json
+
+{
+  "email": "bill@gmail.com",
+  "password": "billebonka",
+  "isAdmin": true
+}

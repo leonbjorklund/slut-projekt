@@ -39,7 +39,7 @@ function ProductCard({ product }: { product: Product }) {
             width='100%'
             maxW={{ base: "100%", sm: "100%" }}
             minW='200px'
-            src={product.image}
+            src={product.imageUrl}
             alt={product.name}
           />
         </Flex>

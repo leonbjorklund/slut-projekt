@@ -6,11 +6,13 @@ import {
   useEffect,
 } from "react";
 
+export type ProductCreate = Omit<Product, "_id" | "imageUrl">;
 export interface Product {
   _id: string;
   name: string;
   description: string;
   image: string;
+  imageUrl: string;
   height: number;
   price: number;
   categories: string[];
@@ -20,7 +22,7 @@ export interface Product {
 interface ProductContextProps {
   products: Product[];
   deleteProduct: (productId: string) => void;
-  addNewProduct: (product: Product) => void;
+  addNewProduct: (product: ProductCreate) => void;
   editProduct: (productId: string, updatedProduct: Product) => void;
 }
 
@@ -47,12 +49,12 @@ export default function ProductProvider(props: PropsWithChildren) {
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
-    fetchProducts();
+    getAllProducts();
   }, []);
 
-  const fetchProducts = async () => {
+  const getAllProducts = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/products");
+      const response = await fetch("api/products");
       if (response.ok) {
         const fetchedProducts = await response.json();
         setProducts(fetchedProducts);
@@ -64,12 +66,37 @@ export default function ProductProvider(props: PropsWithChildren) {
     }
   };
 
-  const deleteProduct = (productId: string) => {
-    setProducts(products.filter((product) => product._id !== productId));
+  const addNewProduct = async (product: ProductCreate) => {
+    const response = await fetch("/api/products", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(product),
+    });
+
+    if (response.ok) {
+      const newProduct = await response.json();
+      setProducts([...products, newProduct]);
+    } else {
+      console.error("Failed to create new product:", response.status);
+    }
   };
 
-  const addNewProduct = (product: Product) => {
-    setProducts([...products, product]);
+  const deleteProduct = (productId: string) => {
+    fetch(`/api/products/${productId}`, {
+      method: "DELETE",
+    })
+      .then((response) => {
+        if (response.ok) {
+          setProducts(products.filter((product) => product._id !== productId));
+        } else {
+          console.error("Failed to delete product:", response.status);
+        }
+      })
+      .catch((error) => {
+        console.error("Failed to delete product:", error);
+      });
   };
 
   const editProduct = (productId: string, updatedProduct: Product) => {

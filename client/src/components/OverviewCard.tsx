@@ -41,7 +41,7 @@ function OverviewCard({ product }: { product: Product }) {
             maxW='95%'
             maxH='100%'
             m={2}
-            src={product.image}
+            src={product.imageUrl}
             alt={product.name}
           />
         </Link>
