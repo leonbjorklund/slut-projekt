@@ -24,12 +24,14 @@ const CustomerSchema = Yup.object().shape({
   address: Yup.string()
     .min(4)
     .required("Vänligen ange din fullständiga adress"),
-  zipcode: Yup.string().min(5).max(6).required("Vänligen ange ett postnummer"),
+  zipCode: Yup.number().min(5).max(6).required("Vänligen ange ett postnummer"),
   city: Yup.string().min(2).required("Vänligen ange en stad"),
   // email: Yup.string()
   //   .email("Vänligen ange en giltig mejladress")
   //   .required("Vänligen ange din mejladress"),
-  phone: Yup.string().min(10).required("Vänligen ange ditt telefonnummer"),
+  phoneNumber: Yup.number()
+    .min(10)
+    .required("Vänligen ange ditt telefonnummer"),
 });
 
 export type CustomerValues = Yup.InferType<typeof CustomerSchema>;
@@ -42,10 +44,10 @@ function CustomerForm() {
       firstName: "",
       lastName: "",
       address: "",
-      zipcode: "",
+      zipCode: 0,
       city: "",
-      email: "",
-      phone: "",
+      // email: "",
+      phoneNumber: 0,
     },
     validationSchema: CustomerSchema,
     onSubmit: (values) => {
@@ -147,18 +149,18 @@ function CustomerForm() {
                   name='phone'
                   id='phone'
                   autoComplete='tel'
-                  value={formik.values.phone}
+                  value={formik.values.phoneNumber}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-                {formik.touched.phone && formik.errors.phone && (
+                {formik.touched.phoneNumber && formik.errors.phoneNumber && (
                   <Text
                     pl={2}
                     fontSize='sm'
                     data-cy='customer-phone-error'
                     color='red'
                   >
-                    {formik.errors.phone}
+                    {formik.errors.phoneNumber}
                   </Text>
                 )}
               </FormControl>
@@ -209,18 +211,18 @@ function CustomerForm() {
                     name='zipcode'
                     id='zipcode'
                     autoComplete='postal-code'
-                    value={formik.values.zipcode}
+                    value={formik.values.zipCode}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
-                  {formik.touched.zipcode && formik.errors.zipcode && (
+                  {formik.touched.zipCode && formik.errors.zipCode && (
                     <Text
                       pl={2}
                       fontSize='sm'
                       data-cy='customer-zipcode-error'
                       color='red'
                     >
-                      {formik.errors.zipcode}
+                      {formik.errors.zipCode}
                     </Text>
                   )}
                 </FormControl>

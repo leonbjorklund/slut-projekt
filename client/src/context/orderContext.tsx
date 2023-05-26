@@ -23,7 +23,7 @@ export interface Order {
     address: string;
     zipCode: number;
     city: string;
-    phoneNumber: string;
+    phoneNumber: number;
   };
 }
 
