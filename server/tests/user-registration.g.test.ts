@@ -15,7 +15,7 @@ describe("Registering a user (POST)", () => {
 
   it("should be possible to register a user (200)", async () => {
     const response = await request(app)
-      .post("/api/users/register")
+      .post("/api/users/create")
       .set("content-type", "application/json")
       .send({ email: "new-user@plugga.se", password: "123123" });
 
@@ -30,7 +30,7 @@ describe("Registering a user (POST)", () => {
 
   it("should not be possible to register a user with an existsing email (409)", async () => {
     const response = await request(app)
-      .post("/api/users/register")
+      .post("/api/users/create")
       .set("content-type", "application/json")
       .send({ email: "user@plugga.se", password: "123123" });
 
@@ -48,7 +48,7 @@ describe("Registering a user (POST)", () => {
       const faultyUser = { ...user, [key]: false };
 
       const response = await request(app)
-        .post("/api/users/register")
+        .post("/api/users/create")
         .set("content-type", "application/json")
         .send(faultyUser);
 
@@ -64,7 +64,7 @@ describe("Registering a user (POST)", () => {
       delete faultyUser[key];
 
       const response = await request(app)
-        .post("/api/users/register")
+        .post("/api/users/create")
         .set("content-type", "application/json")
         .send(faultyUser);
 
@@ -77,11 +77,11 @@ describe("Registering a user (POST)", () => {
 
   it("should encrypt users password with salt when registering a new user", async () => {
     await request(app)
-      .post("/api/users/register")
+      .post("/api/users/create")
       .set("content-type", "application/json")
       .send({ email: "user1@plugga.se", password: "s3cr3t" });
     await request(app)
-      .post("/api/users/register")
+      .post("/api/users/create")
       .set("content-type", "application/json")
       .send({ email: "user2@plugga.se", password: "s3cr3t" });
 
