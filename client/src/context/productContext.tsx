@@ -6,11 +6,13 @@ import {
   useEffect,
 } from "react";
 
+export type ProductCreate = Omit<Product, "_id" | "imageUrl">;
 export interface Product {
   _id: string;
   name: string;
   description: string;
   image: string;
+  imageUrl: string;
   height: number;
   price: number;
   categories: string[];
@@ -20,7 +22,7 @@ export interface Product {
 interface ProductContextProps {
   products: Product[];
   deleteProduct: (productId: string) => void;
-  addNewProduct: (product: Product) => void;
+  addNewProduct: (product: ProductCreate) => void;
   editProduct: (productId: string, updatedProduct: Product) => void;
 }
 
@@ -52,7 +54,7 @@ export default function ProductProvider(props: PropsWithChildren) {
 
   const getAllProducts = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/products");
+      const response = await fetch("api/products");
       if (response.ok) {
         const fetchedProducts = await response.json();
         setProducts(fetchedProducts);
@@ -64,18 +66,18 @@ export default function ProductProvider(props: PropsWithChildren) {
     }
   };
 
-  const addNewProduct = async () => {
-    const response = await fetch("http://localhost:3000/api/products", {
+  const addNewProduct = async (product: ProductCreate) => {
+    const response = await fetch("/api/products", {
       method: "POST",
-      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
+      body: JSON.stringify(product),
     });
 
     if (response.ok) {
       const newProduct = await response.json();
-      setProducts(newProduct);
+      setProducts([...products, newProduct]);
     } else {
       console.error("Failed to create new product:", response.status);
     }
