@@ -42,7 +42,7 @@ function AdminOrders({ order }: { order: Order }) {
                 alignItems='center'
               >
                 <Heading data-cy='product-title' as='h3' size='sm'>
-                  ORDER NUMBER
+                  Order nr: {order._id}
                 </Heading>
                 <Button
                   data-cy='admin-add-product'
@@ -68,19 +68,19 @@ function AdminOrders({ order }: { order: Order }) {
                 </Text>
               </Flex>
               <Flex direction='column'>
-                <Text mb={2}>CUSTOMER INFO:</Text>
+                <Text mb={1}>CUSTOMER INFO:</Text>
                 <Text>e-mail</Text>
                 <Text>
                   {order.deliveryAddress.firstName}{" "}
                   {order.deliveryAddress.lastName}
                 </Text>
                 <Text>{order.deliveryAddress.address}</Text>
-                <Text>
+                <Text mb={4}>
                   {order.deliveryAddress.zipCode} {order.deliveryAddress.city}
                 </Text>
               </Flex>
               <Flex>
-                <Text mb={2}>ORDER INFO:</Text>
+                <Text mb={1}>ORDER INFO:</Text>
               </Flex>
               <Flex>
                 <Text>1 x</Text> <Text>Gaston vas</Text>

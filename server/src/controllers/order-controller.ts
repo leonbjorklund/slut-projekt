@@ -4,6 +4,7 @@ import { OrderModel } from "../models/order-model";
 
 // Create new order
 export async function createOrder(req: Request, res: Response) {
+  // if(req.session && req.session.user && req.session.user._id){
   const order = await OrderModel.create(req.body);
   await order.save();
 

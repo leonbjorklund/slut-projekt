@@ -26,9 +26,9 @@ const CustomerSchema = Yup.object().shape({
     .required("Vänligen ange din fullständiga adress"),
   zipcode: Yup.string().min(5).max(6).required("Vänligen ange ett postnummer"),
   city: Yup.string().min(2).required("Vänligen ange en stad"),
-  email: Yup.string()
-    .email("Vänligen ange en giltig mejladress")
-    .required("Vänligen ange din mejladress"),
+  // email: Yup.string()
+  //   .email("Vänligen ange en giltig mejladress")
+  //   .required("Vänligen ange din mejladress"),
   phone: Yup.string().min(10).required("Vänligen ange ditt telefonnummer"),
 });
 
@@ -257,7 +257,7 @@ function CustomerForm() {
                 </FormControl>
               </Flex>
 
-              <FormControl>
+              {/* <FormControl>
                 <FormLabel fontSize='sm' mb={0} pl={2}>
                   E-mail:
                 </FormLabel>
@@ -286,7 +286,7 @@ function CustomerForm() {
                     {formik.errors.email}
                   </Text>
                 )}
-              </FormControl>
+              </FormControl> */}
 
               <Center>
                 <Button

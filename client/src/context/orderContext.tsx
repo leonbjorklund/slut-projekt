@@ -11,6 +11,10 @@ import { CartItem, useCart } from "./cartContext";
 export interface Order {
   _id: string;
   createdAt: string;
+  // orderItem: {
+  //   product:
+  //   quantity:
+  // }
   cart: CartItem[];
   formData: CustomerValues;
   totalPrice: number;
@@ -84,17 +88,6 @@ export default function OrderProvider(props: PropsWithChildren) {
       console.error("Failed to fetch products:", error);
     }
   };
-
-  // const getAllOrders = async () => {
-  //   try {
-  //     const response = await fetch("/http://lapi/orders");
-  //     const data = await response.json();
-  //     console.log(data);
-  //     setOrders(data);
-  //   } catch (error) {
-  //     console.error("Error fetching orders:", error);
-  //   }
-  // };
 
   return (
     <OrderContext.Provider
