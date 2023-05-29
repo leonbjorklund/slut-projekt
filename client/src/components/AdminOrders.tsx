@@ -86,7 +86,7 @@ function AdminOrders({ order }: { order: Order }) {
                 {/* Iterate over orderItems array */}
                 {order.orderItems.map((orderItem, index) => (
                   <Flex key={index}>
-                    <Text>{orderItem.quantity} x</Text>
+                    <Text>{orderItem.quantity} </Text>
                     {/* {Object.values(orderItem.product).join(" ")} */}
                     {/* Assuming 'name' is the property you want to display */}
                   </Flex>

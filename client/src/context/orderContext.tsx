@@ -72,9 +72,9 @@ export default function OrderProvider(props: PropsWithChildren) {
     try {
       const response = await fetch("http://localhost:3000/api/orders");
       if (response.ok) {
-        const allOrders = await response.json();
-        // console.log(allOrders);
-        setOrders(allOrders);
+        const data = await response.json();
+        console.log(data);
+        setOrders(data);
       } else {
         console.error("Failed to fetch products:", response.status);
       }
