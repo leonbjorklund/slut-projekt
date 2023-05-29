@@ -4,6 +4,7 @@ import { OrderModel } from "../models/order-model";
 
 // Create new order
 export async function createOrder(req: Request, res: Response) {
+  // if(req.session && req.session.user && req.session.user._id){
   const order = await OrderModel.create(req.body);
   await order.save();
 
@@ -12,7 +13,12 @@ export async function createOrder(req: Request, res: Response) {
 
 // Get all orders
 export async function getAllOrders(req: Request, res: Response) {
-  const orders = await OrderModel.find({}).populate("userId");
+  const orders = await OrderModel.find({}).populate(
+    "userId orderItems.product"
+  );
+
+  console.log(orders);
+
   res.status(200).json(orders);
 }
 

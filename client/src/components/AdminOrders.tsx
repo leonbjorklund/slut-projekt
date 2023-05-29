@@ -3,12 +3,17 @@ import {
   Button,
   Card,
   Flex,
+  Grid,
   Heading,
   Stack,
   Text,
 } from "@chakra-ui/react";
+import { Order } from "../context/orderContext";
 
-function AdminOrders() {
+function AdminOrders({ order }: { order: Order }) {
+  const getStatusText = (isShipped: boolean) => {
+    return isShipped ? "Shipped" : "Not Shipped";
+  };
   return (
     <Card
       data-cy='product'
@@ -41,7 +46,7 @@ function AdminOrders() {
                 alignItems='center'
               >
                 <Heading data-cy='product-title' as='h3' size='sm'>
-                  ORDER NUMBER
+                  Order nr: {order._id}
                 </Heading>
                 <Button
                   data-cy='admin-add-product'
@@ -63,25 +68,34 @@ function AdminOrders() {
               </Flex>
               <Flex>
                 <Text data-cy='product-id' mb={4}>
-                  Date
+                  Date: {order.createdAt}
                 </Text>
               </Flex>
               <Flex direction='column'>
-                <Text mb={2}>CUSTOMER INFO:</Text>
-
-                <Text>e-mail</Text>
-                <Text> Förnamn Efternamn</Text>
-                <Text>Address</Text>
-                <Text mb={4}>Postnr Stad</Text>
+                <Text mb={1}>CUSTOMER INFO:</Text>
+                <Text>{order.userId.email}</Text>
+                <Text>
+                  {order.deliveryAddress.firstName}{" "}
+                  {order.deliveryAddress.lastName}
+                </Text>
+                <Text>{order.deliveryAddress.address}</Text>
+                <Text mb={4}>
+                  {order.deliveryAddress.zipCode} {order.deliveryAddress.city}
+                </Text>
               </Flex>
               <Flex>
-                <Text mb={2}>ORDER INFO:</Text>
+                <Text mb={1}>ORDER INFO:</Text>
               </Flex>
-              <Flex>
-                <Text>1 x </Text> <Text> Gaston vas</Text>
-              </Flex>
+              <Grid templateColumns='1fr' gap={1}>
+                {order.orderItems.map((orderItem, index) => (
+                  <Text key={index}>
+                    {orderItem.product.name} x {""} {orderItem.quantity}
+                  </Text>
+                ))}
+              </Grid>
               <Flex direction='row' justifyContent='space-between'>
-                <Text>Total price:</Text> <Text>Shipping status:</Text>
+                <Text mt='2rem'>Total price:</Text>{" "}
+                <Text>Order Status: {getStatusText(order.isShipped)}</Text>
               </Flex>
             </Box>
           </Flex>

@@ -15,18 +15,23 @@ import * as Yup from "yup";
 import { useOrder } from "../context/orderContext";
 
 const CustomerSchema = Yup.object().shape({
-  name: Yup.string()
-    .min(2, "Namnet måste innehålla minst två bokstäver")
-    .required("Vänligen ange ditt namn"),
+  firstName: Yup.string()
+    .min(2, "Förnamnet måste innehålla minst två bokstäver")
+    .required("Vänligen ange ditt förnamn"),
+  lastName: Yup.string()
+    .min(2, "Efternamnet måste innehålla minst två bokstäver")
+    .required("Vänligen ange ditt efternamn"),
   address: Yup.string()
     .min(4)
     .required("Vänligen ange din fullständiga adress"),
-  zipcode: Yup.string().min(5).max(6).required("Vänligen ange ett postnummer"),
+  zipCode: Yup.number().min(5).max(6).required("Vänligen ange ett postnummer"),
   city: Yup.string().min(2).required("Vänligen ange en stad"),
-  email: Yup.string()
-    .email("Vänligen ange en giltig mejladress")
-    .required("Vänligen ange din mejladress"),
-  phone: Yup.string().min(10).required("Vänligen ange ditt telefonnummer"),
+  // email: Yup.string()
+  //   .email("Vänligen ange en giltig mejladress")
+  //   .required("Vänligen ange din mejladress"),
+  phoneNumber: Yup.number()
+    .min(10)
+    .required("Vänligen ange ditt telefonnummer"),
 });
 
 export type CustomerValues = Yup.InferType<typeof CustomerSchema>;
@@ -36,12 +41,13 @@ function CustomerForm() {
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
-      name: "",
+      firstName: "",
+      lastName: "",
       address: "",
-      zipcode: "",
+      zipCode: 0,
       city: "",
-      email: "",
-      phone: "",
+      // email: "",
+      phoneNumber: 0,
     },
     validationSchema: CustomerSchema,
     onSubmit: (values) => {
@@ -61,73 +67,107 @@ function CustomerForm() {
             borderColor='yellow.400'
           >
             <Stack my={14} spacing={8}>
-              <Flex>
-                <FormControl mr={6}>
-                  <FormLabel fontSize='sm' mb={0} pl={2}>
-                    Namn
-                  </FormLabel>
-                  <Input
-                    data-cy='customer-name'
-                    bg='brand.100'
-                    size='md'
-                    borderRadius='none'
-                    focusBorderColor='blackAlpha.400'
-                    borderColor='blackAlpha.400'
-                    name='name'
-                    type='text'
-                    id='name'
-                    autoComplete='name'
-                    value={formik.values.name}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  />
-                  {formik.touched.name && formik.errors.name && (
-                    <Text
-                      pl={2}
-                      fontSize='sm'
-                      data-cy='customer-name-error'
-                      color='red'
-                    >
-                      {formik.errors.name}
-                    </Text>
-                  )}
-                </FormControl>
-
+              <Flex flexDirection='row'>
                 <FormControl>
                   <FormLabel fontSize='sm' mb={0} pl={2}>
-                    Telefonnummer
+                    Firstname
                   </FormLabel>
+                  <Flex flexDirection='row'>
+                    <Input
+                      data-cy='customer-firstName'
+                      bg='brand.100'
+                      size='md'
+                      borderRadius='none'
+                      focusBorderColor='blackAlpha.400'
+                      borderColor='blackAlpha.400'
+                      name='firstName'
+                      type='text'
+                      id='firstName'
+                      autoComplete='given-name'
+                      value={formik.values.firstName}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                    />
+                    {formik.touched.firstName && formik.errors.firstName && (
+                      <Text
+                        pl={2}
+                        fontSize='sm'
+                        data-cy='customer-firstName-error'
+                        color='red'
+                      >
+                        {formik.errors.firstName}
+                      </Text>
+                    )}
+                  </Flex>
+                </FormControl>
+              </Flex>
+              <FormControl>
+                <FormLabel fontSize='sm' mb={0} pl={2}>
+                  Lastname
+                </FormLabel>
+                <Flex flexDirection='row'>
                   <Input
-                    data-cy='customer-phone'
+                    data-cy='customer-lastName'
                     bg='brand.100'
                     size='md'
                     borderRadius='none'
                     focusBorderColor='blackAlpha.400'
                     borderColor='blackAlpha.400'
                     type='text'
-                    name='phone'
-                    id='phone'
-                    autoComplete='tel'
-                    value={formik.values.phone}
+                    name='lastName'
+                    id='lastName'
+                    autoComplete='family-name'
+                    value={formik.values.lastName}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
-                  {formik.touched.phone && formik.errors.phone && (
+                  {formik.touched.lastName && formik.errors.lastName && (
                     <Text
                       pl={2}
                       fontSize='sm'
-                      data-cy='customer-phone-error'
+                      data-cy='customer-lastName-error'
                       color='red'
                     >
-                      {formik.errors.phone}
+                      {formik.errors.lastName}
                     </Text>
                   )}
-                </FormControl>
-              </Flex>
+                </Flex>
+              </FormControl>
 
               <FormControl>
                 <FormLabel fontSize='sm' mb={0} pl={2}>
-                  Adress
+                  Telephone:
+                </FormLabel>
+                <Input
+                  data-cy='customer-phone'
+                  bg='brand.100'
+                  size='md'
+                  borderRadius='none'
+                  focusBorderColor='blackAlpha.400'
+                  borderColor='blackAlpha.400'
+                  type='text'
+                  name='phone'
+                  id='phone'
+                  autoComplete='tel'
+                  value={formik.values.phoneNumber}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                {formik.touched.phoneNumber && formik.errors.phoneNumber && (
+                  <Text
+                    pl={2}
+                    fontSize='sm'
+                    data-cy='customer-phone-error'
+                    color='red'
+                  >
+                    {formik.errors.phoneNumber}
+                  </Text>
+                )}
+              </FormControl>
+
+              <FormControl>
+                <FormLabel fontSize='sm' mb={0} pl={2}>
+                  Address
                 </FormLabel>
                 <Input
                   data-cy='customer-address'
@@ -158,7 +198,7 @@ function CustomerForm() {
               <Flex>
                 <FormControl mr={6}>
                   <FormLabel fontSize='sm' mb={0} pl={2}>
-                    Postnummer
+                    Zip-code:
                   </FormLabel>
                   <Input
                     data-cy='customer-zipcode'
@@ -171,25 +211,25 @@ function CustomerForm() {
                     name='zipcode'
                     id='zipcode'
                     autoComplete='postal-code'
-                    value={formik.values.zipcode}
+                    value={formik.values.zipCode}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
-                  {formik.touched.zipcode && formik.errors.zipcode && (
+                  {formik.touched.zipCode && formik.errors.zipCode && (
                     <Text
                       pl={2}
                       fontSize='sm'
                       data-cy='customer-zipcode-error'
                       color='red'
                     >
-                      {formik.errors.zipcode}
+                      {formik.errors.zipCode}
                     </Text>
                   )}
                 </FormControl>
 
                 <FormControl>
                   <FormLabel fontSize='sm' mb={0} pl={2}>
-                    Postort
+                    City
                   </FormLabel>
                   <Input
                     data-cy='customer-city'
@@ -219,9 +259,9 @@ function CustomerForm() {
                 </FormControl>
               </Flex>
 
-              <FormControl>
+              {/* <FormControl>
                 <FormLabel fontSize='sm' mb={0} pl={2}>
-                  Mejladdress
+                  E-mail:
                 </FormLabel>
                 <Input
                   data-cy='customer-email'
@@ -248,7 +288,7 @@ function CustomerForm() {
                     {formik.errors.email}
                   </Text>
                 )}
-              </FormControl>
+              </FormControl> */}
 
               <Center>
                 <Button
@@ -262,7 +302,7 @@ function CustomerForm() {
                   h={12}
                   _hover={{ bg: "orange.100" }}
                 >
-                  Slutför beställning
+                  Place order
                 </Button>
               </Center>
             </Stack>

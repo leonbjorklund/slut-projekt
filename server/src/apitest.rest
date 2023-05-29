@@ -7,20 +7,20 @@ Content-Type: application/json
   "userId": "646ca474c8e83762091ed3ad",
   "orderItems": [
     {
-      "product": "646c7a4b63fd50be6e73780b",
+      "product": "64708f9567e7c9141768dd6e",
       "quantity": 2
     },
     {
-      "product": "646c79af63fd50be6e737809",
+      "product": "6470904767e7c9141768dd7a",
       "quantity": 1
     }
   ],
   "deliveryAddress": {
-    "firstName": "John",
-    "lastName": "Doe",
-    "address": "123 Street",
+    "firstName": "Madde",
+    "lastName": "Gustafsson",
+    "address": "123 Gatan",
     "zipCode": 12345,
-    "city": "Göteborg",
+    "city": "Kungälv",
     "phoneNumber": 1234567890
   },
   "isShipped": false
@@ -35,3 +35,13 @@ Content-Type: application/json
 {
   "isShipped": false
 }
+
+### Get all orders
+
+GET http://localhost:3000/api/orders
+
+
+### Get all products
+
+GET http://localhost:3000/api/products
+
