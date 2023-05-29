@@ -40,8 +40,8 @@ function OrderConfirmation() {
         <Text fontSize='1rem' fontWeight={800} textTransform='uppercase' pb={4}>
           Your information:
         </Text>
-        {/* <Flex gap='0.3rem'> */}
-        {/* <Text>{order?.formData.firstName}</Text>
+        {/* <Flex gap='0.3rem'> 
+      <Text>{order?.formData.firstName}</Text>
           <Text>{order?.formData.lastName}</Text>
         </Flex>
         <Text>{order?.formData.address}</Text>
