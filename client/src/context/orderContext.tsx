@@ -150,14 +150,10 @@ export default function OrderProvider(props: PropsWithChildren<any>) {
     <OrderContext.Provider
       value={{
         order,
-
         orders,
-
         handleOrderSubmit,
-
         getAllOrders,
         updateShippingStatus,
-
         getOrdersByUser,
       }}
     >
