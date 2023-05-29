@@ -29,7 +29,10 @@ export async function getOrdersByUser(req: Request, res: Response) {
     const user = await UserModel.findOne({ email: userEmail });
     assert(user !== null, 404, "User not found");
 
-    const orders = await OrderModel.find({ userId: user?._id });
+    const orders = await OrderModel.find({ userId: user?._id }).populate(
+      "userId orderItems.product"
+    );
+
     res.json(orders);
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch orders" });
