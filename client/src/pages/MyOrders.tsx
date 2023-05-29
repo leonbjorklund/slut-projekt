@@ -1,5 +1,14 @@
-import { Box, Center, Flex, Heading, Stack } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Center,
+  Flex,
+  Heading,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import AccessDenied from "../components/AccessDenied";
 import OrderOverview from "../components/OrderOverview";
 import { useAccount } from "../context/accountContext";
@@ -35,10 +44,30 @@ function MyOrders() {
             </Heading>
           </Flex>
           <Stack spacing={6} w='100%'>
-            {orders &&
+            {orders && orders.length > 0 ? (
               orders.map((order, index) => (
                 <OrderOverview key={index} order={order} />
-              ))}
+              ))
+            ) : (
+              <Box textAlign='center'>
+                <Text>You don't have any orders yet</Text>
+                <Link to='/'>
+                  <Button
+                    variant='outline'
+                    colorScheme='yellow'
+                    borderColor='yellow.400'
+                    color='black'
+                    borderRadius='none'
+                    borderWidth='1px'
+                    mt={8}
+                    height='45px'
+                    _hover={{ bg: "orange.100" }}
+                  >
+                    Start shopping
+                  </Button>
+                </Link>
+              </Box>
+            )}
           </Stack>
         </Box>
       </Center>
