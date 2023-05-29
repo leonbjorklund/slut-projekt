@@ -8,12 +8,30 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import { Order } from "../context/orderContext";
+import { Order, useOrder } from "../context/orderContext";
 
 function AdminOrders({ order }: { order: Order }) {
+  const { updateShippingStatus } = useOrder();
+
   const getStatusText = (isShipped: boolean) => {
     return isShipped ? "Shipped" : "Not Shipped";
   };
+
+  const handleMarkAsShipped = async (orderId: string, isShipped: boolean) => {
+    try {
+      await updateShippingStatus(orderId, isShipped);
+    } catch (error) {
+      console.error("Failed to update shipping status:", error);
+    }
+  };
+
+  const createdAtDate = new Date(order.createdAt).toLocaleDateString("sv-SE", {
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+  });
   return (
     <Card
       data-cy='product'
@@ -45,10 +63,19 @@ function AdminOrders({ order }: { order: Order }) {
                 justifyContent='space-between'
                 alignItems='center'
               >
-                <Heading data-cy='product-title' as='h3' size='sm'>
-                  Order nr: {order._id}
+                <Heading
+                  fontFamily='Montserrat'
+                  data-cy='product-title'
+                  as='h3'
+                  size='sm'
+                >
+                  Order no: {order._id}
                 </Heading>
+
                 <Button
+                  onClick={() =>
+                    handleMarkAsShipped(order._id, !order.isShipped)
+                  }
                   data-cy='admin-add-product'
                   colorScheme='yellow'
                   bg='base.100'
@@ -63,28 +90,34 @@ function AdminOrders({ order }: { order: Order }) {
                   h='3rem'
                   _hover={{ bg: "orange.100" }}
                 >
-                  Mark as shipped
+                  {order.isShipped ? "Undo shipping" : "Mark as shipped"}
                 </Button>
               </Flex>
               <Flex>
                 <Text data-cy='product-id' mb={4}>
-                  Date: {order.createdAt}
+                  {createdAtDate}
                 </Text>
               </Flex>
               <Flex direction='column'>
-                <Text mb={1}>CUSTOMER INFO:</Text>
-                <Text>{order.userId.email}</Text>
+                <Text fontWeight='bold' mb={1}>
+                  CUSTOMER INFO:
+                </Text>
+                <Text mb='1rem' textDecoration='underline'>
+                  {order.userId.email}
+                </Text>
                 <Text>
                   {order.deliveryAddress.firstName}{" "}
                   {order.deliveryAddress.lastName}
                 </Text>
                 <Text>{order.deliveryAddress.address}</Text>
-                <Text mb={4}>
+                <Text mb={3}>
                   {order.deliveryAddress.zipCode} {order.deliveryAddress.city}
                 </Text>
               </Flex>
               <Flex>
-                <Text mb={1}>ORDER INFO:</Text>
+                <Text fontWeight='bold' mb={1} mt='2rem'>
+                  ORDER INFO:
+                </Text>
               </Flex>
               <Grid templateColumns='1fr' gap={1}>
                 {order.orderItems.map((orderItem, index) => (
@@ -94,7 +127,9 @@ function AdminOrders({ order }: { order: Order }) {
                 ))}
               </Grid>
               <Flex direction='row' justifyContent='space-between'>
-                <Text mt='2rem'>Total price:</Text>{" "}
+                <Text fontWeight='bold' mt='2rem'>
+                  Total price:
+                </Text>{" "}
                 <Text>Order Status: {getStatusText(order.isShipped)}</Text>
               </Flex>
             </Box>
