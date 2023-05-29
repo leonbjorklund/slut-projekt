@@ -36,38 +36,39 @@ function AdminOrders({ order }: { order: Order }) {
     <Card
       data-cy='product'
       direction={{ base: "column", sm: "row" }}
-      overflow='hidden'
+      // overflow='hidden'
+      width='100%'
       bg='brand.100'
       variant='unstyled'
       my={2}
-      borderBottom='1px'
-      borderColor='blackAlpha.200'
+      borderBottom='2px'
+      borderColor='blackAlpha.500'
       pb={4}
       borderRadius='0'
     >
       <Flex direction={{ base: "column", md: "row" }} flex='1'>
         <Stack
           p={4}
-          justifyContent='space-between'
+          // justifyContent={{ base: "flex-start", md: "space-between" }}
           alignItems='stretch'
           flex='1'
         >
-          <Flex
-            direction='row'
-            justifyContent={{ base: "center", md: "space-between" }}
-          >
+          <Flex direction='row'>
             <Box width='100%'>
               <Flex
-                flexDirection='row'
+                direction={{ base: "column", md: "row" }}
+                // justifyContent='center'
+                flex='1'
                 width='100%'
-                justifyContent='space-between'
-                alignItems='center'
+                justifyContent={{ base: "flex-start", md: "space-between" }}
+                // alignItems='center'
               >
                 <Heading
                   fontFamily='Montserrat'
                   data-cy='product-title'
                   as='h3'
-                  size='sm'
+                  size={{ base: "sm", md: "md" }}
+                  flex='1'
                 >
                   Order no: {order._id}
                 </Heading>
@@ -86,7 +87,9 @@ function AdminOrders({ order }: { order: Order }) {
                   variant='solid'
                   size='sm'
                   w='9rem'
-                  mb={2}
+                  mb={{ base: "5", md: "2" }}
+                  mt={{ base: "5", md: "2" }}
+                  // mb={2}
                   h='3rem'
                   _hover={{ bg: "orange.100" }}
                 >
@@ -99,7 +102,7 @@ function AdminOrders({ order }: { order: Order }) {
                 </Text>
               </Flex>
               <Flex direction='column'>
-                <Text fontWeight='bold' mb={1}>
+                <Text fontWeight='bold' mb={1} mt={{ base: "5" }}>
                   CUSTOMER INFO:
                 </Text>
                 <Text mb='1rem' textDecoration='underline'>
@@ -122,15 +125,25 @@ function AdminOrders({ order }: { order: Order }) {
               <Grid templateColumns='1fr' gap={1}>
                 {order.orderItems.map((orderItem, index) => (
                   <Text key={index}>
-                    {orderItem.product.name} x {""} {orderItem.quantity}
+                    {orderItem.quantity} x {""} {orderItem.product.name}
                   </Text>
                 ))}
               </Grid>
-              <Flex direction='row' justifyContent='space-between'>
+              <Flex
+                direction={{ base: "column", md: "row" }}
+                flex='1'
+                justifyContent='space-between'
+              >
                 <Text fontWeight='bold' mt='2rem'>
                   Total price:
                 </Text>{" "}
-                <Text>Order Status: {getStatusText(order.isShipped)}</Text>
+                <Text
+                  fontSize={{ base: "md", md: "md" }}
+                  mt={{ base: "3", md: "md" }}
+                >
+                  Order status:
+                  <br /> {getStatusText(order.isShipped)}
+                </Text>
               </Flex>
             </Box>
           </Flex>
