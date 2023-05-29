@@ -20,10 +20,8 @@ function AdminOrders({ order }: { order: Order }) {
   const handleMarkAsShipped = async (orderId: string, isShipped: boolean) => {
     try {
       await updateShippingStatus(orderId, isShipped);
-      // Perform any additional actions or state updates
     } catch (error) {
       console.error("Failed to update shipping status:", error);
-      // Handle error case
     }
   };
 
@@ -65,8 +63,13 @@ function AdminOrders({ order }: { order: Order }) {
                 justifyContent='space-between'
                 alignItems='center'
               >
-                <Heading data-cy='product-title' as='h3' size='sm'>
-                  Order nr: {order._id}
+                <Heading
+                  fontFamily='Montserrat'
+                  data-cy='product-title'
+                  as='h3'
+                  size='sm'
+                >
+                  Order no: {order._id}
                 </Heading>
 
                 <Button
@@ -96,7 +99,7 @@ function AdminOrders({ order }: { order: Order }) {
                 </Text>
               </Flex>
               <Flex direction='column'>
-                <Text fontWeight='bold' mb={2}>
+                <Text fontWeight='bold' mb={1}>
                   CUSTOMER INFO:
                 </Text>
                 <Text mb='1rem' textDecoration='underline'>
@@ -107,7 +110,7 @@ function AdminOrders({ order }: { order: Order }) {
                   {order.deliveryAddress.lastName}
                 </Text>
                 <Text>{order.deliveryAddress.address}</Text>
-                <Text mb={4}>
+                <Text mb={3}>
                   {order.deliveryAddress.zipCode} {order.deliveryAddress.city}
                 </Text>
               </Flex>
