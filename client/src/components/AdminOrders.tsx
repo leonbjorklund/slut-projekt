@@ -3,6 +3,7 @@ import {
   Button,
   Card,
   Flex,
+  Grid,
   Heading,
   Stack,
   Text,
@@ -10,6 +11,9 @@ import {
 import { Order } from "../context/orderContext";
 
 function AdminOrders({ order }: { order: Order }) {
+  const getStatusText = (isShipped: boolean) => {
+    return isShipped ? "Shipped" : "Not Shipped";
+  };
   return (
     <Card
       data-cy='product'
@@ -69,7 +73,7 @@ function AdminOrders({ order }: { order: Order }) {
               </Flex>
               <Flex direction='column'>
                 <Text mb={1}>CUSTOMER INFO:</Text>
-                <Text>e-mail</Text>
+                <Text>{order.userId.email}</Text>
                 <Text>
                   {order.deliveryAddress.firstName}{" "}
                   {order.deliveryAddress.lastName}
@@ -82,18 +86,16 @@ function AdminOrders({ order }: { order: Order }) {
               <Flex>
                 <Text mb={1}>ORDER INFO:</Text>
               </Flex>
-              <Flex>
-                {/* Iterate over orderItems array */}
+              <Grid templateColumns='1fr' gap={1}>
                 {order.orderItems.map((orderItem, index) => (
-                  <Flex key={index}>
-                    <Text>{orderItem.quantity} </Text>
-                    {/* {Object.values(orderItem.product).join(" ")} */}
-                    {/* Assuming 'name' is the property you want to display */}
-                  </Flex>
+                  <Text key={index}>
+                    {orderItem.product.name} x {""} {orderItem.quantity}
+                  </Text>
                 ))}
-              </Flex>
+              </Grid>
               <Flex direction='row' justifyContent='space-between'>
-                <Text>Total price:</Text> <Text>Shipping status:</Text>
+                <Text mt='2rem'>Total price:</Text>{" "}
+                <Text>Order Status: {getStatusText(order.isShipped)}</Text>
               </Flex>
             </Box>
           </Flex>

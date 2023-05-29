@@ -13,12 +13,12 @@ function OrderSettings() {
 
   useEffect(() => {
     getAllOrders();
-  }, []);
+  }, [getAllOrders]);
 
   if (!isAdmin) {
     return <AccessDenied />;
   }
-  console.log(orders);
+  // console.log(orders);
 
   return (
     <>
@@ -41,8 +41,6 @@ function OrderSettings() {
           </Heading>
           {orders &&
             orders.map((order, index) => (
-              // <Text key={index}>{order.orderItems}</Text>
-
               <AdminOrders key={index} order={order} />
             ))}
           <Stack spacing={6} w='100%'>

@@ -9,6 +9,10 @@ Content-Type: application/json
     {
       "product": "64708f9567e7c9141768dd6e",
       "quantity": 2
+    },
+    {
+      "product": "6470904767e7c9141768dd7a",
+      "quantity": 1
     }
   ],
   "deliveryAddress": {

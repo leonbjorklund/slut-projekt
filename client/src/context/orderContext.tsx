@@ -25,6 +25,10 @@ export interface Order {
     city: string;
     phoneNumber: number;
   };
+  isShipped: boolean;
+  userId: {
+    email: string;
+  };
 }
 
 interface OrderContextProps {
@@ -58,6 +62,10 @@ export default function OrderProvider(props: PropsWithChildren) {
       totalPrice,
       createdAt: "",
       deliveryAddress,
+      isShipped: false,
+      userId: {
+        email: "",
+      },
     };
 
     setOrder(order);
