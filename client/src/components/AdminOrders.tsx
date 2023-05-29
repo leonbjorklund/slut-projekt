@@ -8,11 +8,23 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import { Order } from "../context/orderContext";
+import { Order, useOrder } from "../context/orderContext";
 
 function AdminOrders({ order }: { order: Order }) {
+  const { updateShippingStatus } = useOrder();
+
   const getStatusText = (isShipped: boolean) => {
     return isShipped ? "Shipped" : "Not Shipped";
+  };
+
+  const handleMarkAsShipped = async (orderId: string, isShipped: boolean) => {
+    try {
+      await updateShippingStatus(orderId, isShipped);
+      // Perform any additional actions or state updates
+    } catch (error) {
+      console.error("Failed to update shipping status:", error);
+      // Handle error case
+    }
   };
   return (
     <Card
@@ -48,7 +60,11 @@ function AdminOrders({ order }: { order: Order }) {
                 <Heading data-cy='product-title' as='h3' size='sm'>
                   Order nr: {order._id}
                 </Heading>
+
                 <Button
+                  onClick={() =>
+                    handleMarkAsShipped(order._id, !order.isShipped)
+                  }
                   data-cy='admin-add-product'
                   colorScheme='yellow'
                   bg='base.100'
@@ -63,7 +79,7 @@ function AdminOrders({ order }: { order: Order }) {
                   h='3rem'
                   _hover={{ bg: "orange.100" }}
                 >
-                  Mark as shipped
+                  {order.isShipped ? "Undo shipping" : "Mark as shipped"}
                 </Button>
               </Flex>
               <Flex>

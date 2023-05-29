@@ -36,13 +36,20 @@ interface OrderContextProps {
   orders?: Order[];
   handleOrderSubmit: (formData: CustomerValues) => void;
   getAllOrders: () => Promise<void>;
+  updateShippingStatus: (orderId: string, isShipped: boolean) => Promise<void>;
 }
 
-const OrderContext = createContext<OrderContextProps>(null as any);
+const OrderContext = createContext<OrderContextProps>({
+  order: undefined,
+  orders: undefined,
+  handleOrderSubmit: () => {},
+  getAllOrders: () => Promise.resolve(),
+  updateShippingStatus: () => Promise.resolve(),
+});
 
 export const useOrder = () => useContext(OrderContext);
 
-export default function OrderProvider(props: PropsWithChildren) {
+export default function OrderProvider(props: PropsWithChildren<any>) {
   const [order, setOrder] = useState<Order>();
   const [orders, setOrders] = useState<Order[]>([]);
   const { cart, clearCart } = useCart();
@@ -72,28 +79,57 @@ export default function OrderProvider(props: PropsWithChildren) {
     clearCart();
   };
 
-  useEffect(() => {
-    getAllOrders();
-  }, []);
-
   const getAllOrders = async () => {
     try {
       const response = await fetch("http://localhost:3000/api/orders");
       if (response.ok) {
         const data = await response.json();
-        // console.log(data);
         setOrders(data);
       } else {
-        console.error("Failed to fetch products:", response.status);
+        console.error("Failed to fetch orders:", response.status);
       }
     } catch (error) {
-      console.error("Failed to fetch products:", error);
+      console.error("Failed to fetch orders:", error);
     }
   };
 
+  const updateShippingStatus = async (orderId: string, isShipped: boolean) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/orders/${orderId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ isShipped }),
+        },
+      );
+
+      if (response.ok) {
+        // Update the local orders state if needed
+        // ...
+      } else {
+        console.error("Failed to update shipping status:", response.status);
+      }
+    } catch (error) {
+      console.error("Failed to update shipping status:", error);
+    }
+  };
+
+  useEffect(() => {
+    getAllOrders();
+  }, []);
+
   return (
     <OrderContext.Provider
-      value={{ order, orders, handleOrderSubmit, getAllOrders }}
+      value={{
+        order,
+        orders,
+        handleOrderSubmit,
+        getAllOrders,
+        updateShippingStatus,
+      }}
     >
       {props.children}
     </OrderContext.Provider>
