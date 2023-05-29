@@ -23,11 +23,16 @@ export async function getAllOrders(req: Request, res: Response) {
 
 // Get orders by user email
 export async function getOrdersByUser(req: Request, res: Response) {
-  const userEmail = req.params.email;
+  const requestedEmail = req.params.email;
+  const authenticatedEmail = req.session?.user?.email;
 
   try {
-    const user = await UserModel.findOne({ email: userEmail });
+    const user = await UserModel.findOne({ email: requestedEmail });
     assert(user !== null, 404, "User not found");
+
+    if (requestedEmail !== authenticatedEmail) {
+      return res.status(403).json({ error: "Unauthorized" });
+    }
 
     const orders = await OrderModel.find({ userId: user?._id }).populate(
       "userId orderItems.product"
