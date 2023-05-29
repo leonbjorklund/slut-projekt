@@ -5,7 +5,7 @@ name: Node.js CI
 
 on:
   push:
-    branches: ["main"]
+    branches: ["60-tests-to-workflow"]
   pull_request:
     branches: ["main"]
 
