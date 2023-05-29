@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { assert } from "../errorHandler";
 import { OrderModel } from "../models/order-model";
+import { UserModel } from "../models/user-model";
 
 // Create new order
 export async function createOrder(req: Request, res: Response) {
@@ -18,6 +19,21 @@ export async function getAllOrders(req: Request, res: Response) {
   );
 
   res.status(200).json(orders);
+}
+
+// Get orders by user email
+export async function getOrdersByUser(req: Request, res: Response) {
+  const userEmail = req.params.email;
+
+  try {
+    const user = await UserModel.findOne({ email: userEmail });
+    assert(user !== null, 404, "User not found");
+
+    const orders = await OrderModel.find({ userId: user?._id });
+    res.json(orders);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch orders" });
+  }
 }
 
 // Get order by Id

@@ -40,6 +40,10 @@ Content-Type: application/json
 
 GET http://localhost:3000/api/orders
 
+### Get orders by user
+
+GET http://localhost:3000/api/orders/user/gabriel@test.nu
+
 
 ### Get all products
 
