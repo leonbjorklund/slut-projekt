@@ -17,8 +17,6 @@ export async function getAllOrders(req: Request, res: Response) {
     "userId orderItems.product"
   );
 
-  console.log(orders);
-
   res.status(200).json(orders);
 }
 
