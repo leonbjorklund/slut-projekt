@@ -83,7 +83,14 @@ function AdminOrders({ order }: { order: Order }) {
                 <Text mb={1}>ORDER INFO:</Text>
               </Flex>
               <Flex>
-                <Text>1 x</Text> <Text>Gaston vas</Text>
+                {/* Iterate over orderItems array */}
+                {order.orderItems.map((orderItem, index) => (
+                  <Flex key={index}>
+                    <Text>{orderItem.quantity} x</Text>
+                    {/* {Object.values(orderItem.product).join(" ")} */}
+                    {/* Assuming 'name' is the property you want to display */}
+                  </Flex>
+                ))}
               </Flex>
               <Flex direction='row' justifyContent='space-between'>
                 <Text>Total price:</Text> <Text>Shipping status:</Text>
