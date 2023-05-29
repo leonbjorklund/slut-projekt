@@ -1,9 +1,9 @@
-import { Box, Card, Flex, Heading, Stack, Text } from "@chakra-ui/react";
+import { Box, Card, Flex, Grid, Heading, Stack, Text } from "@chakra-ui/react";
+import { Order } from "../context/orderContext";
 
-function OrderOverview() {
+function OrderOverview({ order }: { order: Order }) {
   return (
     <Card
-      data-cy='product'
       direction={{ base: "column", sm: "row" }}
       overflow='hidden'
       bg='brand.100'
@@ -26,22 +26,29 @@ function OrderOverview() {
             justifyContent={{ base: "center", md: "space-between" }}
           >
             <Box width='100%'>
-              <Heading data-cy='product-title' as='h3' size='md' mb={2}>
-                ORDER NUMBER
+              <Heading as='h3' size='md' mb={2}>
+                Order Number: {order._id}
               </Heading>
               <Flex>
                 <Text data-cy='product-id' mb={4}>
-                  Date
+                  Date: {order.createdAt}
                 </Text>
               </Flex>
               <Flex>
                 <Text>Order items:</Text>
               </Flex>
-              <Flex>
-                <Text>1 x </Text> <Text> Gaston vas</Text>
-              </Flex>
+              <Grid templateColumns='1fr' gap={1}>
+                {order.orderItems.map((orderItem, index) => (
+                  <Text key={index}>
+                    {orderItem.product.name} x {""} {orderItem.quantity}
+                  </Text>
+                ))}
+              </Grid>
               <Flex direction='row' justifyContent='space-between'>
-                <Text>Total price:</Text> <Text>Shipping status:</Text>
+                <Text>Total price: {order.totalPrice}</Text>{" "}
+                <Text>
+                  Shipping status: {order.isShipped ? "Shipped" : "Not Shipped"}
+                </Text>
               </Flex>
             </Box>
           </Flex>

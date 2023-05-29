@@ -1,7 +1,24 @@
 import { Box, Center, Flex, Heading, Stack } from "@chakra-ui/react";
+import { useEffect } from "react";
+import AccessDenied from "../components/AccessDenied";
 import OrderOverview from "../components/OrderOverview";
+import { useAccount } from "../context/accountContext";
+import { useOrder } from "../context/orderContext";
 
 function MyOrders() {
+  const { user } = useAccount();
+  const { orders, getOrdersByUser } = useOrder();
+
+  useEffect(() => {
+    if (user) {
+      getOrdersByUser(user.email);
+    }
+  }, [user, getOrdersByUser]);
+
+  if (!user) {
+    return <AccessDenied />;
+  }
+
   return (
     <>
       <Center>
@@ -18,7 +35,10 @@ function MyOrders() {
             </Heading>
           </Flex>
           <Stack spacing={6} w='100%'>
-            <OrderOverview />
+            {orders &&
+              orders.map((order, index) => (
+                <OrderOverview key={index} order={order} />
+              ))}
           </Stack>
         </Box>
       </Center>
