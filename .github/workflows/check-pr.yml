@@ -26,6 +26,9 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
           cache-dependency-path: server/package-lock.json
+      - name: MongoDB in GitHub Actions
+        uses: supercharge/mongodb-github-action@1.9.0
+
       - run: cd client && npm ci
       - run: cd server && npm ci
       - run: npm test
