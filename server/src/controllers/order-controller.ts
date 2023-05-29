@@ -17,8 +17,9 @@ export async function getAllOrders(req: Request, res: Response) {
   const orders = await OrderModel.find({}).populate(
     "userId orderItems.product"
   );
+  assert(orders !== null, 404, "Orders not found");
 
-  res.status(200).json(orders || []);
+  res.status(200).json(orders);
 }
 
 // Get orders by user email
@@ -31,7 +32,7 @@ export async function getOrdersByUser(req: Request, res: Response) {
     "userId orderItems.product"
   );
 
-  res.json(orders || []);
+  res.json(orders);
 }
 
 // Get order by Id
