@@ -140,7 +140,7 @@ export default function OrderProvider(props: PropsWithChildren<any>) {
 
   useEffect(() => {
     if (user) {
-      getOrdersByUser(user._id);
+      getOrdersByUser(user.email);
     } else {
       getAllOrders();
     }
