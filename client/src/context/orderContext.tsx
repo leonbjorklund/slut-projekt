@@ -6,6 +6,7 @@ import {
   useState,
 } from "react";
 import { CustomerValues } from "../components/CustomerForm";
+import { useAccount, User } from "./accountContext";
 import { useCart } from "./cartContext";
 import { Product } from "./productContext";
 
@@ -34,8 +35,10 @@ export interface Order {
 interface OrderContextProps {
   order?: Order;
   orders?: Order[];
+  user?: User;
   handleOrderSubmit: (formData: CustomerValues) => void;
   getAllOrders: () => Promise<void>;
+  getOrdersByUser: (userID: string) => Promise<void>;
 }
 
 const OrderContext = createContext<OrderContextProps>(null as any);
@@ -46,6 +49,7 @@ export default function OrderProvider(props: PropsWithChildren) {
   const [order, setOrder] = useState<Order>();
   const [orders, setOrders] = useState<Order[]>([]);
   const { cart, clearCart } = useCart();
+  const { user } = useAccount();
 
   const handleOrderSubmit = (deliveryAddress: CustomerValues) => {
     const orderId = Date.now().toString();
@@ -72,10 +76,6 @@ export default function OrderProvider(props: PropsWithChildren) {
     clearCart();
   };
 
-  useEffect(() => {
-    getAllOrders();
-  }, []);
-
   const getAllOrders = async () => {
     try {
       const response = await fetch("http://localhost:3000/api/orders");
@@ -91,9 +91,39 @@ export default function OrderProvider(props: PropsWithChildren) {
     }
   };
 
+  const getOrdersByUser = async (userID: string) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/orders/${userID}`,
+      );
+      if (response.ok) {
+        const data = await response.json();
+        setOrders(data);
+      } else {
+        console.error("Failed to fetch orders:", response.status);
+      }
+    } catch (error) {
+      console.error("Failed to fetch orders:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (user) {
+      getOrdersByUser(user._id);
+    } else {
+      getAllOrders();
+    }
+  }, [user]);
+
   return (
     <OrderContext.Provider
-      value={{ order, orders, handleOrderSubmit, getAllOrders }}
+      value={{
+        order,
+        orders,
+        handleOrderSubmit,
+        getAllOrders,
+        getOrdersByUser,
+      }}
     >
       {props.children}
     </OrderContext.Provider>
