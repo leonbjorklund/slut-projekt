@@ -5,7 +5,7 @@ import AdminCard from "../components/AdminCard";
 import { useAccount } from "../context/accountContext";
 import { useProducts } from "../context/productContext";
 
-function Admin() {
+function ProductSettings() {
   const { products } = useProducts();
   const { user } = useAccount();
   const isAdmin = user && user.isAdmin;
@@ -26,7 +26,7 @@ function Admin() {
             direction={{ base: "column", md: "row" }}
           >
             <Heading as='h5' size='sm' textTransform='uppercase'>
-              Alla produkter
+              All products
             </Heading>
             <Link to='product/new'>
               <Button
@@ -44,7 +44,7 @@ function Admin() {
                 h='3rem'
                 _hover={{ bg: "orange.100" }}
               >
-                Lägg till ny produkt
+                Add new product
               </Button>
             </Link>
           </Flex>
@@ -59,4 +59,4 @@ function Admin() {
   );
 }
 
-export default Admin;
+export default ProductSettings;

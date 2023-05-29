@@ -9,9 +9,9 @@ import {
 import App from "./App";
 import "./index.css";
 import AddProduct from "./pages/AddProduct";
-import Admin from "./pages/Admin";
+import ProductSettings from "./pages/ProductSettings";
 import Checkout from "./pages/Checkout";
-import Edit from "./pages/Edit";
+import EditProduct from "./pages/EditProduct";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import MyOrders from "./pages/MyOrders";
@@ -32,11 +32,11 @@ const router = createBrowserRouter(
       <Route path='confirmation' element={<OrderConfirmation />} />
       <Route path='orders' element={<MyOrders />} />
       <Route path='admin'>
-        <Route index element={<Admin />} />
+        <Route index element={<ProductSettings />} />
         <Route path='users' element={<UserSettings />} />
         <Route path='orders/settings' element={<OrderSettings />} />
         <Route path='product/new' element={<AddProduct />} />
-        <Route path='product/:id' element={<Edit />} />
+        <Route path='product/:id' element={<EditProduct />} />
       </Route>
     </Route>,
   ),

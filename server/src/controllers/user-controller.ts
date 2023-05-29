@@ -15,7 +15,10 @@ export async function createUser(req: Request, res: Response) {
   const user = await UserModel.create(req.body);
   await user.save();
 
-  return res.status(201).json(user);
+  const userResponse: any = user.toObject();
+  delete userResponse.password;
+
+  return res.status(201).json(userResponse);
 }
 
 export async function loginUser(req: Request, res: Response) {
@@ -33,6 +36,8 @@ export async function loginUser(req: Request, res: Response) {
     email: user!.email,
     isAdmin: user!.isAdmin,
   };
+
+  console.log(user);
 
   res.status(200).json({
     _id: user!.id,

@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import { InferSchemaType, Schema, model } from "mongoose";
+import { InferSchemaType, model, Schema } from "mongoose";
 
 const saltRounds = 10;
 

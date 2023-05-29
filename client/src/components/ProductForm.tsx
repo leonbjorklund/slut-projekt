@@ -1,6 +1,7 @@
 import {
-  Box,
   Button,
+  Checkbox,
+  CheckboxGroup,
   Flex,
   FormControl,
   FormLabel,
@@ -8,70 +9,92 @@ import {
   InputGroup,
   InputRightAddon,
   Text,
+  Textarea,
 } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
-import { Product } from "../context/productContext";
+import { Product, ProductCreate } from "../context/productContext";
 
 const ProductSchema = Yup.object().shape({
-  title: Yup.string().required("Vänligen ange ett produktnamn"),
-  description: Yup.string().required("Vänligen ange en beskrivning"),
+  name: Yup.string().required("Please provide a productname"),
+  description: Yup.string().required("Please provide a description"),
   price: Yup.number()
-    .positive("Ange ett pris över 0")
-    .required("Vänligen ange ett pris"),
-  image: Yup.string().url("Ogiltig url").required("Vänligen lägg till en bild"),
+    .positive("Price must be higher than 0")
+    .required("Please add a price"),
+  image: Yup.string().required("Please add a valid image"),
+  categories: Yup.array()
+    .min(1, "Choose at least one category")
+    .required("Choose at least one category"),
+  inStock: Yup.number().required("Choose stock quantitys"),
 });
 
 interface Props {
   product?: Product;
-  onSubmit: (product: Product) => void;
+  onSubmit: (product: ProductCreate) => void;
 }
 
 function ProductForm({ product, onSubmit }: Props) {
   const navigate = useNavigate();
-  const formik = useFormik<Product>({
+
+  const formik = useFormik<ProductCreate>({
     initialValues: product || {
-      _id: Date.now().toString(),
       name: "" as string,
       description: "" as string,
       price: 1 as number,
       image: "",
       height: 10 as number,
-      categories: [""],
+      categories: [],
       inStock: 0 as number,
     },
     validationSchema: ProductSchema,
     onSubmit: (values) => {
       onSubmit(values);
+      console.log("Submitting");
       navigate("/admin");
     },
   });
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
-    // const file = e.target.files[0];
-    // Skicka file till api:et med formData
-    // Få tillbaka ett id
-    const id = "244353521";
-    formik.setFieldValue("image", id);
-    // Ev lägg till en loader
+
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append("image", file);
+
+    console.log("Before fetch");
+
+    const response = await fetch("/api/file", {
+      method: "POST",
+      body: formData,
+    });
+
+    console.log("After fetch");
+
+    if (response.ok) {
+      const id = await response.json();
+      console.log(id);
+      formik.setFieldValue("image", id);
+    } else {
+      console.log("Error to fetch id");
+    }
   };
 
   return (
     <form onSubmit={formik.handleSubmit} data-cy='product-form'>
-      <Box>
+      <Flex direction='row'>
         <Flex direction='column' align='center'>
-          <Flex pb={4} direction={{ base: "column", md: "row" }}>
+          <Flex pb={4} w='100%' direction={{ base: "column", md: "row" }}>
             <FormControl mr={4}>
-              <FormLabel>Titel:</FormLabel>
+              <FormLabel fontSize='sm'>Name:</FormLabel>
               <Input
                 data-cy='product-title'
-                bg='whiteAlpha.900'
-                size='md'
+                size='sm'
                 type='text'
-                name='title'
-                id='title'
+                name='name'
+                id='name'
+                borderRadius='none'
+                borderColor='blackAlpha.400'
                 focusBorderColor='yellow.400'
                 value={formik.values.name}
                 onChange={formik.handleChange}
@@ -85,20 +108,27 @@ function ProductForm({ product, onSubmit }: Props) {
             </FormControl>
 
             <FormControl>
-              <FormLabel>Höjd:</FormLabel>
+              <FormLabel fontSize='sm'>Height:</FormLabel>
               <InputGroup>
                 <Input
-                  bg='whiteAlpha.900'
-                  size='md'
+                  size='sm'
                   type='text'
                   name='height'
                   id='height'
+                  borderRadius='none'
+                  borderColor='blackAlpha.400'
                   focusBorderColor='yellow.400'
                   value={formik.values.height}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-                <InputRightAddon bg='brand.100' children='cm' />
+                <InputRightAddon
+                  borderRadius='none'
+                  bg='brand.100'
+                  children='cm'
+                  borderColor='blackAlpha.400'
+                  height='xxs'
+                />
               </InputGroup>
               {formik.touched.height && formik.errors.height && (
                 <Text color='red' fontSize='xs'>
@@ -108,43 +138,18 @@ function ProductForm({ product, onSubmit }: Props) {
             </FormControl>
           </Flex>
 
-          <Flex pb={4} flexDir={{ base: "column", md: "row" }}>
-            <FormControl mr={4}>
-              <FormLabel>Pris:</FormLabel>
-              <InputGroup>
-                <Input
-                  data-cy='product-price'
-                  bg='whiteAlpha.900'
-                  size='md'
-                  type='text'
-                  name='price'
-                  id='price'
-                  focusBorderColor='yellow.400'
-                  value={formik.values.price}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
-                <InputRightAddon bg='brand.100' children='SEK' />
-              </InputGroup>
-              {formik.touched.price && formik.errors.price && (
-                <Text data-cy='product-price-error' fontSize='xs' color='red'>
-                  {formik.errors.price}
-                </Text>
-              )}
-            </FormControl>
-
+          <Flex pb={4} w='100%' direction={{ base: "column", md: "row" }}>
             <FormControl>
-              <FormLabel>Bild URL:</FormLabel>
+              <FormLabel fontSize='sm'>Image:</FormLabel>
               <Input
                 data-cy='product-image'
-                bg='whiteAlpha.900'
-                size='md'
+                size='sm'
                 type='file'
                 name='image'
                 id='image'
-                focusBorderColor='yellow.400'
-                value={formik.values.image}
-                onChange={formik.handleChange}
+                borderRadius='none'
+                border='none'
+                onChange={handleImageUpload}
                 onBlur={formik.handleBlur}
               />
 
@@ -156,30 +161,113 @@ function ProductForm({ product, onSubmit }: Props) {
             </FormControl>
           </Flex>
 
-          <FormControl>
-            <FormLabel>Beskrivning:</FormLabel>
-            <Input
-              data-cy='product-description'
-              bg='whiteAlpha.900'
-              size='md'
-              type='text'
-              name='description'
-              id='description'
-              focusBorderColor='yellow.400'
-              value={formik.values.description}
-              onChange={handleImageUpload} // Gör en separat on change som anropar databas
-              onBlur={formik.handleBlur}
-            />
-            {formik.touched.description && formik.errors.description && (
-              <Text
-                data-cy='product-description-error'
-                fontSize='xs'
-                color='red'
+          <Flex w='100%' pb={4} flexDir={{ base: "column", md: "row" }}>
+            <FormControl mr={4}>
+              <FormLabel fontSize='sm'>Price:</FormLabel>
+              <InputGroup>
+                <Input
+                  data-cy='product-price'
+                  size='sm'
+                  type='text'
+                  name='price'
+                  id='price'
+                  borderRadius='none'
+                  borderColor='blackAlpha.400'
+                  focusBorderColor='yellow.400'
+                  value={formik.values.price}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                <InputRightAddon
+                  borderColor='blackAlpha.400'
+                  borderRadius='none'
+                  bg='brand.100'
+                  children='SEK'
+                  height='xxs'
+                  fontSize='sm'
+                />
+              </InputGroup>
+              {formik.touched.price && formik.errors.price && (
+                <Text data-cy='product-price-error' fontSize='xs' color='red'>
+                  {formik.errors.price}
+                </Text>
+              )}
+            </FormControl>
+            <FormControl mr={4}>
+              <FormLabel fontSize='sm'>Stock quantity:</FormLabel>
+              <Input
+                size='sm'
+                type='text'
+                name='inStock'
+                id='inStock'
+                borderRadius='none'
+                borderColor='blackAlpha.400'
+                focusBorderColor='yellow.400'
+                value={formik.values.inStock}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+              />
+              {formik.touched.inStock && formik.errors.inStock && (
+                <Text fontSize='xs' color='red'>
+                  {formik.errors.inStock}
+                </Text>
+              )}
+            </FormControl>
+          </Flex>
+
+          <Flex w='100%' pb={4} direction={{ base: "column", md: "row" }}>
+            <FormControl>
+              <FormLabel fontSize='sm'>Categories:</FormLabel>
+              <CheckboxGroup
+                onChange={(selectedCategories) =>
+                  formik.setFieldValue("categories", selectedCategories)
+                }
+                value={formik.values.categories}
               >
-                {formik.errors.description}
-              </Text>
-            )}
-          </FormControl>
+                <Flex direction='row'>
+                  <Checkbox value='glass'>Glass</Checkbox>
+                  <Checkbox value='ceramic'>Ceramic</Checkbox>
+                </Flex>
+              </CheckboxGroup>
+              {formik.touched.categories && formik.errors.categories && (
+                <Text
+                  data-cy='product-categories-error'
+                  fontSize='xs'
+                  color='red'
+                >
+                  {formik.errors.categories}
+                </Text>
+              )}
+            </FormControl>
+          </Flex>
+
+          <Flex w='100%' direction={{ base: "column", md: "row" }}>
+            <FormControl>
+              <FormLabel fontSize='sm'>Description:</FormLabel>
+              <Textarea
+                data-cy='product-description'
+                placeholder='Add you description here..'
+                size='sm'
+                borderRadius='none'
+                name='description'
+                id='description'
+                borderColor='blackAlpha.400'
+                focusBorderColor='yellow.400'
+                value={formik.values.description}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+              />
+              {formik.touched.description && formik.errors.description && (
+                <Text
+                  data-cy='product-description-error'
+                  fontSize='xs'
+                  color='red'
+                >
+                  {formik.errors.description}
+                </Text>
+              )}
+            </FormControl>
+          </Flex>
 
           <Flex py={8}>
             <Button
@@ -193,7 +281,7 @@ function ProductForm({ product, onSubmit }: Props) {
               mr={24}
               _hover={{ bg: "orange.100" }}
             >
-              Spara
+              Save
             </Button>
             <Link to='/admin'>
               <Button
@@ -202,15 +290,16 @@ function ProductForm({ product, onSubmit }: Props) {
                 color='black'
                 borderRadius='none'
                 borderWidth='1px'
+                type='button'
                 w={28}
                 _hover={{ bg: "orange.100" }}
               >
-                Avbryt
+                Exit
               </Button>
             </Link>
           </Flex>
         </Flex>
-      </Box>
+      </Flex>
     </form>
   );
 }

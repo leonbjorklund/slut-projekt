@@ -23,7 +23,7 @@ function OrderCard({ cart }: OrderCardProps) {
           w='40%'
         >
           <Box>
-            <Image src={item.image} maxW='100px' maxH='100%' m={2} />
+            <Image src={item.imageUrl} maxW='100px' maxH='100%' m={2} />
           </Box>
           <CardBody px={6}>
             <Flex flexDirection='column' justifyContent='center' h='100%'>
