@@ -26,6 +26,14 @@ function AdminOrders({ order }: { order: Order }) {
       // Handle error case
     }
   };
+
+  const createdAtDate = new Date(order.createdAt).toLocaleDateString("sv-SE", {
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+  });
   return (
     <Card
       data-cy='product'
@@ -84,12 +92,16 @@ function AdminOrders({ order }: { order: Order }) {
               </Flex>
               <Flex>
                 <Text data-cy='product-id' mb={4}>
-                  Date: {order.createdAt}
+                  {createdAtDate}
                 </Text>
               </Flex>
               <Flex direction='column'>
-                <Text mb={1}>CUSTOMER INFO:</Text>
-                <Text>{order.userId.email}</Text>
+                <Text fontWeight='bold' mb={2}>
+                  CUSTOMER INFO:
+                </Text>
+                <Text mb='1rem' textDecoration='underline'>
+                  {order.userId.email}
+                </Text>
                 <Text>
                   {order.deliveryAddress.firstName}{" "}
                   {order.deliveryAddress.lastName}
@@ -100,7 +112,9 @@ function AdminOrders({ order }: { order: Order }) {
                 </Text>
               </Flex>
               <Flex>
-                <Text mb={1}>ORDER INFO:</Text>
+                <Text fontWeight='bold' mb={1} mt='2rem'>
+                  ORDER INFO:
+                </Text>
               </Flex>
               <Grid templateColumns='1fr' gap={1}>
                 {order.orderItems.map((orderItem, index) => (
@@ -110,7 +124,9 @@ function AdminOrders({ order }: { order: Order }) {
                 ))}
               </Grid>
               <Flex direction='row' justifyContent='space-between'>
-                <Text mt='2rem'>Total price:</Text>{" "}
+                <Text fontWeight='bold' mt='2rem'>
+                  Total price:
+                </Text>{" "}
                 <Text>Order Status: {getStatusText(order.isShipped)}</Text>
               </Flex>
             </Box>
