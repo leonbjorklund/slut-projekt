@@ -21,9 +21,9 @@ export interface Order {
     firstName: string;
     lastName: string;
     address: string;
-    zipCode: number;
+    zipCode: string;
     city: string;
-    phoneNumber: number;
+    phoneNumber: string;
   };
   isShipped: boolean;
   userId: {
