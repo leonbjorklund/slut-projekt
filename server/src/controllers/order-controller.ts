@@ -14,6 +14,12 @@ export async function createOrder(req: Request, res: Response) {
 
 // Get all orders
 export async function getAllOrders(req: Request, res: Response) {
+  const authenticatedUser = req.session?.user;
+
+  if (!authenticatedUser || !authenticatedUser.isAdmin) {
+    return res.status(403).json({ error: "Unauthorized" });
+  }
+
   const orders = await OrderModel.find({}).populate(
     "userId orderItems.product"
   );
