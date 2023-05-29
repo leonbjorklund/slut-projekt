@@ -13,12 +13,12 @@ function OrderSettings() {
 
   useEffect(() => {
     getAllOrders();
-  }, [getAllOrders]);
+  }, []);
 
   if (!isAdmin) {
     return <AccessDenied />;
   }
-  // console.log(orders);
+  console.log(orders);
 
   return (
     <>

@@ -7,12 +7,8 @@ Content-Type: application/json
   "userId": "646ca474c8e83762091ed3ad",
   "orderItems": [
     {
-      "product": "646c7a4b63fd50be6e73780b",
+      "product": "64708f9567e7c9141768dd6e",
       "quantity": 2
-    },
-    {
-      "product": "646c79af63fd50be6e737809",
-      "quantity": 1
     }
   ],
   "deliveryAddress": {
@@ -39,3 +35,9 @@ Content-Type: application/json
 ### Get all orders
 
 GET http://localhost:3000/api/orders
+
+
+### Get all products
+
+GET http://localhost:3000/api/products
+
