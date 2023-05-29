@@ -21,6 +21,7 @@ const theme = extendTheme({
 });
 
 function App() {
+  // testar
   return (
     <ProductProvider>
       <AccountProvider>
