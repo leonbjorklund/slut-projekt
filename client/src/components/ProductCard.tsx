@@ -55,7 +55,7 @@ function ProductCard({ product }: { product: Product }) {
                 {product.name}
               </Heading>
               <Text margin='3px 10px 10px 10px'>
-                Höjd: {product.height}
+                Height: {product.height}
                 <Text as='span' fontSize='sm'>
                   &nbsp;cm
                 </Text>
@@ -95,7 +95,7 @@ function ProductCard({ product }: { product: Product }) {
                         p={3}
                         bg='white'
                       >
-                        {product.name} har lagts till i varukorgen!
+                        {product.name} has been added to the cart!
                       </Box>
                     ),
                   });
@@ -112,7 +112,7 @@ function ProductCard({ product }: { product: Product }) {
                 _hover={{ bg: "yellow.400" }}
                 m={{ base: "10px", sm: "2px" }}
               >
-                Lägg till i varukorgen
+                Add to cart
               </Button>
             </CardFooter>
           </Stack>
