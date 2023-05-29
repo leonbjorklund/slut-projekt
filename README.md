@@ -34,7 +34,7 @@ Projektarbetets betyg beror på er givna idépresentation tillsammans med ert re
 
 - [ ] En besökare ska kunna beställa produkter från sidan, detta ska uppdatera lagersaldot i databasen (G)
 - [ ] Administratörer ska kunna uppdatera antalet produkter i lager från admin delen av sidan (G)
-- [ ] Administratörer ska kunna se en lista på alla gjorda beställningar (G)
+- [x] Administratörer ska kunna se en lista på alla gjorda beställningar (G)
 - [x] Sidans produkter ska delas upp i kategorier, en produkt ska tillhöra minst en kategori, men kan tillhöra flera (G)
 
   _Categories sparas som en array på serversidan, enum används för att specificera vilka kategorier som är tillåtna._
@@ -58,7 +58,7 @@ Projektarbetets betyg beror på er givna idépresentation tillsammans med ert re
 
   _På adminsidan under User Settings listas samtliga användare och man kan härifrån uppgradera konton till Admin-konton_
 
-- [ ] Administratörer ska kunna markera beställningar som skickade (VG)
+- [x] Administratörer ska kunna markera beställningar som skickade (VG)
 
 ## Redovisningar
 

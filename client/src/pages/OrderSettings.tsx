@@ -35,10 +35,6 @@ function OrderSettings() {
               Order settings
             </Heading>
           </Flex>
-
-          <Heading as='h6' size='md' mb={4}>
-            Orders
-          </Heading>
           {orders &&
             orders.map((order, index) => (
               <AdminOrders key={index} order={order} />
