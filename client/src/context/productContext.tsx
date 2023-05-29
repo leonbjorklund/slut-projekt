@@ -23,7 +23,7 @@ interface ProductContextProps {
   products: Product[];
   deleteProduct: (productId: string) => void;
   addNewProduct: (product: ProductCreate) => void;
-  editProduct: (productId: string, updatedProduct: Product) => void;
+  editProduct: (productId: string, updatedProduct: ProductCreate) => void;
 }
 
 const defaultProductContext: ProductContextProps = {
@@ -99,12 +99,32 @@ export default function ProductProvider(props: PropsWithChildren) {
       });
   };
 
-  const editProduct = (productId: string, updatedProduct: Product) => {
-    setProducts(
-      products.map((product) =>
-        product._id === productId ? updatedProduct : product,
-      ),
-    );
+  const editProduct = async (
+    productId: string,
+    updatedProduct: ProductCreate,
+  ) => {
+    try {
+      const response = await fetch(`/api/products/${productId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedProduct),
+      });
+
+      if (response.ok) {
+        const updatedProductData = await response.json();
+        setProducts((prevProducts) =>
+          prevProducts.map((product) =>
+            product._id === productId ? updatedProductData : product,
+          ),
+        );
+      } else {
+        console.error("Failed to update product:", response.status);
+      }
+    } catch (error) {
+      console.error("Failed to update product:", error);
+    }
   };
 
   return (
