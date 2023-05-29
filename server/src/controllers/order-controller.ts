@@ -16,6 +16,9 @@ export async function getAllOrders(req: Request, res: Response) {
   const orders = await OrderModel.find({}).populate(
     "userId orderItems.product"
   );
+
+  console.log(orders);
+
   res.status(200).json(orders);
 }
 
