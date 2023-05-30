@@ -40,7 +40,7 @@ function OrderOverview({ order }: { order: Order }) {
               <Grid templateColumns='1fr' gap={1}>
                 {order.orderItems.map((orderItem, index) => (
                   <Text key={index}>
-                    {orderItem.product.name} x {""} {orderItem.quantity}
+                    {orderItem.product?.name} x {""} {orderItem.quantity}
                   </Text>
                 ))}
               </Grid>

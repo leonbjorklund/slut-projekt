@@ -120,9 +120,9 @@ function AdminOrders({ order }: { order: Order }) {
                 </Text>
               </Flex>
               <Grid templateColumns='1fr' gap={1}>
-                {order.orderItems.map((orderItem, index) => (
+                {order?.orderItems.map((orderItem, index) => (
                   <Text key={index}>
-                    {orderItem.product.name} x {""} {orderItem.quantity}
+                    {orderItem.product?.name} x {""} {orderItem.quantity}
                   </Text>
                 ))}
               </Grid>
