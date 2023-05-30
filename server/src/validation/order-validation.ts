@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { z } from "zod";
 
+//Validation create new order
+
 const addressSchema = z.object({
   firstName: z.string().min(1).max(100),
   lastName: z.string().min(1).max(100),
@@ -42,6 +44,8 @@ export function validateCreateOrder(
   }
 }
 
+// Validation updateshippingstatus
+
 const updateShippingStatusSchema = z.object({
   isShipped: z.boolean(),
 });
@@ -53,7 +57,7 @@ export function validateUpdateShippingStatus(
 ) {
   const validationResult = updateShippingStatusSchema.safeParse(req.body);
   if (validationResult.success) {
-    req.body = validationResult.data; // Update the request body with the validated data
+    req.body = validationResult.data;
     next();
   } else {
     const errorMessages = validationResult.error.errors.map(
