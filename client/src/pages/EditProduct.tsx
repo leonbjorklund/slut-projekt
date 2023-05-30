@@ -1,18 +1,18 @@
 import { Box, Center, Heading } from "@chakra-ui/react";
-// import { useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import AccessDenied from "../components/AccessDenied";
-// import ProductForm from "../components/ProductForm";
+import ProductForm from "../components/ProductForm";
 import { useAccount } from "../context/accountContext";
-// import { Product, useProducts } from "../context/productContext";
+import { ProductCreate, useProducts } from "../context/productContext";
 
 function EditProduct() {
-  // const { products, editProduct } = useProducts();
-  // // const params = useParams();
-  // // const editProductInfo = products.find((product) => product._id === params.id);
+  const { products, editProduct } = useProducts();
+  const params = useParams();
+  const editProductInfo = products.find((product) => product._id === params.id);
 
-  // // const handleSubmit = (updatedProduct: Product) => {
-  // //   editProduct(params.id as string, updatedProduct);
-  // // };
+  const handleSubmit = (updatedProduct: ProductCreate) => {
+    editProduct(params.id as string, updatedProduct);
+  };
 
   const { user } = useAccount();
   const isAdmin = user?.isAdmin;
@@ -29,7 +29,7 @@ function EditProduct() {
             Edit product
           </Heading>
         </Center>
-        {/* <ProductForm product={editProductInfo} onSubmit={handleSubmit} /> */}
+        <ProductForm product={editProductInfo} onSubmit={handleSubmit} />
       </Box>
     </Center>
   );
