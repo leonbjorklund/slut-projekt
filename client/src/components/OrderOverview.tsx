@@ -2,10 +2,18 @@ import { Box, Card, Flex, Grid, Heading, Stack, Text } from "@chakra-ui/react";
 import { Order } from "../context/orderContext";
 
 function OrderOverview({ order }: { order: Order }) {
+  const createdAtDate = new Date(order.createdAt).toLocaleDateString("sv-SE", {
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+  });
+
   return (
     <Card
       direction={{ base: "column", sm: "row" }}
-      overflow='hidden'
+      width='100%'
       bg='brand.100'
       variant='unstyled'
       my={2}
@@ -26,12 +34,26 @@ function OrderOverview({ order }: { order: Order }) {
             justifyContent={{ base: "center", md: "space-between" }}
           >
             <Box width='100%'>
-              <Heading as='h3' size='md' mb={2}>
-                Order Number: {order._id}
-              </Heading>
+              <Flex>
+                <Heading
+                  fontFamily='Montserrat'
+                  data-cy='product-title'
+                  as='h3'
+                  size={{ base: "sm", md: "md" }}
+                  flex='1'
+                  mb={2}
+                >
+                  ORDER NUMBER: {order._id}
+                </Heading>
+              </Flex>
+              <Flex>
+                <Text fontWeight='bold' mb={2}>
+                  Shipping status: {order.isShipped ? "Shipped" : "Not Shipped"}
+                </Text>
+              </Flex>
               <Flex>
                 <Text data-cy='product-id' mb={4}>
-                  Date: {order.createdAt}
+                  {createdAtDate}
                 </Text>
               </Flex>
               <Flex>
@@ -40,15 +62,12 @@ function OrderOverview({ order }: { order: Order }) {
               <Grid templateColumns='1fr' gap={1}>
                 {order.orderItems.map((orderItem, index) => (
                   <Text key={index}>
-                    {orderItem.product?.name} x {""} {orderItem.quantity}
+                    {orderItem.quantity} x {""} {orderItem.product?.name}
                   </Text>
                 ))}
               </Grid>
               <Flex direction='row' justifyContent='space-between'>
                 <Text>Total price: {order.totalPrice}</Text>{" "}
-                <Text>
-                  Shipping status: {order.isShipped ? "Shipped" : "Not Shipped"}
-                </Text>
               </Flex>
             </Box>
           </Flex>
