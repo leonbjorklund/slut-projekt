@@ -10,13 +10,15 @@ import { useAccount, User } from "./accountContext";
 import { useCart } from "./cartContext";
 import { Product } from "./productContext";
 
+export interface OrderItem {
+  product: Product;
+  quantity: number;
+}
+
 export interface Order {
   _id: string;
   createdAt: string;
-  orderItems: {
-    product: Product;
-    quantity: number;
-  }[];
+  orderItems: OrderItem[];
   totalPrice: number;
   deliveryAddress: {
     firstName: string;
