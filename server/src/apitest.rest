@@ -18,9 +18,7 @@ Content-Type: application/json
   "deliveryAddress": {
     "firstName": "Madde",
     "lastName": "Gustafsson",
-    "address": "123 Gatan",
     "zipCode": 12345,
-    "city": "Kungälv",
     "phoneNumber": 1234567890
   },
   "isShipped": false
@@ -44,4 +42,14 @@ GET http://localhost:3000/api/orders
 ### Get all products
 
 GET http://localhost:3000/api/products
+
+### Log in
+
+POST http://localhost:3000/api/users/login
+Content-Type: application/json
+
+{
+ "email":"madde@gmail.com",
+ "password":"123456789"
+}
 
