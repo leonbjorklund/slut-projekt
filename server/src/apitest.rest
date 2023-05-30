@@ -7,10 +7,12 @@ Content-Type: application/json
   "userId": "646ca474c8e83762091ed3ad",
   "orderItems": [
     {
-      
+      "product": "64708f9567e7c9141768dd6e",
+      "quantity": 2
     },
     {
-      
+      "product": "6470904767e7c9141768dd7a",
+      "quantity": 1
     }
   ],
   "deliveryAddress": {
@@ -18,20 +20,21 @@ Content-Type: application/json
     "lastName": "Gustafsson",
     "address": "gatan 23",
     "zipCode": 12345,
-    "city": "göteborg",
-    "phoneNumber": 1234567890
+  "city": "göteborg",
+  "phoneNumber": 1234567890
+    
   },
   "isShipped": false
 }
 
 
-### Create new order
+### Update shipping status
 
-PUT http://localhost:3000/api/orders/646b73000217b84af04a4857
+PUT http://localhost:3000/api/orders/6475c6e304d49fc187ae3760
 Content-Type: application/json
 
 {
-  "isShipped": false
+  "isShipped": 2
 }
 
 ### Get all orders
