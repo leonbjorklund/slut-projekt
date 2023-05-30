@@ -5,8 +5,19 @@ import { UserModel } from "../models/user-model";
 
 // Create new order
 export async function createOrder(req: Request, res: Response) {
-  // if(req.session && req.session.user && req.session.user._id){
-  const order = await OrderModel.create(req.body);
+  // Check if the user is logged in
+  if (!req.session || !req.session.user || !req.session.user._id) {
+    return res.status(401).json({ message: "Unauthorized. Please log in." });
+  }
+
+  const userId = req.session.user._id;
+
+  const orderData = {
+    ...req.body,
+    userId: userId,
+  };
+
+  const order = await OrderModel.create(orderData);
   await order.save();
 
   return res.status(201).json(order);

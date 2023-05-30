@@ -4,7 +4,7 @@ POST http://localhost:3000/api/orders
 Content-Type: application/json
 
 {
-  "userId": "646ca474c8e83762091ed3ad",
+ 
   "orderItems": [
     {
       "product": "64708f9567e7c9141768dd6e",
@@ -18,7 +18,7 @@ Content-Type: application/json
   "deliveryAddress": {
    "firstName": "Madde",
     "lastName": "Gustafsson",
-    "address": "gatan 23",
+    "address": "Gatan 23",
     "zipCode": 12345,
   "city": "göteborg",
   "phoneNumber": 1234567890
@@ -33,7 +33,7 @@ PUT http://localhost:3000/api/orders/6475c6e304d49fc187ae3760
 Content-Type: application/json
 
 {
-  "isShipped": 2
+ "isShipped": true
 }
 
 ### Get all orders
@@ -58,4 +58,11 @@ Content-Type: application/json
  "email":"madde@gmail.com",
  "password":"123456789"
 }
+
+### Sign out
+
+POST http://localhost:3000/api/users/signout
+Content-Type: application/json
+
+
 

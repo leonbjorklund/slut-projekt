@@ -21,7 +21,7 @@ const orderItemSchema = z.object({
 });
 
 const orderSchema = z.object({
-  userId: z.string().min(1),
+  // userId: z.string().min(1),
   orderItems: z.array(orderItemSchema).min(1),
   deliveryAddress: addressSchema,
   isShipped: z.boolean(),
@@ -44,7 +44,7 @@ export function validateCreateOrder(
   }
 }
 
-// Validation updateshippingstatus
+// Validation update shipping status
 
 const updateShippingStatusSchema = z.object({
   isShipped: z.boolean(),
