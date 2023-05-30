@@ -17,8 +17,8 @@ function OrderOverview({ order }: { order: Order }) {
       bg='brand.100'
       variant='unstyled'
       my={2}
-      borderBottom='1px'
-      borderColor='blackAlpha.200'
+      borderBottom='2px'
+      borderColor='blackAlpha.500'
       pb={4}
       borderRadius='0'
     >
@@ -47,17 +47,19 @@ function OrderOverview({ order }: { order: Order }) {
                 </Heading>
               </Flex>
               <Flex>
-                <Text fontWeight='bold' mb={2}>
-                  Shipping status: {order.isShipped ? "Shipped" : "Not Shipped"}
-                </Text>
-              </Flex>
-              <Flex>
-                <Text data-cy='product-id' mb={4}>
+                <Text data-cy='product-id' mb={2}>
                   {createdAtDate}
                 </Text>
               </Flex>
               <Flex>
-                <Text>Order items:</Text>
+                <Text fontWeight='bold' mb={4}>
+                  Shipping status: {order.isShipped ? "Shipped" : "Not Shipped"}
+                </Text>
+              </Flex>
+              <Flex>
+                <Text fontWeight='bold' mb={1} mt='2rem'>
+                  ORDER INFO:
+                </Text>
               </Flex>
               <Grid templateColumns='1fr' gap={1}>
                 {order.orderItems.map((orderItem, index) => (
@@ -67,7 +69,9 @@ function OrderOverview({ order }: { order: Order }) {
                 ))}
               </Grid>
               <Flex direction='row' justifyContent='space-between'>
-                <Text>Total price: {order.totalPrice}</Text>{" "}
+                <Text fontWeight='bold' mt='2rem'>
+                  Total price:
+                </Text>
               </Flex>
             </Box>
           </Flex>
