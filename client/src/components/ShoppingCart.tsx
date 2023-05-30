@@ -15,7 +15,7 @@ function ShoppingCart() {
     <Box py={6}>
       <Center>
         <Heading as='h3' size='md' p='4' textTransform='uppercase'>
-          Your cart
+          YOUR SHOPPING CART
         </Heading>
       </Center>
 

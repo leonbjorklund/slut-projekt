@@ -30,8 +30,8 @@ function OrderCard({ cart }: OrderCardProps) {
               <Text fontSize={18} pb={4}>
                 {item.name}
               </Text>
-              <Text fontSize={14}>Antal: {item.quantity} st</Text>
-              <Text fontSize={14}>Pris: {item.price} SEK</Text>
+              <Text fontSize={14}>Quantity: {item.quantity} </Text>
+              <Text fontSize={14}>Price: {item.price} SEK</Text>
             </Flex>
           </CardBody>
         </Card>
