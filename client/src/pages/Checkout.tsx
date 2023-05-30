@@ -14,10 +14,12 @@ function Checkout() {
       <Center>
         <Flex flexDir='column' py={24} alignItems='center'>
           <Heading size='md' p='4' textTransform='uppercase'>
-            Vad tråkigt...
+            Oh no..
           </Heading>
-          <Text>..att din varukorg är tom.</Text>
-          <Text>Det kan du ändra på genom att kika på våra produkter.</Text>
+          <Text>..your cart is empty.</Text>
+          <Text>
+            But don't fear, we have tons of vases that would love it here.
+          </Text>
           <Link to='/'>
             <Button
               variant='outline'
