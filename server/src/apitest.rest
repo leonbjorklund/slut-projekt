@@ -4,28 +4,21 @@ POST http://localhost:3000/api/orders
 Content-Type: application/json
 
 {
-  "userId": "646ca474c8e83762091ed3ad",
-  "orderItems": [
-    {
-      "product": "64708f9567e7c9141768dd6e",
-      "quantity": 2
-    },
-    {
-      "product": "6470904767e7c9141768dd7a",
-      "quantity": 1
-    }
-  ],
-  "deliveryAddress": {
-    "firstName": "Madde",
-    "lastName": "Gustafsson",
-    "address": "123 Gatan",
-    "zipCode": 12345,
-    "city": "Kungälv",
-    "phoneNumber": 1234567890
-  },
-  "isShipped": false
+"userId": "646b7c535de1a425be53772a", "orderItems": [
+
+{
+"product": "64708f9567e7c9141768dd6e", "quantity": 2
+}, {
+
+"product": "6470904767e7c9141768dd7a", "quantity": 1
 }
 
+], "deliveryAddress": {
+
+"firstName": "Gabriel", "lastName": "Lugo", "address": "Gatan 123", "zipCode": 12345, "city": "Göteborg", "phoneNumber": 1234567890
+}, "isShipped": false
+
+}
 
 ### Create new order
 
@@ -39,6 +32,10 @@ Content-Type: application/json
 ### Get all orders
 
 GET http://localhost:3000/api/orders
+
+### Get orders by user
+
+GET http://localhost:3000/api/orders/gabriel@test.nu
 
 
 ### Get all products

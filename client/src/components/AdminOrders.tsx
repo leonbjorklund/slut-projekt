@@ -36,7 +36,6 @@ function AdminOrders({ order }: { order: Order }) {
     <Card
       data-cy='product'
       direction={{ base: "column", sm: "row" }}
-      // overflow='hidden'
       width='100%'
       bg='brand.100'
       variant='unstyled'
@@ -117,7 +116,7 @@ function AdminOrders({ order }: { order: Order }) {
                 </Text>
               </Flex>
               <Grid templateColumns='1fr' gap={1}>
-                {order.orderItems.map((orderItem, index) => (
+                {order?.orderItems.map((orderItem, index) => (
                   <Text key={index}>
                     {orderItem.quantity} x {""} {orderItem.product?.name}
                   </Text>

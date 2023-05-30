@@ -53,7 +53,7 @@ Projektarbetets betyg beror på er givna idépresentation tillsammans med ert re
 
   _Testerna kontrollerar att det på serversidan går att skapa användare, att lösenordet krypteras, att det går att logga in och logga ut_
 
-- [ ] När man är inloggad som kund ska man kunna se sina gjorda beställning och om det är skickade eller inte (VG)
+- [x] När man är inloggad som kund ska man kunna se sina gjorda beställning och om det är skickade eller inte (VG)
 - [x] Administratörer ska kunna redigera produkt inklusive vilka kategorier den tillhör (VG)
 
   _Löst genom att återanvända samma formulär som för att lägga till en ny produkt, där den valda produktens values tilldelas varje input fält._
