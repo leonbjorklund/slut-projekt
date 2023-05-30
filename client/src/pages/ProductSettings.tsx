@@ -17,7 +17,7 @@ function ProductSettings() {
   return (
     <>
       <Center>
-        <Box w='50%' py={8}>
+        <Box w={{ base: "90%", md: "80%", lg: "60%" }} py={8}>
           <Flex
             justifyContent='space-between'
             alignItems='center'
@@ -25,12 +25,11 @@ function ProductSettings() {
             borderBottom='1px solid black'
             direction={{ base: "column", md: "row" }}
           >
-            <Heading as='h5' size='sm' textTransform='uppercase'>
+            <Heading as='h5' size='sm' textTransform='uppercase' mb={2}>
               All products
             </Heading>
             <Link to='product/new'>
               <Button
-                data-cy='admin-add-product'
                 colorScheme='yellow'
                 bg='base.100'
                 borderColor='yellow.400'
