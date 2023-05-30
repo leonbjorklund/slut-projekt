@@ -1,5 +1,6 @@
-import { Box, Center, Heading, Text } from "@chakra-ui/react";
+import { Box, Center, Flex, Heading, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import OrderCard from "../components/OrderCard";
 import { Order, useOrder } from "../context/orderContext";
 
 interface OrderData extends Order {
@@ -44,8 +45,8 @@ function OrderConfirmation() {
         pb={2}
       >
         <Text fontSize='1.1rem'>Order number: {orderData?._id}</Text>
-        {/* </Box>
-      {order?.cart.map((cartItem) => (
+      </Box>
+      {order?.orderItems.map((cartItem) => (
         <Box key={cartItem._id} w='100%'>
           <Center>
             <OrderCard cart={[cartItem]} />
@@ -67,15 +68,15 @@ function OrderConfirmation() {
         <Text fontSize='1rem' fontWeight={800} textTransform='uppercase' pb={4}>
           Your information:
         </Text>
-        {/* <Flex gap='0.3rem'>
-      <Text>{order?.formData.firstName}</Text>
-          <Text>{order?.formData.lastName}</Text>
+        <Flex gap='0.3rem'>
+          <Text>{order?.deliveryAddress.firstName}</Text>
+          <Text>{order?.deliveryAddress.lastName}</Text>
         </Flex>
-        <Text>{order?.formData.address}</Text>
-        <Text>{order?.formData.zipcode}</Text>
-        <Text>{order?.formData.city}</Text>
-        <Text pt={2}>{order?.formData.email}</Text>
-        <Text>{order?.formData.phone}</Text> */}
+        <Text>{order?.deliveryAddress.address}</Text>
+        <Text>{order?.deliveryAddress.zipCode}</Text>
+        <Text>{order?.deliveryAddress.city}</Text>
+        {/* <Text pt={2}>{order?.deliveryAddress.email}</Text> */}
+        <Text>{order?.deliveryAddress.phone}</Text>
       </Box>
     </Center>
   );
