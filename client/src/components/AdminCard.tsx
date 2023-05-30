@@ -19,7 +19,6 @@ function AdminCard({ product }: { product: Product }) {
       data-cy='product'
       key={product._id}
       direction={{ base: "column", sm: "row" }}
-      overflow='hidden'
       bg='brand.100'
       variant='unstyled'
       my={2}
@@ -67,7 +66,7 @@ function AdminCard({ product }: { product: Product }) {
                 </Text>
               </Flex>
               <Flex>
-                <Text fontWeight='bold'>Pris:&nbsp;</Text>
+                <Text fontWeight='bold'>Price:&nbsp;</Text>
                 <Text data-cy='product-price' mb={3}>
                   {product.price}
                   <Text as='span' fontSize='xs'>
