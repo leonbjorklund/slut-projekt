@@ -47,12 +47,7 @@ function AdminOrders({ order }: { order: Order }) {
       borderRadius='0'
     >
       <Flex direction={{ base: "column", md: "row" }} flex='1'>
-        <Stack
-          p={4}
-          // justifyContent={{ base: "flex-start", md: "space-between" }}
-          alignItems='stretch'
-          flex='1'
-        >
+        <Stack p={4} alignItems='stretch' flex='1'>
           <Flex direction='row'>
             <Box width='100%'>
               <Flex
@@ -89,7 +84,6 @@ function AdminOrders({ order }: { order: Order }) {
                   w='9rem'
                   mb={{ base: "5", md: "2" }}
                   mt={{ base: "5", md: "2" }}
-                  // mb={2}
                   h='3rem'
                   _hover={{ bg: "orange.100" }}
                 >
