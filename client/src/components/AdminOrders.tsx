@@ -57,21 +57,21 @@ function AdminOrders({ order }: { order: Order }) {
             <Box width='100%'>
               <Flex
                 direction={{ base: "column", md: "row" }}
-                // justifyContent='center'
                 flex='1'
                 width='100%'
                 justifyContent={{ base: "flex-start", md: "space-between" }}
-                // alignItems='center'
               >
-                <Heading
-                  fontFamily='Montserrat'
-                  data-cy='product-title'
-                  as='h3'
-                  size={{ base: "sm", md: "md" }}
-                  flex='1'
-                >
-                  Order no: {order._id}
-                </Heading>
+                <Flex alignItems='center'>
+                  <Heading
+                    fontFamily='Montserrat'
+                    data-cy='product-title'
+                    as='h3'
+                    size={{ base: "sm", md: "md" }}
+                    flex='1'
+                  >
+                    ORDER NO: {order._id}
+                  </Heading>
+                </Flex>
 
                 <Button
                   onClick={() =>
@@ -97,7 +97,7 @@ function AdminOrders({ order }: { order: Order }) {
                 </Button>
               </Flex>
               <Flex>
-                <Text data-cy='product-id' mb={4}>
+                <Text data-cy='product-id' mb={2}>
                   {createdAtDate}
                 </Text>
               </Flex>
@@ -125,7 +125,7 @@ function AdminOrders({ order }: { order: Order }) {
               <Grid templateColumns='1fr' gap={1}>
                 {order.orderItems.map((orderItem, index) => (
                   <Text key={index}>
-                    {orderItem.quantity} x {""} {orderItem.product.name}
+                    {orderItem.quantity} x {""} {orderItem.product?.name}
                   </Text>
                 ))}
               </Grid>
