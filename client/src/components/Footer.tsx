@@ -22,7 +22,8 @@ function Footer() {
       borderColor='blackAlpha.200'
       width='100%'
       py={12}
-      px={20}
+      px={28}
+      justifyContent='space-between'
       direction={{ base: "column", md: "row" }}
       textAlign={{ base: "center", md: "left" }}
     >
@@ -35,20 +36,25 @@ function Footer() {
         <Link>Terms and conditions</Link>
         <Link>FAQ</Link>
       </Flex>
-      <Center>
+      <Center
+        display={{ base: "none", md: "block" }}
+        position='absolute'
+        left='50%'
+        transform='translateX(-50%)'
+        pl={{ base: "25px", sm: "0" }}
+      >
         <Image
-          py={{ base: 4, md: 0 }}
           src='/logo.svg'
-          maxWidth='150px'
+          maxWidth={{ base: "120px", md: "150px" }}
           maxHeight='100%'
         />
       </Center>
 
-      <Flex justifySelf='flex-end' direction='column'>
-        <Text fontSize='lg' pb={2}>
+      <Flex justifySelf='flex-end' direction='column' pt={{ base: 4, md: 0 }}>
+        <Text fontSize='lg' pb={2} display={{ base: "none", md: "block" }}>
           Social media
         </Text>
-        <Flex justifyContent='space-between'>
+        <Flex justifyContent={{ base: "center", md: "space-between" }}>
           <Link>
             <Icon boxSize={6} as={SlSocialInstagram} />
           </Link>
