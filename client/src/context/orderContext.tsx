@@ -86,7 +86,7 @@ export default function OrderProvider(props: PropsWithChildren<any>) {
 
   const getAllOrders = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/orders");
+      const response = await fetch("/api/orders");
       if (response.ok) {
         const data = await response.json();
         setOrders(data);
@@ -100,16 +100,13 @@ export default function OrderProvider(props: PropsWithChildren<any>) {
 
   const updateShippingStatus = async (orderId: string, isShipped: boolean) => {
     try {
-      const response = await fetch(
-        `http://localhost:3000/api/orders/${orderId}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ isShipped }),
+      const response = await fetch(`/api/orders/${orderId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
         },
-      );
+        body: JSON.stringify({ isShipped }),
+      });
 
       if (response.ok) {
         // Update the local orders state if needed
@@ -124,9 +121,7 @@ export default function OrderProvider(props: PropsWithChildren<any>) {
 
   const getOrdersByUser = async (userID: string) => {
     try {
-      const response = await fetch(
-        `http://localhost:3000/api/orders/${userID}`,
-      );
+      const response = await fetch(`/api/orders/${userID}`);
       if (response.ok) {
         const data = await response.json();
         setOrders(data);
