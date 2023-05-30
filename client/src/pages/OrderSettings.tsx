@@ -1,4 +1,4 @@
-import { Box, Center, Flex, Heading, Stack } from "@chakra-ui/react";
+import { Box, Center, Flex, Heading } from "@chakra-ui/react";
 import { useEffect } from "react";
 import AccessDenied from "../components/AccessDenied";
 import AdminOrders from "../components/AdminOrders";
@@ -8,7 +8,6 @@ import { useOrder } from "../context/orderContext";
 function OrderSettings() {
   const { user } = useAccount();
   const isAdmin = user?.isAdmin;
-
   const { orders, getAllOrders } = useOrder();
 
   useEffect(() => {
@@ -18,12 +17,11 @@ function OrderSettings() {
   if (!isAdmin) {
     return <AccessDenied />;
   }
-  // console.log(orders);
 
   return (
     <>
       <Center>
-        <Box w='50%' py={8}>
+        <Box w='70%' py={8}>
           <Flex
             justifyContent='center'
             alignItems='center'
@@ -36,12 +34,9 @@ function OrderSettings() {
             </Heading>
           </Flex>
           {orders &&
-            orders.map((order, index) => (
+            orders?.map((order, index) => (
               <AdminOrders key={index} order={order} />
             ))}
-          <Stack spacing={6} w='100%'>
-            {/* <AdminOrders /> */}
-          </Stack>
         </Box>
       </Center>
     </>

@@ -7,7 +7,7 @@ import { useCart } from "../context/cartContext";
 import DropdownMenu from "./DropdownMenu";
 
 function Header() {
-  const { cart } = useCart();
+  const { cart, clearCart } = useCart();
   const { user, signout } = useAccount();
   const location = useLocation();
   const showLoginButton =
@@ -17,6 +17,9 @@ function Header() {
 
   const totalQuantity = cart.reduce((total, item) => total + item.quantity, 0);
 
+  const handleSignOutClick = () => {
+    signout(), clearCart();
+  };
   return (
     <Flex
       justifyContent='flex-end'
@@ -50,7 +53,7 @@ function Header() {
           <Button
             bg='none'
             _hover={{ bg: "none", textDecoration: "underline" }}
-            onClick={() => signout()}
+            onClick={() => handleSignOutClick()}
           >
             Sign Out
           </Button>

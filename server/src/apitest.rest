@@ -27,7 +27,6 @@ Content-Type: application/json
   "isShipped": false
 }
 
-
 ### Update shipping status
 
 PUT http://localhost:3000/api/orders/6475c6e304d49fc187ae3760
@@ -40,6 +39,10 @@ Content-Type: application/json
 ### Get all orders
 
 GET http://localhost:3000/api/orders
+
+### Get orders by user
+
+GET http://localhost:3000/api/orders/gabriel@test.nu
 
 
 ### Get all products
