@@ -1,7 +1,9 @@
 import { Box, Card, Flex, Grid, Heading, Stack, Text } from "@chakra-ui/react";
 import { Order } from "../context/orderContext";
+import useCalculateTotalPrice from "../hooks/useCalculateTotalPrice";
 
 function OrderOverview({ order }: { order: Order }) {
+  const totalPrice = useCalculateTotalPrice(order.orderItems);
   const createdAtDate = new Date(order.createdAt).toLocaleDateString("sv-SE", {
     year: "numeric",
     month: "numeric",
@@ -70,7 +72,7 @@ function OrderOverview({ order }: { order: Order }) {
               </Grid>
               <Flex direction='row' justifyContent='space-between'>
                 <Text fontWeight='bold' mt='2rem'>
-                  Total price:
+                  Total price: {totalPrice} SEK
                 </Text>
               </Flex>
             </Box>

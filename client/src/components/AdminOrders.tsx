@@ -9,8 +9,11 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { Order, useOrder } from "../context/orderContext";
+import useCalculateTotalPrice from "../hooks/useCalculateTotalPrice";
 
 function AdminOrders({ order }: { order: Order }) {
+  const totalPrice = useCalculateTotalPrice(order.orderItems);
+
   const { updateShippingStatus } = useOrder();
 
   const getStatusText = (isShipped: boolean) => {
@@ -128,7 +131,7 @@ function AdminOrders({ order }: { order: Order }) {
                 justifyContent='space-between'
               >
                 <Text fontWeight='bold' mt='2rem'>
-                  Total price:
+                  Total price: {totalPrice} SEK
                 </Text>{" "}
                 <Text
                   fontSize={{ base: "md", md: "md" }}
