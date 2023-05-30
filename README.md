@@ -33,8 +33,11 @@ Projektarbetets betyg beror på er givna idépresentation tillsammans med ert re
   _Lösenorden krypteras med bcrypt_
 
 - [ ] En besökare ska kunna beställa produkter från sidan, detta ska uppdatera lagersaldot i databasen (G)
-- [ ] Administratörer ska kunna uppdatera antalet produkter i lager från admin delen av sidan (G)
-- [ ] Administratörer ska kunna se en lista på alla gjorda beställningar (G)
+- [x] Administratörer ska kunna uppdatera antalet produkter i lager från admin delen av sidan (G)
+
+  _In stock kan hanteras i samband med att man uppdaterar hela produkten_
+
+- [x] Administratörer ska kunna se en lista på alla gjorda beställningar (G)
 - [x] Sidans produkter ska delas upp i kategorier, en produkt ska tillhöra minst en kategori, men kan tillhöra flera (G)
 
   _Categories sparas som en array på serversidan, enum används för att specificera vilka kategorier som är tillåtna._
@@ -51,14 +54,17 @@ Projektarbetets betyg beror på er givna idépresentation tillsammans med ert re
   _Testerna kontrollerar att det på serversidan går att skapa användare, att lösenordet krypteras, att det går att logga in och logga ut_
 
 - [ ] När man är inloggad som kund ska man kunna se sina gjorda beställning och om det är skickade eller inte (VG)
-- [ ] Administratörer ska kunna redigera produkt inklusive vilka kategorier den tillhör (VG)
+- [x] Administratörer ska kunna redigera produkt inklusive vilka kategorier den tillhör (VG)
+
+  _Löst genom att återanvända samma formulär som för att lägga till en ny produkt, där den valda produktens values tilldelas varje input fält._
+
 - [x] Administratörer ska kunna lägga till och ta bort produkter (VG)
 - [x] Backendapplikationen ska ha en fungerande global felhantering (VG)
 - [x] En administratör ska kunna uppgradera en användare till administratör (VG)
 
   _På adminsidan under User Settings listas samtliga användare och man kan härifrån uppgradera konton till Admin-konton_
 
-- [ ] Administratörer ska kunna markera beställningar som skickade (VG)
+- [x] Administratörer ska kunna markera beställningar som skickade (VG)
 
 ## Redovisningar
 

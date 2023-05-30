@@ -49,12 +49,10 @@ function AlertDialogDelete({ productId }: Props) {
         <AlertDialogOverlay>
           <AlertDialogContent>
             <AlertDialogHeader fontSize='lg' fontWeight='bold'>
-              Är du säker på att du vill ta bort produkten?
+              Are you sure you want to delete this product?
             </AlertDialogHeader>
 
-            <AlertDialogBody>
-              Du kan inte ångra ditt val efter att du tagit bort en produkt
-            </AlertDialogBody>
+            <AlertDialogBody>You can not undo this action.</AlertDialogBody>
 
             <AlertDialogFooter>
               <Button

@@ -77,7 +77,7 @@ function OverviewCard({ product }: { product: Product }) {
                     p={3}
                     bg='white'
                   >
-                    {product.name} har lagts till i varukorgen!
+                    {product.name} has been added to the cart!
                   </Box>
                 ),
               });

@@ -1,4 +1,4 @@
-import { Box, Center, Flex, Heading, Stack } from "@chakra-ui/react";
+import { Box, Center, Flex, Heading } from "@chakra-ui/react";
 import { useEffect } from "react";
 import AccessDenied from "../components/AccessDenied";
 import AdminOrders from "../components/AdminOrders";
@@ -23,7 +23,7 @@ function OrderSettings() {
   return (
     <>
       <Center>
-        <Box w='50%' py={8}>
+        <Box w='70%' py={8}>
           <Flex
             justifyContent='center'
             alignItems='center'
@@ -35,17 +35,10 @@ function OrderSettings() {
               Order settings
             </Heading>
           </Flex>
-
-          <Heading as='h6' size='md' mb={4}>
-            Orders
-          </Heading>
           {orders &&
             orders.map((order, index) => (
               <AdminOrders key={index} order={order} />
             ))}
-          <Stack spacing={6} w='100%'>
-            {/* <AdminOrders /> */}
-          </Stack>
         </Box>
       </Center>
     </>

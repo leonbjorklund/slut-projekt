@@ -8,47 +8,70 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import { Order } from "../context/orderContext";
+import { Order, useOrder } from "../context/orderContext";
 
 function AdminOrders({ order }: { order: Order }) {
+  const { updateShippingStatus } = useOrder();
+
   const getStatusText = (isShipped: boolean) => {
     return isShipped ? "Shipped" : "Not Shipped";
   };
+
+  const handleMarkAsShipped = async (orderId: string, isShipped: boolean) => {
+    try {
+      await updateShippingStatus(orderId, isShipped);
+    } catch (error) {
+      console.error("Failed to update shipping status:", error);
+    }
+  };
+
+  const createdAtDate = new Date(order.createdAt).toLocaleDateString("sv-SE", {
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+  });
   return (
     <Card
       data-cy='product'
       direction={{ base: "column", sm: "row" }}
-      overflow='hidden'
+      // overflow='hidden'
+      width='100%'
       bg='brand.100'
       variant='unstyled'
       my={2}
-      borderBottom='1px'
-      borderColor='blackAlpha.200'
+      borderBottom='2px'
+      borderColor='blackAlpha.500'
       pb={4}
       borderRadius='0'
     >
       <Flex direction={{ base: "column", md: "row" }} flex='1'>
-        <Stack
-          p={4}
-          justifyContent='space-between'
-          alignItems='stretch'
-          flex='1'
-        >
-          <Flex
-            direction='row'
-            justifyContent={{ base: "center", md: "space-between" }}
-          >
+        <Stack p={4} alignItems='stretch' flex='1'>
+          <Flex direction='row'>
             <Box width='100%'>
               <Flex
-                flexDirection='row'
+                direction={{ base: "column", md: "row" }}
+                flex='1'
                 width='100%'
-                justifyContent='space-between'
-                alignItems='center'
+                justifyContent={{ base: "flex-start", md: "space-between" }}
               >
-                <Heading data-cy='product-title' as='h3' size='sm'>
-                  Order nr: {order._id}
-                </Heading>
+                <Flex alignItems='center'>
+                  <Heading
+                    fontFamily='Montserrat'
+                    data-cy='product-title'
+                    as='h3'
+                    size={{ base: "sm", md: "md" }}
+                    flex='1'
+                  >
+                    ORDER NO: {order._id}
+                  </Heading>
+                </Flex>
+
                 <Button
+                  onClick={() =>
+                    handleMarkAsShipped(order._id, !order.isShipped)
+                  }
                   data-cy='admin-add-product'
                   colorScheme='yellow'
                   bg='base.100'
@@ -59,43 +82,62 @@ function AdminOrders({ order }: { order: Order }) {
                   variant='solid'
                   size='sm'
                   w='9rem'
-                  mb={2}
+                  mb={{ base: "5", md: "2" }}
+                  mt={{ base: "5", md: "2" }}
                   h='3rem'
                   _hover={{ bg: "orange.100" }}
                 >
-                  Mark as shipped
+                  {order.isShipped ? "Undo shipping" : "Mark as shipped"}
                 </Button>
               </Flex>
               <Flex>
-                <Text data-cy='product-id' mb={4}>
-                  Date: {order.createdAt}
+                <Text data-cy='product-id' mb={2}>
+                  {createdAtDate}
                 </Text>
               </Flex>
               <Flex direction='column'>
-                <Text mb={1}>CUSTOMER INFO:</Text>
-                <Text>{order.userId.email}</Text>
+                <Text fontWeight='bold' mb={1} mt={{ base: "5" }}>
+                  CUSTOMER INFO:
+                </Text>
+                <Text mb='1rem' textDecoration='underline'>
+                  {order.userId.email}
+                </Text>
                 <Text>
                   {order.deliveryAddress.firstName}{" "}
                   {order.deliveryAddress.lastName}
                 </Text>
                 <Text>{order.deliveryAddress.address}</Text>
-                <Text mb={4}>
+                <Text mb={3}>
                   {order.deliveryAddress.zipCode} {order.deliveryAddress.city}
                 </Text>
               </Flex>
               <Flex>
-                <Text mb={1}>ORDER INFO:</Text>
+                <Text fontWeight='bold' mb={1} mt='2rem'>
+                  ORDER INFO:
+                </Text>
               </Flex>
               <Grid templateColumns='1fr' gap={1}>
                 {order.orderItems.map((orderItem, index) => (
                   <Text key={index}>
-                    {orderItem.product.name} x {""} {orderItem.quantity}
+                    {orderItem.quantity} x {""} {orderItem.product?.name}
                   </Text>
                 ))}
               </Grid>
-              <Flex direction='row' justifyContent='space-between'>
-                <Text mt='2rem'>Total price:</Text>{" "}
-                <Text>Order Status: {getStatusText(order.isShipped)}</Text>
+              <Flex
+                direction={{ base: "column", md: "row" }}
+                flex='1'
+                justifyContent='space-between'
+              >
+                <Text fontWeight='bold' mt='2rem'>
+                  Total price:
+                </Text>{" "}
+                <Text
+                  fontSize={{ base: "md", md: "md" }}
+                  mt={{ base: "3", md: "md" }}
+                >
+                  Order status:
+                  <br /> {getStatusText(order.isShipped)}
+                </Text>
               </Flex>
             </Box>
           </Flex>
