@@ -52,24 +52,44 @@ function AdminCard({ product }: { product: Product }) {
                 {product.name}
               </Heading>
               <Flex>
-                <Text>Id:&nbsp; </Text>
-                <Text data-cy='product-id' mb={4}>
+                <Text fontWeight='bold'>Product id:&nbsp; </Text>
+                <Text data-cy='product-id' mb={3}>
                   {product._id}
                 </Text>
               </Flex>
               <Flex>
-                <Text>Höjd:&nbsp;</Text>
-                <Text mb={4}>
+                <Text fontWeight='bold'>Height:&nbsp;</Text>
+                <Text mb={3}>
                   {product.height}
-                  <Text as='span' fontSize='sm'></Text>
+                  <Text as='span' fontSize='xs'>
+                    &nbsp;cm
+                  </Text>
                 </Text>
               </Flex>
               <Flex>
-                <Text>Pris:&nbsp;</Text>
-                <Text data-cy='product-price' mb={4}>
+                <Text fontWeight='bold'>Pris:&nbsp;</Text>
+                <Text data-cy='product-price' mb={3}>
                   {product.price}
                   <Text as='span' fontSize='xs'>
                     &nbsp;SEK
+                  </Text>
+                </Text>
+              </Flex>
+              <Flex>
+                <Text fontWeight='bold'>Categories:&nbsp;</Text>
+                <Text mb={3}>
+                  {product.categories}
+                  <Text as='span' fontSize='sm'>
+                    &nbsp;
+                  </Text>
+                </Text>
+              </Flex>
+              <Flex>
+                <Text fontWeight='bold'>In stock:&nbsp;</Text>
+                <Text mb={3}>
+                  {product.inStock}
+                  <Text as='span' fontSize='sm'>
+                    &nbsp;items
                   </Text>
                 </Text>
               </Flex>
