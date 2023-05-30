@@ -36,7 +36,6 @@ function AdminOrders({ order }: { order: Order }) {
     <Card
       data-cy='product'
       direction={{ base: "column", sm: "row" }}
-      // overflow='hidden'
       width='100%'
       bg='brand.100'
       variant='unstyled'
