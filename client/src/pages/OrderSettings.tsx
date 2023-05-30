@@ -36,7 +36,7 @@ function OrderSettings() {
             </Heading>
           </Flex>
           {orders &&
-            orders.map((order, index) => (
+            orders?.map((order, index) => (
               <AdminOrders key={index} order={order} />
             ))}
           <Stack spacing={6} w='100%'>
