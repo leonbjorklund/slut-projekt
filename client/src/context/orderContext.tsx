@@ -6,11 +6,12 @@ import {
   useState,
 } from "react";
 import { CustomerValues } from "../components/CustomerForm";
+import { useAccount } from "./accountContext";
 import { useCart } from "./cartContext";
 import { Product } from "./productContext";
 
 export interface Order {
-  _id: string;
+  // _id: string;
   createdAt: string;
   orderItems: {
     product: Product;
@@ -26,9 +27,7 @@ export interface Order {
     phoneNumber: string;
   };
   isShipped: boolean;
-  userId: {
-    email: string;
-  };
+  userId?: string;
 }
 
 interface OrderContextProps {
@@ -50,33 +49,55 @@ const OrderContext = createContext<OrderContextProps>({
 export const useOrder = () => useContext(OrderContext);
 
 export default function OrderProvider(props: PropsWithChildren<any>) {
+  const { user } = useAccount();
   const [order, setOrder] = useState<Order>();
   const [orders, setOrders] = useState<Order[]>([]);
   const { cart, clearCart } = useCart();
 
-  const handleOrderSubmit = (deliveryAddress: CustomerValues) => {
-    const orderId = Date.now().toString();
+  const handleOrderSubmit = async (deliveryAddress: CustomerValues) => {
+    // const orderId = Date.now().toString();
     const totalPrice = cart.reduce(
       (total, item) => total + item.price * item.quantity,
       0,
     );
+
     const order: Order = {
-      _id: orderId,
+      // _id: "",
       orderItems: cart.map((cartItem) => ({
         product: cartItem,
         quantity: cartItem.quantity,
       })),
       totalPrice,
-      createdAt: "",
+      createdAt: new Date().toISOString(),
       deliveryAddress,
       isShipped: false,
-      userId: {
-        email: "",
-      },
+      userId: user?._id,
     };
 
-    setOrder(order);
-    clearCart();
+    // Now we send a POST request to the backend
+    try {
+      const response = await fetch("http://localhost:3000/api/orders", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(order),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      console.log(data);
+      setOrder(data);
+      // After order is created in the backend, we clear the cart
+      clearCart();
+
+      // Fetch new orders list after a successful order creation
+      getAllOrders();
+    } catch (error) {
+      console.error("Failed to create an order:", error);
+    }
   };
 
   const getAllOrders = async () => {

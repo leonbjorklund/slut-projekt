@@ -13,6 +13,7 @@ import { Order, useOrder } from "../context/orderContext";
 function AdminOrders({ order }: { order: Order }) {
   const { updateShippingStatus } = useOrder();
 
+  console.log(order);
   const getStatusText = (isShipped: boolean) => {
     return isShipped ? "Shipped" : "Not Shipped";
   };
