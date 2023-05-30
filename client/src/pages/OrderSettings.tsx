@@ -8,7 +8,6 @@ import { useOrder } from "../context/orderContext";
 function OrderSettings() {
   const { user } = useAccount();
   const isAdmin = user?.isAdmin;
-
   const { orders, getAllOrders } = useOrder();
 
   useEffect(() => {
@@ -18,7 +17,6 @@ function OrderSettings() {
   if (!isAdmin) {
     return <AccessDenied />;
   }
-  // console.log(orders);
 
   return (
     <>
@@ -36,7 +34,7 @@ function OrderSettings() {
             </Heading>
           </Flex>
           {orders &&
-            orders.map((order, index) => (
+            orders?.map((order, index) => (
               <AdminOrders key={index} order={order} />
             ))}
         </Box>
