@@ -17,6 +17,7 @@ function AdminOrders({ order }: { order: Order }) {
   const formattedDate = useFormatCreatedAtDate(order.createdAt);
   const { updateShippingStatus } = useOrder();
 
+  console.log(order);
   const getStatusText = (isShipped: boolean) => {
     return isShipped ? "Shipped" : "Not Shipped";
   };
@@ -96,7 +97,7 @@ function AdminOrders({ order }: { order: Order }) {
                   CUSTOMER INFO:
                 </Text>
                 <Text mb='1rem' textDecoration='underline'>
-                  {order.userId.email}
+                  {/* {order.userId.email} */}
                 </Text>
                 <Text>
                   {order.deliveryAddress.firstName}{" "}

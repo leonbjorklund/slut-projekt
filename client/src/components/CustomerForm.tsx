@@ -24,12 +24,12 @@ const CustomerSchema = Yup.object().shape({
   address: Yup.string()
     .min(4)
     .required("Vänligen ange din fullständiga adress"),
-  zipCode: Yup.number().min(5).max(6).required("Vänligen ange ett postnummer"),
+  zipCode: Yup.string().min(5).max(6).required("Vänligen ange ett postnummer"),
   city: Yup.string().min(2).required("Vänligen ange en stad"),
   // email: Yup.string()
   //   .email("Vänligen ange en giltig mejladress")
   //   .required("Vänligen ange din mejladress"),
-  phoneNumber: Yup.number()
+  phoneNumber: Yup.string()
     .min(10)
     .required("Vänligen ange ditt telefonnummer"),
 });
@@ -44,10 +44,10 @@ function CustomerForm() {
       firstName: "",
       lastName: "",
       address: "",
-      zipCode: 0,
+      zipCode: "",
       city: "",
       // email: "",
-      phoneNumber: 0,
+      phoneNumber: "",
     },
     validationSchema: CustomerSchema,
     onSubmit: (values) => {
@@ -146,7 +146,7 @@ function CustomerForm() {
                   focusBorderColor='blackAlpha.400'
                   borderColor='blackAlpha.400'
                   type='text'
-                  name='phone'
+                  name='phoneNumber'
                   id='phone'
                   autoComplete='tel'
                   value={formik.values.phoneNumber}
@@ -208,7 +208,7 @@ function CustomerForm() {
                     focusBorderColor='blackAlpha.400'
                     borderColor='blackAlpha.400'
                     type='text'
-                    name='zipcode'
+                    name='zipCode'
                     id='zipcode'
                     autoComplete='postal-code'
                     value={formik.values.zipCode}
@@ -258,37 +258,6 @@ function CustomerForm() {
                   )}
                 </FormControl>
               </Flex>
-
-              {/* <FormControl>
-                <FormLabel fontSize='sm' mb={0} pl={2}>
-                  E-mail:
-                </FormLabel>
-                <Input
-                  data-cy='customer-email'
-                  bg='brand.100'
-                  size='md'
-                  borderRadius='none'
-                  focusBorderColor='blackAlpha.400'
-                  borderColor='blackAlpha.400'
-                  type='text'
-                  name='email'
-                  id='email'
-                  autoComplete='email'
-                  value={formik.values.email}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
-                {formik.touched.email && formik.errors.email && (
-                  <Text
-                    pl={2}
-                    fontSize='sm'
-                    data-cy='customer-email-error'
-                    color='red'
-                  >
-                    {formik.errors.email}
-                  </Text>
-                )}
-              </FormControl> */}
 
               <Center>
                 <Button

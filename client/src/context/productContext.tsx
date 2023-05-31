@@ -7,6 +7,7 @@ import {
 } from "react";
 
 export type ProductCreate = Omit<Product, "_id" | "imageUrl">;
+
 export interface Product {
   _id: string;
   name: string;
