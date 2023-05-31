@@ -23,7 +23,7 @@ interface ProductContextProps {
   products: Product[];
   deleteProduct: (productId: string) => void;
   addNewProduct: (product: ProductCreate) => void;
-  editProduct: (productId: string, updatedProduct: ProductCreate) => void;
+  editProduct: (updatedProduct: Product) => void;
 }
 
 const defaultProductContext: ProductContextProps = {
@@ -99,12 +99,9 @@ export default function ProductProvider(props: PropsWithChildren) {
       });
   };
 
-  const editProduct = async (
-    productId: string,
-    updatedProduct: ProductCreate,
-  ) => {
+  const editProduct = async (updatedProduct: Product) => {
     try {
-      const response = await fetch(`/api/products/${productId}`, {
+      const response = await fetch(`/api/products/${updatedProduct._id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -116,7 +113,7 @@ export default function ProductProvider(props: PropsWithChildren) {
         const updatedProductData = await response.json();
         setProducts((prevProducts) =>
           prevProducts.map((product) =>
-            product._id === productId ? updatedProductData : product,
+            product._id === updatedProduct._id ? updatedProductData : product,
           ),
         );
       } else {
