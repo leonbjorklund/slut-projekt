@@ -67,12 +67,17 @@ export default function ProductProvider(props: PropsWithChildren) {
   };
 
   const addNewProduct = async (product: ProductCreate) => {
+    const productWithCorrectTypes = {
+      ...product,
+      price: Number(product.price),
+      inStock: Number(product.inStock),
+    };
     const response = await fetch("/api/products", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(product),
+      body: JSON.stringify(productWithCorrectTypes),
     });
 
     if (response.ok) {
