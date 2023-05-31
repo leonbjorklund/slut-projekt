@@ -9,7 +9,7 @@ const addressSchema = z.object({
   address: z.string().min(1),
   zipCode: z.string().min(5).max(5),
   city: z.string().min(1),
-  phoneNumber: z.string(),
+  phoneNumber: z.string().min(10),
 });
 
 const orderItemSchema = z.object({
@@ -38,14 +38,13 @@ export function validateCreateOrder(
     next();
   } else {
     const errorMessages = validationResult.error.errors.map(
-      (error) => `Field '${error.path.join(".")}' is wrong or missing`
+      (error) => `Field '${error.path.join(".")}' is incorrect or missing`
     );
     res.status(400).json(errorMessages);
   }
 }
 
 // Validation update shipping status
-
 const updateShippingStatusSchema = z.object({
   isShipped: z.boolean(),
 });
