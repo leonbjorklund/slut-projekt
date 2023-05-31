@@ -18,7 +18,7 @@ Content-Type: application/json
   "deliveryAddress": {
    "firstName": "Madde",
     "lastName": "Gustafsson",
-    "address": " 23 gatan",
+    "address": "",
     "zipCode": "56785",
   "city": "Kungälv",
   "phoneNumber": "1234567899"
