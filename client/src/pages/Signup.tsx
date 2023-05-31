@@ -41,8 +41,7 @@ export default function SignUp() {
     >
       <VStack
         as={Form}
-        w={{ base: "60%" }}
-        minW='280px'
+        w={{ base: "60%", md: "30%" }}
         m='auto'
         justify='center'
         h='calc(100vh - 320px)'

@@ -58,34 +58,38 @@ function OverviewCard({ product }: { product: Product }) {
             </Text>
           </Box>
 
-          <Button
-            data-cy='product-buy-button'
-            variant='outline'
-            colorScheme='orange'
-            border='none'
-            color='black'
-            borderRadius='none'
-            onClick={() => {
-              handleAddToCart(product);
-              toast({
-                position: "bottom-right",
-                duration: 2000,
-                render: () => (
-                  <Box
-                    data-cy='added-to-cart-toast'
-                    color='green.500'
-                    p={3}
-                    bg='white'
-                  >
-                    {product.name} has been added to the cart!
-                  </Box>
-                ),
-              });
-            }}
-            _hover={{ bg: "orange.100" }}
-          >
-            <Icon boxSize={6} as={IoMdAdd} />
-          </Button>
+          {product.inStock > 0 ? (
+            <Button
+              data-cy='product-buy-button'
+              variant='outline'
+              colorScheme='orange'
+              border='none'
+              color='black'
+              borderRadius='none'
+              onClick={() => {
+                handleAddToCart(product);
+                toast({
+                  position: "bottom-right",
+                  duration: 2000,
+                  render: () => (
+                    <Box
+                      data-cy='added-to-cart-toast'
+                      color='green.500'
+                      p={3}
+                      bg='white'
+                    >
+                      {product.name} has been added to the cart!
+                    </Box>
+                  ),
+                });
+              }}
+              _hover={{ bg: "orange.100" }}
+            >
+              <Icon boxSize={6} as={IoMdAdd} />
+            </Button>
+          ) : (
+            <Text data-cy='product-out-of-stock-button'>Out of Stock</Text>
+          )}
         </Flex>
       </CardBody>
     </Card>
