@@ -38,6 +38,10 @@ export const AccountProvider: React.FC<AccountProviderProps> = ({
   const [users, setUsers] = useState<User[] | null>(null);
   // const { user: loggedInUser } = useAccount();
 
+  const checkAdminAccess = () => {
+    return user && user.isAdmin;
+  };
+
   const checkLoggedIn = async () => {
     try {
       const response = await fetch("http://localhost:3000/api/users/auth", {
@@ -111,6 +115,10 @@ export const AccountProvider: React.FC<AccountProviderProps> = ({
   };
 
   const getAllUsers = async () => {
+    if (!checkAdminAccess()) {
+      return;
+    }
+
     const response = await fetch("http://localhost:3000/api/users/", {
       method: "GET",
       credentials: "include",
@@ -122,6 +130,10 @@ export const AccountProvider: React.FC<AccountProviderProps> = ({
   };
 
   const updateUserAdmin = async (userId: string, isAdmin: boolean) => {
+    if (!checkAdminAccess()) {
+      return;
+    }
+
     try {
       const response = await fetch(
         `http://localhost:3000/api/users/${userId}`,

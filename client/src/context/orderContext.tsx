@@ -41,7 +41,6 @@ interface OrderContextProps {
   getAllOrders: () => Promise<void>;
   updateShippingStatus: (orderId: string, isShipped: boolean) => Promise<void>;
   getOrdersByUser: (userID: string) => Promise<void>;
-  getOrderById: (orderId: string) => Promise<void>;
 }
 
 const OrderContext = createContext<OrderContextProps>({
@@ -51,7 +50,6 @@ const OrderContext = createContext<OrderContextProps>({
   getAllOrders: () => Promise.resolve(),
   updateShippingStatus: () => Promise.resolve(),
   getOrdersByUser: () => Promise.resolve(),
-  getOrderById: () => Promise.resolve(),
 });
 
 export const useOrder = () => useContext(OrderContext);
@@ -61,6 +59,10 @@ export default function OrderProvider(props: PropsWithChildren<any>) {
   const [orders, setOrders] = useState<Order[]>([]);
   const { cart, clearCart } = useCart();
   const { user } = useAccount();
+
+  const checkAdminAccess = () => {
+    return user && user.isAdmin;
+  };
 
   const handleOrderSubmit = async (deliveryAddress: CustomerValues) => {
     const totalPrice = cart.reduce(
@@ -104,6 +106,10 @@ export default function OrderProvider(props: PropsWithChildren<any>) {
   };
 
   const getAllOrders = async () => {
+    if (!checkAdminAccess()) {
+      return;
+    }
+
     try {
       const response = await fetch("/api/orders");
       if (response.ok) {
@@ -118,6 +124,10 @@ export default function OrderProvider(props: PropsWithChildren<any>) {
   };
 
   const updateShippingStatus = async (orderId: string, isShipped: boolean) => {
+    if (!checkAdminAccess()) {
+      return;
+    }
+
     try {
       const response = await fetch(`/api/orders/${orderId}`, {
         method: "PUT",
@@ -137,23 +147,12 @@ export default function OrderProvider(props: PropsWithChildren<any>) {
     }
   };
 
-  const getOrderById = async (orderId: string) => {
-    try {
-      const response = await fetch(`/api/orders/${orderId}`);
-      if (response.ok) {
-        const data = await response.json();
-        setOrder(data);
-      } else {
-        console.error("Failed to fetch order:", response.status);
-      }
-    } catch (error) {
-      console.error("Failed to fetch order:", error);
+  const getOrdersByUser = async (userId: string) => {
+    if (user && user.email !== userId) {
+      return;
     }
-  };
-
-  const getOrdersByUser = async (userID: string) => {
     try {
-      const response = await fetch(`/api/orders/${userID}`);
+      const response = await fetch(`/api/orders/${userId}`);
       if (response.ok) {
         const data = await response.json();
         setOrders(data);
@@ -171,6 +170,7 @@ export default function OrderProvider(props: PropsWithChildren<any>) {
     } else {
       getAllOrders();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   return (
@@ -182,7 +182,6 @@ export default function OrderProvider(props: PropsWithChildren<any>) {
         getAllOrders,
         updateShippingStatus,
         getOrdersByUser,
-        getOrderById,
       }}
     >
       {props.children}
