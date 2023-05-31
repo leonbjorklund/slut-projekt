@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { assert } from "../errorHandler";
 import { OrderModel } from "../models/order-model";
+import { ProductModel } from "../models/product-model";
 import { UserModel } from "../models/user-model";
 
 // Create new order
@@ -8,6 +9,23 @@ export async function createOrder(req: Request, res: Response) {
   // if(req.session && req.session.user && req.session.user._id){
   const order = await OrderModel.create(req.body);
   await order.save();
+
+  // Update stock for each ordered product
+  for (const orderItem of order.orderItems) {
+    const product = await ProductModel.findById(orderItem.product);
+    assert(product !== null, 404, "Product not found");
+
+    // Check if ordered quantity is available in stock
+    assert(
+      product!.inStock >= orderItem.quantity,
+      400,
+      `Not enough stock available for product ${product!.name}`
+    );
+
+    // Update stock quantity
+    product!.inStock -= orderItem.quantity;
+    await product!.save();
+  }
 
   return res.status(201).json(order);
 }

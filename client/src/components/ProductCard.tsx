@@ -82,38 +82,44 @@ function ProductCard({ product }: { product: Product }) {
             </CardBody>
 
             <CardFooter flexDirection={{ base: "column", md: "row" }}>
-              <Button
-                onClick={() => {
-                  handleAddToCart(product);
-                  toast({
-                    position: "bottom-right",
-                    duration: 2000,
-                    render: () => (
-                      <Box
-                        data-cy='added-to-cart-toast'
-                        color='green.500'
-                        p={3}
-                        bg='white'
-                      >
-                        {product.name} has been added to the cart!
-                      </Box>
-                    ),
-                  });
-                }}
-                data-cy='product-buy-button'
-                variant='outline'
-                colorScheme='yellow'
-                borderColor='yellow.400'
-                color='black'
-                borderRadius='none'
-                borderWidth='2px'
-                mr='2'
-                height='45px'
-                _hover={{ bg: "yellow.400" }}
-                m={{ base: "10px", sm: "2px" }}
-              >
-                Add to cart
-              </Button>
+              {product.inStock > 0 ? (
+                <Button
+                  onClick={() => {
+                    handleAddToCart(product);
+                    toast({
+                      position: "bottom-right",
+                      duration: 2000,
+                      render: () => (
+                        <Box
+                          data-cy='added-to-cart-toast'
+                          color='green.500'
+                          p={3}
+                          bg='white'
+                        >
+                          {product.name} has been added to the cart!
+                        </Box>
+                      ),
+                    });
+                  }}
+                  data-cy='product-buy-button'
+                  variant='outline'
+                  colorScheme='yellow'
+                  borderColor='yellow.400'
+                  color='black'
+                  borderRadius='none'
+                  borderWidth='2px'
+                  mr={2}
+                  height='45px'
+                  _hover={{ bg: "yellow.400" }}
+                  m={{ base: "10px", sm: "2px" }}
+                >
+                  Add to cart
+                </Button>
+              ) : (
+                <Text ml={2} data-cy='product-out-of-stock-button'>
+                  Out of Stock
+                </Text>
+              )}
             </CardFooter>
           </Stack>
         </Flex>
