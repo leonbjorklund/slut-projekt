@@ -133,9 +133,12 @@ export default function OrderProvider(props: PropsWithChildren<any>) {
     }
   };
 
-  const getOrdersByUser = async (userID: string) => {
+  const getOrdersByUser = async (userId: string) => {
+    if (user && user.email !== userId) {
+      return;
+    }
     try {
-      const response = await fetch(`/api/orders/${userID}`);
+      const response = await fetch(`/api/orders/${userId}`);
       if (response.ok) {
         const data = await response.json();
         setOrders(data);
