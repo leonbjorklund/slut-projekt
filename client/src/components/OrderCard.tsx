@@ -16,11 +16,11 @@ function OrderCard({ order }: OrderCardProps) {
           size='sm'
           bg='brand.100'
           variant='unstyled'
-          my={2}       
+          my={2}
           borderBottom='1px'
           borderColor='blackAlpha.200'
           pb={2}
-          w='40%'   
+          w='40%'
         >
           <Box>
             <Image src={item.product.imageUrl} maxW='100px' maxH='100%' m={2} />
