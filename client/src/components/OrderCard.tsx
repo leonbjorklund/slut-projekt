@@ -6,7 +6,6 @@ interface OrderCardProps {
 }
 
 //test
-
 function OrderCard({ order }: OrderCardProps) {
   return (
     <>
