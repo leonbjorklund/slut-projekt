@@ -18,10 +18,10 @@ Content-Type: application/json
   "deliveryAddress": {
    "firstName": "Madde",
     "lastName": "Gustafsson",
-    "address": "Gatan 23",
-    "zipCode": 12345,
+    "address": " 23 gatan",
+    "zipCode": "56785",
   "city": "göteborg",
-  "phoneNumber": 1234567890
+  "phoneNumber": "1234567890"
     
   },
   "isShipped": false
