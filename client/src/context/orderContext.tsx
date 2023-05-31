@@ -7,7 +7,6 @@ import {
 } from "react";
 import { CustomerValues } from "../components/CustomerForm";
 import { useAccount, User } from "./accountContext";
-
 import { useCart } from "./cartContext";
 import { Product } from "./productContext";
 
@@ -17,7 +16,6 @@ export interface OrderItem {
 }
 
 export interface Order {
-  // _id: string;
   createdAt: string;
   orderItems: OrderItem[];
   totalPrice: number;
@@ -41,6 +39,8 @@ interface OrderContextProps {
   getAllOrders: () => Promise<void>;
   updateShippingStatus: (orderId: string, isShipped: boolean) => Promise<void>;
   getOrdersByUser: (userID: string) => Promise<void>;
+  getOrderById: (orderId: string) => Promise<void>;
+
 }
 
 const OrderContext = createContext<OrderContextProps>({
@@ -50,6 +50,7 @@ const OrderContext = createContext<OrderContextProps>({
   getAllOrders: () => Promise.resolve(),
   updateShippingStatus: () => Promise.resolve(),
   getOrdersByUser: () => Promise.resolve(),
+  getOrderById: () => Promise.resolve()
 });
 
 export const useOrder = () => useContext(OrderContext);
@@ -61,14 +62,12 @@ export default function OrderProvider(props: PropsWithChildren<any>) {
   const { user } = useAccount();
 
   const handleOrderSubmit = async (deliveryAddress: CustomerValues) => {
-    // const orderId = Date.now().toString();
     const totalPrice = cart.reduce(
       (total, item) => total + item.price * item.quantity,
       0,
     );
 
     const order: Order = {
-      // _id: "",
       orderItems: cart.map((cartItem) => ({
         product: cartItem,
         quantity: cartItem.quantity,
@@ -80,7 +79,6 @@ export default function OrderProvider(props: PropsWithChildren<any>) {
       userId: user?._id,
     };
 
-    // Now we send a POST request to the backend
     try {
       const response = await fetch("http://localhost:3000/api/orders", {
         method: "POST",
@@ -96,10 +94,8 @@ export default function OrderProvider(props: PropsWithChildren<any>) {
       const data = await response.json();
       console.log(data);
       setOrder(data);
-      // After order is created in the backend, we clear the cart
       clearCart();
 
-      // Fetch new orders list after a successful order creation
       getAllOrders();
     } catch (error) {
       console.error("Failed to create an order:", error);
@@ -132,7 +128,6 @@ export default function OrderProvider(props: PropsWithChildren<any>) {
 
       if (response.ok) {
         // Update the local orders state if needed
-        // ...
       } else {
         console.error("Failed to update shipping status:", response.status);
       }
@@ -140,6 +135,20 @@ export default function OrderProvider(props: PropsWithChildren<any>) {
       console.error("Failed to update shipping status:", error);
     }
   };
+
+  const getOrderById = async (orderId: string) => {
+    try {
+      const response = await fetch(`/api/orders/${orderId}`);
+      if (response.ok) {
+        const data = await response.json();
+        setOrders(data);
+      } else {
+        console.error("Failed to fetch order:", response.status);
+      }
+    } catch (error) {
+      console.error("Failed to fetch order:", error);
+    }
+  }
 
   const getOrdersByUser = async (userID: string) => {
     try {
@@ -172,6 +181,7 @@ export default function OrderProvider(props: PropsWithChildren<any>) {
         getAllOrders,
         updateShippingStatus,
         getOrdersByUser,
+        getOrderById
       }}
     >
       {props.children}

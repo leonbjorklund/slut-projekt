@@ -2,40 +2,21 @@ import { Box, Center, Flex, Heading, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import OrderCard from "../components/OrderCard";
 import { Order, useOrder } from "../context/orderContext";
-
-interface OrderData extends Order {
-  _id: string;
-}
+import { useParams } from "react-router-dom";
 
 function OrderConfirmation() {
-  const { order } = useOrder();
-  const orderId = order?._id;
-  console.log(orderId);
-
-  const [orderData, setOrderData] = useState<OrderData>();
+  const { order, getOrderById } = useOrder();
+  const params = useParams();
+  console.log(order);
 
   useEffect(() => {
-    const fetchOrder = async () => {
-      const response = await fetch(
-        `http://localhost:3000/api/orders/${orderId}`,
-      );
-      if (!response.ok) {
-        // if HTTP-status is 404-499 or 500-599
-        throw new Error("HTTP status " + response.status);
-      }
-      const data = await response.json();
-
-      setOrderData(data);
-      console.log(data);
-    };
-
-    fetchOrder();
-  }, [orderId]); // Only re-run the effect if orderId changes
+    getOrderById(params.id as string,)
+  }, []); 
 
   return (
     <Center w='100%' flexDirection='column' py={6}>
       <Box py={8}>
-        <Heading fontSize='1.5rem'>Thank you for your order!</Heading>
+        <Heading fontSize='1.5rem'>Thank you for your order!</Heading>                
       </Box>
       <Box
         w='40%'
@@ -44,12 +25,12 @@ function OrderConfirmation() {
         pt={6}
         pb={2}
       >
-        <Text fontSize='1.1rem'>Order number: {orderData?._id}</Text>
+        <Text fontSize='1.1rem'>Order number: {params.id}</Text>
       </Box>
-      {order?.orderItems.map((cartItem) => (
-        <Box key={cartItem._id} w='100%'>
+      {order?.orderItems.map((orderItem) => (
+        <Box key={orderItem.product._id} w='100%'>
           <Center>
-            <OrderCard cart={[cartItem]} />
+            <OrderCard order={[orderItem]} />
           </Center>
         </Box>
       ))}
@@ -76,7 +57,7 @@ function OrderConfirmation() {
         <Text>{order?.deliveryAddress.zipCode}</Text>
         <Text>{order?.deliveryAddress.city}</Text>
         {/* <Text pt={2}>{order?.deliveryAddress.email}</Text> */}
-        <Text>{order?.deliveryAddress.phone}</Text>
+        <Text>{order?.deliveryAddress.phoneNumber}</Text>
       </Box>
     </Center>
   );

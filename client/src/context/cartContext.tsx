@@ -5,6 +5,7 @@ import { Product } from "./productContext";
 export interface CartItem extends Product {
   quantity: number;
 }
+
 interface CartContextProps {
   cart: CartItem[];
   addToCart: (item: Product) => void;

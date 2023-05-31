@@ -1,37 +1,37 @@
 import { Box, Card, CardBody, Flex, Image, Text } from "@chakra-ui/react";
-import { CartItem } from "../context/cartContext";
+import { OrderItem } from "../context/orderContext";
 
 interface OrderCardProps {
-  cart: CartItem[];
+  order: OrderItem[];
 }
 
-function OrderCard({ cart }: OrderCardProps) {
+function OrderCard({ order }: OrderCardProps) {
   return (
     <>
-      {cart.map((item) => (
+      {order.map((item) => (
         <Card
-          key={item._id}
+          key={item.product._id}
           direction={{ base: "column", sm: "row" }}
           overflow='hidden'
           size='sm'
           bg='brand.100'
           variant='unstyled'
-          my={2}
+          my={2}       
           borderBottom='1px'
           borderColor='blackAlpha.200'
           pb={2}
-          w='40%'
+          w='40%'   
         >
           <Box>
-            <Image src={item.imageUrl} maxW='100px' maxH='100%' m={2} />
+            <Image src={item.product.imageUrl} maxW='100px' maxH='100%' m={2} />
           </Box>
           <CardBody px={6}>
             <Flex flexDirection='column' justifyContent='center' h='100%'>
               <Text fontSize={18} pb={4}>
-                {item.name}
+                {item.product.name}
               </Text>
               <Text fontSize={14}>Quantity: {item.quantity} </Text>
-              <Text fontSize={14}>Price: {item.price} SEK</Text>
+              <Text fontSize={14}>Price: {item.product.price} SEK</Text>
             </Flex>
           </CardBody>
         </Card>
