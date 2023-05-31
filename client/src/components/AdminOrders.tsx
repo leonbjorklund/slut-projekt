@@ -97,7 +97,7 @@ function AdminOrders({ order }: { order: Order }) {
                   CUSTOMER INFO:
                 </Text>
                 <Text mb='1rem' textDecoration='underline'>
-                  {order.userId.email}
+                  {/* {order.userId.email} */}
                 </Text>
                 <Text>
                   {order.deliveryAddress.firstName}{" "}
