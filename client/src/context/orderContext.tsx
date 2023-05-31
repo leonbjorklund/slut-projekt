@@ -15,6 +15,7 @@ export interface OrderItem {
   quantity: number;
 }
 
+export type OrderNoId = Omit<Order, "_id">;
 export interface Order {
   _id: string;
   createdAt: string;
@@ -24,19 +25,17 @@ export interface Order {
     firstName: string;
     lastName: string;
     address: string;
-    zipCode: number;
+    zipCode: string;
     city: string;
-    phoneNumber: number;
+    phoneNumber: string;
   };
   isShipped: boolean;
-  userId: {
-    email: string;
-  };
+  userId?: string;
 }
 
 interface OrderContextProps {
   order?: Order;
-  orders?: Order[];
+  orders: Order[];
   user?: User;
   handleOrderSubmit: (formData: CustomerValues) => void;
   getAllOrders: () => Promise<void>;
@@ -46,7 +45,7 @@ interface OrderContextProps {
 
 const OrderContext = createContext<OrderContextProps>({
   order: undefined,
-  orders: undefined,
+  orders: [],
   handleOrderSubmit: () => {},
   getAllOrders: () => Promise.resolve(),
   updateShippingStatus: () => Promise.resolve(),
@@ -65,29 +64,45 @@ export default function OrderProvider(props: PropsWithChildren<any>) {
     return user && user.isAdmin;
   };
 
-  const handleOrderSubmit = (deliveryAddress: CustomerValues) => {
-    const orderId = Date.now().toString();
+  const handleOrderSubmit = async (deliveryAddress: CustomerValues) => {
     const totalPrice = cart.reduce(
       (total, item) => total + item.price * item.quantity,
       0,
     );
-    const order: Order = {
-      _id: orderId,
+
+    const order: OrderNoId = {
       orderItems: cart.map((cartItem) => ({
         product: cartItem,
         quantity: cartItem.quantity,
       })),
       totalPrice,
-      createdAt: "",
+      createdAt: new Date().toISOString(),
       deliveryAddress,
       isShipped: false,
-      userId: {
-        email: "",
-      },
+      userId: user?._id,
     };
 
-    setOrder(order);
-    clearCart();
+    try {
+      const response = await fetch("http://localhost:3000/api/orders", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(order),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      console.log(data);
+      setOrder(data);
+      clearCart();
+
+      getAllOrders();
+    } catch (error) {
+      console.error("Failed to create an order:", error);
+    }
   };
 
   const getAllOrders = async () => {
@@ -124,7 +139,6 @@ export default function OrderProvider(props: PropsWithChildren<any>) {
 
       if (response.ok) {
         // Update the local orders state if needed
-        // ...
       } else {
         console.error("Failed to update shipping status:", response.status);
       }
