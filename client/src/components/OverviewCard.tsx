@@ -88,18 +88,7 @@ function OverviewCard({ product }: { product: Product }) {
               <Icon boxSize={6} as={IoMdAdd} />
             </Button>
           ) : (
-            <Button
-              data-cy='product-out-of-stock-button'
-              variant='outline'
-              colorScheme='red'
-              border='none'
-              color='black'
-              borderRadius='none'
-              disabled
-              _hover={{ bg: "red.100" }}
-            >
-              Out of Stock
-            </Button>
+            <Text data-cy='product-out-of-stock-button'>Out of Stock</Text>
           )}
         </Flex>
       </CardBody>

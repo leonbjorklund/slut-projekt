@@ -6,7 +6,7 @@ function Breadcrumbs({ title }: { title: string }) {
     <Breadcrumb py={8} px={8}>
       <BreadcrumbItem>
         <BreadcrumbLink as={Link} to='/'>
-          Startsida
+          Home
         </BreadcrumbLink>
       </BreadcrumbItem>
 

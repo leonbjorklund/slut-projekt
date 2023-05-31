@@ -1,4 +1,5 @@
 import {
+  Badge,
   Box,
   Card,
   Flex,
@@ -75,13 +76,12 @@ function AdminCard({ product }: { product: Product }) {
                 </Text>
               </Flex>
               <Flex>
-                <Text fontWeight='bold'>Categories:&nbsp;</Text>
-                <Text mb={3}>
-                  {product.categories}
-                  <Text as='span' fontSize='sm'>
-                    &nbsp;
-                  </Text>
+                <Text fontWeight='bold' pr={3}>
+                  Categories:
                 </Text>
+                <Badge variant='outline' colorScheme='yellow' mt={1} mb={3}>
+                  {product.categories}
+                </Badge>
               </Flex>
               <Flex>
                 <Text fontWeight='bold'>In stock:&nbsp;</Text>
