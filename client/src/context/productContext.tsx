@@ -109,7 +109,6 @@ export default function ProductProvider(props: PropsWithChildren) {
     try {
       const { _id, ...restOfUpdatedProduct } = updatedProduct;
 
-      // Ensure that 'price' and 'inStock' are numbers before sending to the API.
       const productToSend = {
         ...restOfUpdatedProduct,
         price: Number(restOfUpdatedProduct.price),
