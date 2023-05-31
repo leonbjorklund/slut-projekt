@@ -6,7 +6,7 @@ import {
   useState,
 } from "react";
 import { CustomerValues } from "../components/CustomerForm";
-import { useAccount } from "./accountContext";
+import { useAccount, User } from "./accountContext";
 
 import { useCart } from "./cartContext";
 import { Product } from "./productContext";
