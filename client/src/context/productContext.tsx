@@ -107,12 +107,22 @@ export default function ProductProvider(props: PropsWithChildren) {
 
   const editProduct = async (updatedProduct: Product) => {
     try {
-      const response = await fetch(`/api/products/${updatedProduct._id}`, {
+      const { _id, ...restOfUpdatedProduct } = updatedProduct;
+
+      // Ensure that 'price' and 'inStock' are numbers before sending to the API.
+      const productToSend = {
+        ...restOfUpdatedProduct,
+        price: Number(restOfUpdatedProduct.price),
+        inStock: Number(restOfUpdatedProduct.inStock),
+        height: Number(restOfUpdatedProduct.height),
+      };
+
+      const response = await fetch(`/api/products/${_id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(updatedProduct),
+        body: JSON.stringify(productToSend),
       });
 
       if (response.ok) {

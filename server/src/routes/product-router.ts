@@ -9,6 +9,7 @@ import {
 
 import {
   productCreateSchema,
+  productEditSchema,
   validateBody,
 } from "../validation/product-client-validation";
 
@@ -24,13 +25,12 @@ productRouter.post(
 );
 productRouter.get("/api/products", getAllProducts);
 productRouter.get("/api/products/:id", getProductById);
-// productRouter.put(
-//   "/api/products/:id",
-//   isAdmin,
-//   validateBody(productCreateSchema),
-//   updateProduct
-// );
-productRouter.get("/api/products/:id", updateProduct);
+productRouter.put(
+  "/api/products/:id",
+  isAdmin,
+  validateBody(productEditSchema),
+  updateProduct
+);
 productRouter.delete("/api/products/:id", isAdmin, deleteProduct);
 
 export default productRouter;
