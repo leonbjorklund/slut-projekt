@@ -225,8 +225,12 @@ function ProductForm({ product, onSubmit }: Props) {
                 value={formik.values.categories}
               >
                 <Flex direction='row'>
-                  <Checkbox value='glass'>Glass</Checkbox>
-                  <Checkbox value='ceramic'>Ceramic</Checkbox>
+                  <Checkbox value='glass' marginRight={3}>
+                    Glass
+                  </Checkbox>
+                  <Checkbox value='ceramic' marginRight={3}>
+                    Ceramic
+                  </Checkbox>
                 </Flex>
               </CheckboxGroup>
               {formik.touched.categories && formik.errors.categories && (

@@ -9,8 +9,12 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { Order, useOrder } from "../context/orderContext";
+import useCalculateTotalPrice from "../hooks/useCalculateTotalPrice";
+import useFormatCreatedAtDate from "../hooks/useFormatCreatedAtDate";
 
 function AdminOrders({ order }: { order: Order }) {
+  const totalPrice = useCalculateTotalPrice(order.orderItems);
+  const formattedDate = useFormatCreatedAtDate(order.createdAt);
   const { updateShippingStatus } = useOrder();
 
   console.log(order);
@@ -26,18 +30,10 @@ function AdminOrders({ order }: { order: Order }) {
     }
   };
 
-  const createdAtDate = new Date(order.createdAt).toLocaleDateString("sv-SE", {
-    year: "numeric",
-    month: "numeric",
-    day: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-  });
   return (
     <Card
       data-cy='product'
       direction={{ base: "column", sm: "row" }}
-      // overflow='hidden'
       width='100%'
       bg='brand.100'
       variant='unstyled'
@@ -93,7 +89,7 @@ function AdminOrders({ order }: { order: Order }) {
               </Flex>
               <Flex>
                 <Text data-cy='product-id' mb={2}>
-                  {createdAtDate}
+                  {formattedDate}
                 </Text>
               </Flex>
               <Flex direction='column'>
@@ -118,7 +114,7 @@ function AdminOrders({ order }: { order: Order }) {
                 </Text>
               </Flex>
               <Grid templateColumns='1fr' gap={1}>
-                {order.orderItems.map((orderItem, index) => (
+                {order?.orderItems.map((orderItem, index) => (
                   <Text key={index}>
                     {orderItem.quantity} x {""} {orderItem.product?.name}
                   </Text>
@@ -130,7 +126,7 @@ function AdminOrders({ order }: { order: Order }) {
                 justifyContent='space-between'
               >
                 <Text fontWeight='bold' mt='2rem'>
-                  Total price:
+                  Total price: {totalPrice} SEK
                 </Text>{" "}
                 <Text
                   fontSize={{ base: "md", md: "md" }}
