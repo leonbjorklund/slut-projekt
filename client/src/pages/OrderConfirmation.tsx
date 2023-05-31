@@ -1,16 +1,9 @@
 import { Box, Center, Flex, Heading, Text } from "@chakra-ui/react";
-import { useEffect } from "react";
 import OrderCard from "../components/OrderCard";
 import { useOrder } from "../context/orderContext";
-import { useParams } from "react-router-dom";
 
 function OrderConfirmation() {
-  const { order, getOrderById } = useOrder();
-  const params = useParams();
-
-  useEffect(() => {
-    getOrderById(params.id as string);
-  }, []);
+  const { order } = useOrder();
 
   return (
     <Center w='100%' flexDirection='column' py={6}>
