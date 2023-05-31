@@ -64,7 +64,7 @@ function AlertDialogDelete({ productId }: Props) {
                 ref={cancelRef}
                 onClick={onClose}
               >
-                Ångra
+                Exit
               </Button>
               <Button
                 data-cy='confirm-delete-button'
@@ -75,7 +75,7 @@ function AlertDialogDelete({ productId }: Props) {
                 borderRadius='none'
                 borderWidth='2px'
               >
-                Ta bort
+                Delete
               </Button>
             </AlertDialogFooter>
           </AlertDialogContent>
