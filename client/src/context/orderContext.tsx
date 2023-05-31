@@ -61,6 +61,10 @@ export default function OrderProvider(props: PropsWithChildren<any>) {
   const { cart, clearCart } = useCart();
   const { user } = useAccount();
 
+  const checkAdminAccess = () => {
+    return user && user.isAdmin;
+  };
+
   const handleOrderSubmit = (deliveryAddress: CustomerValues) => {
     const orderId = Date.now().toString();
     const totalPrice = cart.reduce(
@@ -87,6 +91,10 @@ export default function OrderProvider(props: PropsWithChildren<any>) {
   };
 
   const getAllOrders = async () => {
+    if (!checkAdminAccess()) {
+      return;
+    }
+
     try {
       const response = await fetch("/api/orders");
       if (response.ok) {
@@ -101,6 +109,10 @@ export default function OrderProvider(props: PropsWithChildren<any>) {
   };
 
   const updateShippingStatus = async (orderId: string, isShipped: boolean) => {
+    if (!checkAdminAccess()) {
+      return;
+    }
+
     try {
       const response = await fetch(`/api/orders/${orderId}`, {
         method: "PUT",
@@ -121,9 +133,12 @@ export default function OrderProvider(props: PropsWithChildren<any>) {
     }
   };
 
-  const getOrdersByUser = async (userID: string) => {
+  const getOrdersByUser = async (userId: string) => {
+    if (user && user.email !== userId) {
+      return;
+    }
     try {
-      const response = await fetch(`/api/orders/${userID}`);
+      const response = await fetch(`/api/orders/${userId}`);
       if (response.ok) {
         const data = await response.json();
         setOrders(data);
@@ -141,6 +156,7 @@ export default function OrderProvider(props: PropsWithChildren<any>) {
     } else {
       getAllOrders();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   return (
