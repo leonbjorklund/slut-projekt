@@ -29,10 +29,17 @@ const ProductSchema = Yup.object().shape({
   inStock: Yup.number().required("Choose stock quantitys"),
 });
 
-interface Props {
+interface PropsEdit {
+  product: Product;
+  onSubmit: (product: Product) => void;
+}
+
+interface PropsCreate {
   product?: Product;
   onSubmit: (product: ProductCreate) => void;
 }
+
+type Props = PropsCreate | PropsEdit;
 
 function ProductForm({ product, onSubmit }: Props) {
   const navigate = useNavigate();
@@ -49,7 +56,7 @@ function ProductForm({ product, onSubmit }: Props) {
     },
     validationSchema: ProductSchema,
     onSubmit: (values) => {
-      onSubmit(values);
+      onSubmit(values as any);
       console.log("Submitting");
       navigate("/admin");
     },
