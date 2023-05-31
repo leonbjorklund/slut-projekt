@@ -1,22 +1,21 @@
 import { Box, Center, Flex, Heading, Text } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import OrderCard from "../components/OrderCard";
-import { Order, useOrder } from "../context/orderContext";
+import { useOrder } from "../context/orderContext";
 import { useParams } from "react-router-dom";
 
 function OrderConfirmation() {
   const { order, getOrderById } = useOrder();
   const params = useParams();
-  console.log(order);
 
   useEffect(() => {
-    getOrderById(params.id as string,)
-  }, []); 
+    getOrderById(params.id as string);
+  }, []);
 
   return (
     <Center w='100%' flexDirection='column' py={6}>
       <Box py={8}>
-        <Heading fontSize='1.5rem'>Thank you for your order!</Heading>                
+        <Heading fontSize='1.5rem'>Thank you for your order!</Heading>
       </Box>
       <Box
         w='40%'
@@ -25,7 +24,7 @@ function OrderConfirmation() {
         pt={6}
         pb={2}
       >
-        <Text fontSize='1.1rem'>Order number: {params.id}</Text>
+        <Text fontSize='1.1rem'>Order number: {order?._id}</Text>
       </Box>
       {order?.orderItems.map((orderItem) => (
         <Box key={orderItem.product._id} w='100%'>
@@ -56,7 +55,6 @@ function OrderConfirmation() {
         <Text>{order?.deliveryAddress.address}</Text>
         <Text>{order?.deliveryAddress.zipCode}</Text>
         <Text>{order?.deliveryAddress.city}</Text>
-        {/* <Text pt={2}>{order?.deliveryAddress.email}</Text> */}
         <Text>{order?.deliveryAddress.phoneNumber}</Text>
       </Box>
     </Center>

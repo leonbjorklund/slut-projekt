@@ -15,7 +15,9 @@ export interface OrderItem {
   quantity: number;
 }
 
+export type OrderNoId = Omit<Order, "_id">;
 export interface Order {
+  _id: string;
   createdAt: string;
   orderItems: OrderItem[];
   totalPrice: number;
@@ -33,24 +35,23 @@ export interface Order {
 
 interface OrderContextProps {
   order?: Order;
-  orders?: Order[];
+  orders: Order[];
   user?: User;
   handleOrderSubmit: (formData: CustomerValues) => void;
   getAllOrders: () => Promise<void>;
   updateShippingStatus: (orderId: string, isShipped: boolean) => Promise<void>;
   getOrdersByUser: (userID: string) => Promise<void>;
   getOrderById: (orderId: string) => Promise<void>;
-
 }
 
 const OrderContext = createContext<OrderContextProps>({
   order: undefined,
-  orders: undefined,
+  orders: [],
   handleOrderSubmit: () => {},
   getAllOrders: () => Promise.resolve(),
   updateShippingStatus: () => Promise.resolve(),
   getOrdersByUser: () => Promise.resolve(),
-  getOrderById: () => Promise.resolve()
+  getOrderById: () => Promise.resolve(),
 });
 
 export const useOrder = () => useContext(OrderContext);
@@ -67,7 +68,7 @@ export default function OrderProvider(props: PropsWithChildren<any>) {
       0,
     );
 
-    const order: Order = {
+    const order: OrderNoId = {
       orderItems: cart.map((cartItem) => ({
         product: cartItem,
         quantity: cartItem.quantity,
@@ -141,14 +142,14 @@ export default function OrderProvider(props: PropsWithChildren<any>) {
       const response = await fetch(`/api/orders/${orderId}`);
       if (response.ok) {
         const data = await response.json();
-        setOrders(data);
+        setOrder(data);
       } else {
         console.error("Failed to fetch order:", response.status);
       }
     } catch (error) {
       console.error("Failed to fetch order:", error);
     }
-  }
+  };
 
   const getOrdersByUser = async (userID: string) => {
     try {
@@ -181,7 +182,7 @@ export default function OrderProvider(props: PropsWithChildren<any>) {
         getAllOrders,
         updateShippingStatus,
         getOrdersByUser,
-        getOrderById
+        getOrderById,
       }}
     >
       {props.children}

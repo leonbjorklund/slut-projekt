@@ -8,6 +8,7 @@ import { UserModel } from "../models/user-model";
 export async function createOrder(req: Request, res: Response) {
   // if(req.session && req.session.user && req.session.user._id){
   const order = await OrderModel.create(req.body);
+  order.populate("userId orderItems.product");
   await order.save();
 
   // Update stock for each ordered product
