@@ -68,12 +68,17 @@ export default function ProductProvider(props: PropsWithChildren) {
   };
 
   const addNewProduct = async (product: ProductCreate) => {
+    const productWithCorrectTypes = {
+      ...product,
+      price: Number(product.price),
+      inStock: Number(product.inStock),
+    };
     const response = await fetch("/api/products", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(product),
+      body: JSON.stringify(productWithCorrectTypes),
     });
 
     if (response.ok) {
@@ -102,12 +107,21 @@ export default function ProductProvider(props: PropsWithChildren) {
 
   const editProduct = async (updatedProduct: Product) => {
     try {
-      const response = await fetch(`/api/products/${updatedProduct._id}`, {
+      const { _id, ...restOfUpdatedProduct } = updatedProduct;
+
+      const productToSend = {
+        ...restOfUpdatedProduct,
+        price: Number(restOfUpdatedProduct.price),
+        inStock: Number(restOfUpdatedProduct.inStock),
+        height: Number(restOfUpdatedProduct.height),
+      };
+
+      const response = await fetch(`/api/products/${_id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(updatedProduct),
+        body: JSON.stringify(productToSend),
       });
 
       if (response.ok) {
