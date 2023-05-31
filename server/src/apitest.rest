@@ -20,8 +20,8 @@ Content-Type: application/json
     "lastName": "Gustafsson",
     "address": " 23 gatan",
     "zipCode": "56785",
-  "city": "göteborg",
-  "phoneNumber": "1234567890"
+  "city": "Kungälv",
+  "phoneNumber": "1234567899"
     
   },
   "isShipped": false
