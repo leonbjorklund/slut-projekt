@@ -36,29 +36,23 @@ export const AccountProvider: React.FC<AccountProviderProps> = ({
 }) => {
   const [user, setUser] = useState<User | null>(null);
   const [users, setUsers] = useState<User[] | null>(null);
-  // const { user: loggedInUser } = useAccount();
 
   const checkAdminAccess = () => {
     return user && user.isAdmin;
   };
 
   const checkLoggedIn = async () => {
-    try {
-      const response = await fetch("/api/users/auth", {
-        credentials: "include",
-      });
-      if (response.status === 204) {
-        setUser(null);
-      } else if (response.ok) {
-        const data = await response.json();
-        if (data.success) {
-          setUser(data.user);
-        }
-      } else {
-        setUser(null);
+    const response = await fetch("/api/users/auth", {
+      credentials: "include",
+    });
+    if (response.status === 204) {
+      setUser(null);
+    } else if (response.ok) {
+      const data = await response.json();
+      if (data.success) {
+        setUser(data.user);
       }
-    } catch (error) {
-      console.error("Error checking logged in status:", error);
+    } else {
       setUser(null);
     }
   };
@@ -134,30 +128,26 @@ export const AccountProvider: React.FC<AccountProviderProps> = ({
       return;
     }
 
-    try {
-      const response = await fetch(`/api/users/${userId}`, {
-        method: "PUT",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ isAdmin }),
+    const response = await fetch(`/api/users/${userId}`, {
+      method: "PUT",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ isAdmin }),
+    });
+
+    if (response.ok) {
+      const updatedUser = await response.json();
+
+      // Update the user object in the context
+      setUser((prevUser) => {
+        if (prevUser && prevUser._id === updatedUser._id) {
+          // Preserve other properties of the user object
+          return { ...prevUser, isAdmin: updatedUser.isAdmin };
+        }
+        return prevUser;
       });
-
-      if (response.ok) {
-        const updatedUser = await response.json();
-
-        // Update the user object in the context
-        setUser((prevUser) => {
-          if (prevUser && prevUser._id === updatedUser._id) {
-            // Preserve other properties of the user object
-            return { ...prevUser, isAdmin: updatedUser.isAdmin };
-          }
-          return prevUser;
-        });
-      }
-    } catch (error) {
-      console.error("Error updating user admin status:", error);
     }
   };
 

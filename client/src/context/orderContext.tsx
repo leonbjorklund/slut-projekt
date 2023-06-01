@@ -82,27 +82,23 @@ export default function OrderProvider(props: PropsWithChildren<any>) {
       userId: user?._id,
     };
 
-    try {
-      const response = await fetch("/api/orders", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(order),
-      });
+    const response = await fetch("/api/orders", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(order),
+    });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.json();
-      console.log(data);
-      setOrder(data);
-      clearCart();
-
-      getAllOrders();
-    } catch (error) {
-      console.error("Failed to create an order:", error);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+    const data = await response.json();
+    console.log(data);
+    setOrder(data);
+    clearCart();
+
+    getAllOrders();
   };
 
   const getAllOrders = async () => {
@@ -110,16 +106,12 @@ export default function OrderProvider(props: PropsWithChildren<any>) {
       return;
     }
 
-    try {
-      const response = await fetch("/api/orders");
-      if (response.ok) {
-        const data = await response.json();
-        setOrders(data);
-      } else {
-        console.error("Failed to fetch orders:", response.status);
-      }
-    } catch (error) {
-      console.error("Failed to fetch orders:", error);
+    const response = await fetch("/api/orders");
+    if (response.ok) {
+      const data = await response.json();
+      setOrders(data);
+    } else {
+      console.error("Failed to fetch orders:", response.status);
     }
   };
 
@@ -128,22 +120,18 @@ export default function OrderProvider(props: PropsWithChildren<any>) {
       return;
     }
 
-    try {
-      const response = await fetch(`/api/orders/${orderId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ isShipped }),
-      });
+    const response = await fetch(`/api/orders/${orderId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ isShipped }),
+    });
 
-      if (response.ok) {
-        // Update the local orders state if needed
-      } else {
-        console.error("Failed to update shipping status:", response.status);
-      }
-    } catch (error) {
-      console.error("Failed to update shipping status:", error);
+    if (response.ok) {
+      // Update the local orders state if needed
+    } else {
+      console.error("Failed to update shipping status:", response.status);
     }
   };
 
@@ -151,21 +139,17 @@ export default function OrderProvider(props: PropsWithChildren<any>) {
     if (user && user.email !== userId) {
       return;
     }
-    try {
-      const response = await fetch(`/api/orders/${userId}`);
-      if (response.ok) {
-        const data = await response.json();
-        setOrders(data);
-      } else {
-        console.error("Failed to fetch orders:", response.status);
-      }
-    } catch (error) {
-      console.error("Failed to fetch orders:", error);
+    const response = await fetch(`/api/orders/${userId}`);
+    if (response.ok) {
+      const data = await response.json();
+      setOrders(data);
+    } else {
+      console.error("Failed to fetch orders:", response.status);
     }
   };
 
   useEffect(() => {
-    if (user) {
+    if (user && order) {
       getOrdersByUser(user.email);
     } else {
       getAllOrders();
