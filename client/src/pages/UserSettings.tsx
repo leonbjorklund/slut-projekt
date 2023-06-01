@@ -41,11 +41,7 @@ function UserSettings() {
   }
 
   const handleAdminStatusChange = async (userId: string, isAdmin: boolean) => {
-    try {
-      await updateUserAdmin(userId, isAdmin);
-    } catch (error) {
-      console.error("Error updating user admin status:", error);
-    }
+    await updateUserAdmin(userId, isAdmin);
   };
 
   return (

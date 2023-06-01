@@ -23,11 +23,7 @@ function AdminOrders({ order }: { order: Order }) {
   };
 
   const handleMarkAsShipped = async (orderId: string, isShipped: boolean) => {
-    try {
-      await updateShippingStatus(orderId, isShipped);
-    } catch (error) {
-      console.error("Failed to update shipping status:", error);
-    }
+    await updateShippingStatus(orderId, isShipped);
   };
 
   const getStatusColorScheme = (isShipped: boolean) => {
