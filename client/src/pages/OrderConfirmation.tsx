@@ -1,9 +1,11 @@
 import { Box, Center, Flex, Heading, Text } from "@chakra-ui/react";
 import OrderCard from "../components/OrderCard";
 import { useOrder } from "../context/orderContext";
+import useCalculateTotalPrice from "../hooks/useCalculateTotalPrice";
 
 function OrderConfirmation() {
   const { order } = useOrder();
+  const totalPrice = useCalculateTotalPrice(order?.orderItems || []); // Use optional chaining and provide a fallback value
 
   return (
     <Center w='100%' flexDirection='column' py={6}>
@@ -11,7 +13,7 @@ function OrderConfirmation() {
         <Heading fontSize='1.5rem'>Thank you for your order!</Heading>
       </Box>
       <Box
-        w='40%'
+        w={{ base: "80%", md: "40%" }}
         borderBottom='1px'
         borderColor='blackAlpha.200'
         pt={6}
@@ -26,14 +28,14 @@ function OrderConfirmation() {
           </Center>
         </Box>
       ))}
-      <Box w='40%' textAlign='right'>
-        <Text fontSize='1.1rem'>Totalt: {order?.totalPrice} SEK</Text>
+      <Box w={{ base: "80%", md: "40%" }} textAlign='right'>
+        <Text fontSize='1.1rem'>Totalt: {totalPrice} SEK</Text>
       </Box>
       <Box
         py={4}
         px={8}
         my={8}
-        w='40%'
+        w={{ base: "90%", md: "40%" }}
         textAlign='left'
         border='1px solid'
         borderColor='yellow.400'
