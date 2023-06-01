@@ -26,9 +26,6 @@ const CustomerSchema = Yup.object().shape({
     .required("Vänligen ange din fullständiga adress"),
   zipCode: Yup.string().min(5).max(6).required("Vänligen ange ett postnummer"),
   city: Yup.string().min(2).required("Vänligen ange en stad"),
-  // email: Yup.string()
-  //   .email("Vänligen ange en giltig mejladress")
-  //   .required("Vänligen ange din mejladress"),
   phoneNumber: Yup.string()
     .min(10)
     .required("Vänligen ange ditt telefonnummer"),
