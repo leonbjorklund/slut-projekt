@@ -56,16 +56,32 @@ function Footer() {
         </Text>
         <Flex justifyContent={{ base: "center", md: "space-between" }}>
           <Link>
-            <Icon boxSize={6} as={SlSocialInstagram} />
+            <Icon
+              boxSize={6}
+              as={SlSocialInstagram}
+              _hover={{ bg: "none", transform: "scale(1.2)" }}
+            />
           </Link>
           <Link>
-            <Icon boxSize={6} as={SlSocialFacebook} />
+            <Icon
+              boxSize={6}
+              as={SlSocialFacebook}
+              _hover={{ bg: "none", transform: "scale(1.2)" }}
+            />
           </Link>
           <Link>
-            <Icon boxSize={6} as={SlSocialTwitter} />
+            <Icon
+              boxSize={6}
+              as={SlSocialTwitter}
+              _hover={{ bg: "none", transform: "scale(1.2)" }}
+            />
           </Link>
           <Link>
-            <Icon boxSize={6} as={SlSocialPintarest} />
+            <Icon
+              boxSize={6}
+              as={SlSocialPintarest}
+              _hover={{ bg: "none", transform: "scale(1.2)" }}
+            />
           </Link>
         </Flex>
       </Flex>
