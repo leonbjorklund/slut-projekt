@@ -1,4 +1,5 @@
 import {
+  Badge,
   Box,
   Button,
   Card,
@@ -27,6 +28,10 @@ function AdminOrders({ order }: { order: Order }) {
     } catch (error) {
       console.error("Failed to update shipping status:", error);
     }
+  };
+
+  const getStatusColorScheme = (isShipped: boolean) => {
+    return isShipped ? "green" : "red";
   };
 
   return (
@@ -125,11 +130,20 @@ function AdminOrders({ order }: { order: Order }) {
                   Total price: {totalPrice} SEK
                 </Text>{" "}
                 <Text
+                  display='flex'
+                  flexDirection='column'
+                  alignItems='center'
                   fontSize={{ base: "md", md: "md" }}
                   mt={{ base: "3", md: "md" }}
                 >
                   Order status:
-                  <br /> {getStatusText(order.isShipped)}
+                  <br />{" "}
+                  <Badge
+                    variant='subtle'
+                    colorScheme={getStatusColorScheme(order.isShipped)}
+                  >
+                    {getStatusText(order.isShipped)}
+                  </Badge>
                 </Text>
               </Flex>
             </Box>
