@@ -105,7 +105,7 @@ export const AccountProvider: React.FC<AccountProviderProps> = ({
   };
 
   const signout = async () => {
-    const response = await fetch("/api/users/signout", {
+    const response = await fetch("/api/users/logout", {
       method: "POST",
       credentials: "include",
     });
