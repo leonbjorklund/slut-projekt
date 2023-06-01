@@ -43,7 +43,10 @@ function Home({ filterCategory }: ProductsLayoutProps) {
       >
         <Box pl={{ base: 0, md: "18rem" }}>
           <Text fontSize='lg'>Handmade ceramic vases</Text>
-          <Heading fontSize='6xl' fontFamily='losta-masta'>
+          <Heading
+            fontSize={{ base: "4xl", md: "6xl" }}
+            fontFamily='losta-masta'
+          >
             Get groovy with
             <br /> our spring collection
           </Heading>
