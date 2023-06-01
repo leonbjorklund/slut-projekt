@@ -14,7 +14,7 @@ import {
 
 const orderRouter = Router();
 
-orderRouter.post("/api/orders", createOrder);
+orderRouter.post("/api/orders", validateCreateOrder, createOrder);
 orderRouter.get("/api/orders", isAdmin, getAllOrders);
 orderRouter.get("/api/orders/:email", isOrderOwner, getOrdersByUser);
 orderRouter.put(
