@@ -16,7 +16,7 @@ function Checkout() {
           <Heading size='md' p='4' textTransform='uppercase'>
             Oh no..
           </Heading>
-          <Text>..your cart is empty.</Text>
+          <Text>..your shopping cart is empty.</Text>
           <Text>
             But don't fear, we have tons of vases that would love it here.
           </Text>
