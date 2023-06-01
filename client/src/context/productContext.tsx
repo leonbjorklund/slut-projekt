@@ -54,16 +54,12 @@ export default function ProductProvider(props: PropsWithChildren) {
   }, []);
 
   const getAllProducts = async () => {
-    try {
-      const response = await fetch("/api/products");
-      if (response.ok) {
-        const fetchedProducts = await response.json();
-        setProducts(fetchedProducts);
-      } else {
-        console.error("Failed to fetch products:", response.status);
-      }
-    } catch (error) {
-      console.error("Failed to fetch products:", error);
+    const response = await fetch("/api/products");
+    if (response.ok) {
+      const fetchedProducts = await response.json();
+      setProducts(fetchedProducts);
+    } else {
+      console.error("Failed to fetch products:", response.status);
     }
   };
 
@@ -106,36 +102,32 @@ export default function ProductProvider(props: PropsWithChildren) {
   };
 
   const editProduct = async (updatedProduct: Product) => {
-    try {
-      const { _id, ...restOfUpdatedProduct } = updatedProduct;
+    const { _id, ...restOfUpdatedProduct } = updatedProduct;
 
-      const productToSend = {
-        ...restOfUpdatedProduct,
-        price: Number(restOfUpdatedProduct.price),
-        inStock: Number(restOfUpdatedProduct.inStock),
-        height: Number(restOfUpdatedProduct.height),
-      };
+    const productToSend = {
+      ...restOfUpdatedProduct,
+      price: Number(restOfUpdatedProduct.price),
+      inStock: Number(restOfUpdatedProduct.inStock),
+      height: Number(restOfUpdatedProduct.height),
+    };
 
-      const response = await fetch(`/api/products/${_id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(productToSend),
-      });
+    const response = await fetch(`/api/products/${_id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(productToSend),
+    });
 
-      if (response.ok) {
-        const updatedProductData = await response.json();
-        setProducts((prevProducts) =>
-          prevProducts.map((product) =>
-            product._id === updatedProduct._id ? updatedProductData : product,
-          ),
-        );
-      } else {
-        console.error("Failed to update product:", response.status);
-      }
-    } catch (error) {
-      console.error("Failed to update product:", error);
+    if (response.ok) {
+      const updatedProductData = await response.json();
+      setProducts((prevProducts) =>
+        prevProducts.map((product) =>
+          product._id === updatedProduct._id ? updatedProductData : product,
+        ),
+      );
+    } else {
+      console.error("Failed to update product:", response.status);
     }
   };
 
