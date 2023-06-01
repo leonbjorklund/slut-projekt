@@ -1,4 +1,13 @@
-import { Box, Card, Flex, Grid, Heading, Stack, Text } from "@chakra-ui/react";
+import {
+  Badge,
+  Box,
+  Card,
+  Flex,
+  Grid,
+  Heading,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
 import { Order } from "../context/orderContext";
 import useCalculateTotalPrice from "../hooks/useCalculateTotalPrice";
 import useFormatCreatedAtDate from "../hooks/useFormatCreatedAtDate";
@@ -50,7 +59,14 @@ function OrderOverview({ order }: { order: Order }) {
               </Flex>
               <Flex>
                 <Text fontWeight='bold' mb={4}>
-                  Shipping status: {order.isShipped ? "Shipped" : "Not Shipped"}
+                  <Badge
+                    colorScheme={order.isShipped ? "green" : "red"} // Set colorScheme based on the shipping status
+                    borderRadius='md'
+                    px={2}
+                    py={1}
+                  >
+                    {order.isShipped ? "Shipped" : "Not Shipped"}
+                  </Badge>
                 </Text>
               </Flex>
               <Flex>

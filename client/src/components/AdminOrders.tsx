@@ -130,9 +130,6 @@ function AdminOrders({ order }: { order: Order }) {
                   Total price: {totalPrice} SEK
                 </Text>{" "}
                 <Text
-                  display='flex'
-                  flexDirection='column'
-                  alignItems='center'
                   fontSize={{ base: "md", md: "md" }}
                   mt={{ base: "3", md: "md" }}
                 >
