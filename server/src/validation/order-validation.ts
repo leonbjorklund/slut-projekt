@@ -7,25 +7,20 @@ const addressSchema = z.object({
   firstName: z.string().min(1).max(100),
   lastName: z.string().min(1).max(100),
   address: z.string().min(1),
-  zipCode: z.string().min(5).max(5),
+  zipCode: z.string().min(5).max(6),
   city: z.string().min(1),
   phoneNumber: z.string().min(10),
 });
 
 const orderItemSchema = z.object({
-  product: z
-    .string()
-    .min(1)
-    .refine((value) => value.trim() !== "", { message: "Product is required" }),
+  product: z.object({}),
   quantity: z.number().min(1),
 });
 
 const orderSchema = z.object({
-  // userId: z.string().min(1),
   orderItems: z.array(orderItemSchema).min(1),
   deliveryAddress: addressSchema,
   isShipped: z.boolean(),
-  createdAt: z.date().default(() => new Date()),
 });
 
 export function validateCreateOrder(
@@ -37,6 +32,7 @@ export function validateCreateOrder(
   if (validationResult.success) {
     next();
   } else {
+    console.log("Validation errors:", validationResult.error.errors);
     const errorMessages = validationResult.error.errors.map(
       (error) => `Field '${error.path.join(".")}' is incorrect or missing`
     );
