@@ -72,7 +72,7 @@ function CheckoutCard({ product }: { product: CartItem }) {
                 {product.name}
               </Text>
               <Text fontSize='sm'>
-                Höjd: &nbsp;
+                Height: &nbsp;
                 {product.height}
                 <Text as='span' fontSize='sm'>
                   &nbsp;cm

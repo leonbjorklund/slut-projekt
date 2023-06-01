@@ -95,9 +95,6 @@ function AdminOrders({ order }: { order: Order }) {
                 <Text fontWeight='bold' mb={1} mt={{ base: "5" }}>
                   CUSTOMER INFO:
                 </Text>
-                <Text mb='1rem' textDecoration='underline'>
-                  {/* {order.userId.email} */}
-                </Text>
                 <Text>
                   {order.deliveryAddress.firstName}{" "}
                   {order.deliveryAddress.lastName}

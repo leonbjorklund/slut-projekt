@@ -2,7 +2,6 @@ import { Router } from "express";
 import {
   createOrder,
   getAllOrders,
-  getOrderById,
   getOrdersByUser,
   updateShippingStatus,
 } from "../controllers/order-controller";
@@ -18,7 +17,6 @@ const orderRouter = Router();
 orderRouter.post("/api/orders", validateCreateOrder, createOrder);
 orderRouter.get("/api/orders", isAdmin, getAllOrders);
 orderRouter.get("/api/orders/:email", isOrderOwner, getOrdersByUser);
-orderRouter.get("/api/orders/:id", getOrderById);
 orderRouter.put(
   "/api/orders/:id",
   isAdmin,

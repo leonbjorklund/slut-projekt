@@ -12,7 +12,7 @@ function OrderCard({ order }: OrderCardProps) {
       {order.map((item, index) => (
         <Card
           key={index}
-          direction={{ base: "column", sm: "row" }}
+          direction='row'
           overflow='hidden'
           size='sm'
           bg='brand.100'
@@ -21,7 +21,7 @@ function OrderCard({ order }: OrderCardProps) {
           borderBottom='1px'
           borderColor='blackAlpha.200'
           pb={2}
-          w='40%'
+          w={{ base: "90%", md: "40%" }}
         >
           <Box>
             <Image src={item.product.imageUrl} maxW='100px' maxH='100%' m={2} />

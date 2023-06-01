@@ -55,7 +55,7 @@ function Header() {
             _hover={{ bg: "none", textDecoration: "underline" }}
             onClick={() => handleSignOutClick()}
           >
-            Sign Out
+            Log out
           </Button>
         ) : (
           showLoginButton && (
