@@ -17,7 +17,6 @@ function AdminOrders({ order }: { order: Order }) {
   const formattedDate = useFormatCreatedAtDate(order.createdAt);
   const { updateShippingStatus } = useOrder();
 
-  console.log(order);
   const getStatusText = (isShipped: boolean) => {
     return isShipped ? "Shipped" : "Not Shipped";
   };

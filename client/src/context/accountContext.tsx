@@ -44,7 +44,7 @@ export const AccountProvider: React.FC<AccountProviderProps> = ({
 
   const checkLoggedIn = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/users/auth", {
+      const response = await fetch("/api/users/auth", {
         credentials: "include",
       });
       if (response.status === 204) {
@@ -68,7 +68,7 @@ export const AccountProvider: React.FC<AccountProviderProps> = ({
   }, []);
 
   const create = async (email: string, password: string) => {
-    const response = await fetch("http://localhost:3000/api/users/create", {
+    const response = await fetch("/api/users/create", {
       method: "POST",
       credentials: "include",
       headers: {
@@ -87,7 +87,7 @@ export const AccountProvider: React.FC<AccountProviderProps> = ({
   };
 
   const login = async (email: string, password: string) => {
-    const response = await fetch("http://localhost:3000/api/users/login", {
+    const response = await fetch("/api/users/login", {
       method: "POST",
       credentials: "include",
       headers: {
@@ -105,7 +105,7 @@ export const AccountProvider: React.FC<AccountProviderProps> = ({
   };
 
   const signout = async () => {
-    const response = await fetch("http://localhost:3000/api/users/signout", {
+    const response = await fetch("/api/users/signout", {
       method: "POST",
       credentials: "include",
     });
@@ -119,7 +119,7 @@ export const AccountProvider: React.FC<AccountProviderProps> = ({
       return;
     }
 
-    const response = await fetch("http://localhost:3000/api/users/", {
+    const response = await fetch("/api/users/", {
       method: "GET",
       credentials: "include",
     });
@@ -135,17 +135,14 @@ export const AccountProvider: React.FC<AccountProviderProps> = ({
     }
 
     try {
-      const response = await fetch(
-        `http://localhost:3000/api/users/${userId}`,
-        {
-          method: "PUT",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ isAdmin }),
+      const response = await fetch(`/api/users/${userId}`, {
+        method: "PUT",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
         },
-      );
+        body: JSON.stringify({ isAdmin }),
+      });
 
       if (response.ok) {
         const updatedUser = await response.json();

@@ -19,8 +19,8 @@ function OrderConfirmation() {
       >
         <Text fontSize='1.1rem'>Order number: {order?._id}</Text>
       </Box>
-      {order?.orderItems.map((orderItem) => (
-        <Box key={orderItem.product._id} w='100%'>
+      {order?.orderItems.map((orderItem, index) => (
+        <Box key={index} w='100%'>
           <Center>
             <OrderCard order={[orderItem]} />
           </Center>

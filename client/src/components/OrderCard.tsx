@@ -9,9 +9,9 @@ interface OrderCardProps {
 function OrderCard({ order }: OrderCardProps) {
   return (
     <>
-      {order.map((item) => (
+      {order.map((item, index) => (
         <Card
-          key={item.product._id}
+          key={index}
           direction={{ base: "column", sm: "row" }}
           overflow='hidden'
           size='sm'

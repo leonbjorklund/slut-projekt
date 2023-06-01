@@ -55,7 +55,7 @@ export default function ProductProvider(props: PropsWithChildren) {
 
   const getAllProducts = async () => {
     try {
-      const response = await fetch("api/products");
+      const response = await fetch("/api/products");
       if (response.ok) {
         const fetchedProducts = await response.json();
         setProducts(fetchedProducts);
