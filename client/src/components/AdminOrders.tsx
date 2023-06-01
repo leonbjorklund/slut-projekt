@@ -1,4 +1,5 @@
 import {
+  Badge,
   Box,
   Button,
   Card,
@@ -23,6 +24,10 @@ function AdminOrders({ order }: { order: Order }) {
 
   const handleMarkAsShipped = async (orderId: string, isShipped: boolean) => {
     await updateShippingStatus(orderId, isShipped);
+  };
+
+  const getStatusColorScheme = (isShipped: boolean) => {
+    return isShipped ? "green" : "red";
   };
 
   return (
@@ -125,7 +130,13 @@ function AdminOrders({ order }: { order: Order }) {
                   mt={{ base: "3", md: "md" }}
                 >
                   Order status:
-                  <br /> {getStatusText(order.isShipped)}
+                  <br />{" "}
+                  <Badge
+                    variant='subtle'
+                    colorScheme={getStatusColorScheme(order.isShipped)}
+                  >
+                    {getStatusText(order.isShipped)}
+                  </Badge>
                 </Text>
               </Flex>
             </Box>
