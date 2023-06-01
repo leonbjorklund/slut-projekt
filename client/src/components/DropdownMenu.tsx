@@ -20,19 +20,22 @@ function DropdownMenu() {
         bg='none'
         _hover={{ bg: "none", textDecoration: "underline" }}
         _focus={{ outline: "none", boxShadow: "none" }}
+        _active={{ bg: "none" }}
       >
         <Icon boxSize={7} as={IoPersonOutline} />
       </MenuButton>
       <MenuList
         borderWidth='1px'
-        borderColor='gray.400'
+        borderColor='yellow.400'
         borderRadius='none'
         p={2}
         fontSize='md'
+        bg='brand.100'
       >
         <MenuItem
           as={Link}
           to='/orders'
+          bg='brand.100'
           _hover={{
             borderBottom: "1px solid black",
             bg: "transparent",
@@ -46,6 +49,7 @@ function DropdownMenu() {
             <MenuItem
               as={Link}
               to='/admin/users'
+              bg='brand.100'
               _hover={{
                 borderBottom: "1px solid black",
                 bg: "transparent",
@@ -57,6 +61,7 @@ function DropdownMenu() {
             <MenuItem
               as={Link}
               to='/admin/orders/settings'
+              bg='brand.100'
               _hover={{
                 borderBottom: "1px solid black",
                 bg: "transparent",
@@ -68,6 +73,7 @@ function DropdownMenu() {
             <MenuItem
               as={Link}
               to='/admin'
+              bg='brand.100'
               _hover={{
                 borderBottom: "1px solid black",
                 bg: "transparent",
