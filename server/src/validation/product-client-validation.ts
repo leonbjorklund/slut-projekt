@@ -10,7 +10,7 @@ export const productCreateSchema = z
     image: z.string().min(1).max(1000),
     description: z.string().min(1).max(1000),
     categories: z.array(z.string().min(1).max(1000)),
-    inStock: z.number().min(1).max(1000),
+    inStock: z.number().min(0).max(1000),
   })
   .strict();
 
@@ -24,7 +24,7 @@ export const productEditSchema = z
     height: z.number().min(1).max(1000),
     description: z.string().min(1).max(1000),
     categories: z.array(z.string().min(1).max(1000)),
-    inStock: z.number().min(1).max(1000),
+    inStock: z.number().min(0).max(1000),
   })
   .nonstrict(); // allow extra keys in the object
 
