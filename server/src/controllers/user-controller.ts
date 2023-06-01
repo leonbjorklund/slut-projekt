@@ -46,7 +46,7 @@ export async function loginUser(req: Request, res: Response) {
   });
 }
 
-export function signoutUser(req: Request, res: Response) {
+export function logoutUser(req: Request, res: Response) {
   req.session = null;
   res.status(204).json({ message: "Signout successful" });
 }
@@ -72,15 +72,6 @@ export async function updateUserAdmin(req: Request, res: Response) {
 export async function getAllUsers(req: Request, res: Response) {
   const users = await UserModel.find().select("_id email __v isAdmin");
   res.status(200).json(users);
-}
-
-export async function getUserById(req: Request, res: Response) {
-  const userId = req.params.id;
-  const user = await UserModel.findById(userId).select("_id email __v isAdmin");
-
-  assert(user !== null, 404, "User not found");
-
-  return res.status(200).json(user);
 }
 
 export function checkAuth(req: Request, res: Response) {
