@@ -19,6 +19,7 @@ export async function createOrder(req: Request, res: Response) {
   };
 
   const order = await OrderModel.create(orderData);
+  order.populate("userId orderItems.product");
   await order.save();
 
   // Update stock for each ordered product
