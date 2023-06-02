@@ -29,7 +29,7 @@ function Home({ filterCategory }: ProductsLayoutProps) {
     : products;
 
   return (
-    <div>
+    <>
       <Flex
         w='full'
         p={{ base: "1rem", md: "0" }}
@@ -111,12 +111,15 @@ function Home({ filterCategory }: ProductsLayoutProps) {
           rowGap={8}
           py={8}
         >
-          {filteredProductList.map((product) => (
-            <OverviewCard key={product._id} product={product} />
-          ))}
+          {filteredProductList
+            .slice()
+            .reverse()
+            .map((product) => (
+              <OverviewCard key={product._id} product={product} />
+            ))}
         </Grid>
       </Center>
-    </div>
+    </>
   );
 }
 

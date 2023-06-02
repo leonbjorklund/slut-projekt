@@ -47,7 +47,7 @@ function ProductSettings() {
               </Button>
             </Link>
           </Flex>
-          <Stack spacing={6} w='100%'>
+          <Stack spacing={6} w='100%' display='flex' flexDir='column-reverse'>
             {products.map((product) => (
               <AdminCard key={product._id} product={product} />
             ))}
