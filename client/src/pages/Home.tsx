@@ -42,7 +42,7 @@ function Home({ filterCategory }: ProductsLayoutProps) {
         alignItems={{ base: "center", md: "flex-start" }}
       >
         <Box pl={{ base: 0, md: "18rem" }}>
-          <Text fontSize='lg'>Handmade ceramic vases</Text>
+          <Text fontSize='lg'>Handmade vases</Text>
           <Heading
             fontSize={{ base: "4xl", md: "6xl" }}
             fontFamily='losta-masta'
