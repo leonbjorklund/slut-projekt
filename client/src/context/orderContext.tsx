@@ -94,7 +94,6 @@ export default function OrderProvider(props: PropsWithChildren<any>) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const data = await response.json();
-    console.log(data);
     setOrder(data);
     clearCart();
 
@@ -128,9 +127,7 @@ export default function OrderProvider(props: PropsWithChildren<any>) {
       body: JSON.stringify({ isShipped }),
     });
 
-    if (response.ok) {
-      // Update the local orders state if needed
-    } else {
+    if (!response.ok) {
       console.error("Failed to update shipping status:", response.status);
     }
   };

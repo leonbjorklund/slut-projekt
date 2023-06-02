@@ -37,8 +37,6 @@ export async function loginUser(req: Request, res: Response) {
     isAdmin: user!.isAdmin,
   };
 
-  console.log(user);
-
   res.status(200).json({
     _id: user!.id,
     email: user!.email,

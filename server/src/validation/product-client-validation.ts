@@ -33,13 +33,11 @@ export function validateBody(schema: z.Schema) {
       console.error("Validation error:", validationResult.error);
     }
 
-    console.log(validationResult);
     if (validationResult.success) {
       next();
     } else {
       if (req.params.id) {
         const product = await ProductModel.findById(req.params.id);
-        console.log(product);
         if (!product) {
           res
             .status(404)

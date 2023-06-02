@@ -57,7 +57,6 @@ function ProductForm({ product, onSubmit }: Props) {
     validationSchema: ProductSchema,
     onSubmit: (values) => {
       onSubmit(values as any);
-      console.log("Submitting");
       navigate("/admin");
     },
   });
@@ -69,18 +68,13 @@ function ProductForm({ product, onSubmit }: Props) {
     const formData = new FormData();
     formData.append("image", file);
 
-    console.log("Before fetch");
-
     const response = await fetch("/api/file", {
       method: "POST",
       body: formData,
     });
 
-    console.log("After fetch");
-
     if (response.ok) {
       const id = await response.json();
-      console.log(id);
       formik.setFieldValue("image", id);
     } else {
       console.log("Error to fetch id");
