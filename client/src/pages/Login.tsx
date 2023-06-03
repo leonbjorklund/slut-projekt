@@ -32,7 +32,6 @@ export default function Login() {
           })
           .catch((error) => {
             const errorMessage = JSON.parse(error.message);
-            console.log(errorMessage);
             setError(errorMessage);
           });
       }}

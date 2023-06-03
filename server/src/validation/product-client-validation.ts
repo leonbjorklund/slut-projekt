@@ -2,22 +2,20 @@ import { NextFunction, Request, Response } from "express";
 import { z } from "zod";
 import { ProductModel } from "../models/product-model";
 
-export const productCreateSchema = z
-  .object({
-    name: z.string().min(1).max(100),
-    price: z.number().min(1).max(1000),
-    height: z.number().min(1).max(1000),
-    image: z.string().min(1).max(1000),
-    description: z.string().min(1).max(1000),
-    categories: z.array(z.string().min(1).max(1000)),
-    inStock: z.number().min(0).max(1000),
-  })
-  .strict();
+export const productCreateSchema = z.object({
+  name: z.string().min(1).max(100),
+  price: z.number().min(1).max(1000),
+  height: z.number().min(1).max(1000),
+  image: z.string().min(1).max(1000),
+  description: z.string().min(1).max(8000),
+  categories: z.array(z.string().min(1).max(1000)),
+  inStock: z.number().min(0).max(1000),
+});
 
 export const productEditSchema = z
   .object({
-    _id: z.string().optional(), // assuming _id is optional
-    imageUrl: z.string().optional(), // assuming imageUrl is optional
+    _id: z.string().optional(),
+    imageUrl: z.string().optional(),
     name: z.string().min(1).max(100),
     price: z.number().min(1).max(1000),
     image: z.string().min(1).max(1000),
@@ -26,7 +24,7 @@ export const productEditSchema = z
     categories: z.array(z.string().min(1).max(1000)),
     inStock: z.number().min(0).max(1000),
   })
-  .nonstrict(); // allow extra keys in the object
+  .nonstrict();
 
 export function validateBody(schema: z.Schema) {
   return async (req: Request, res: Response, next: NextFunction) => {
@@ -35,13 +33,11 @@ export function validateBody(schema: z.Schema) {
       console.error("Validation error:", validationResult.error);
     }
 
-    console.log(validationResult);
     if (validationResult.success) {
       next();
     } else {
       if (req.params.id) {
         const product = await ProductModel.findById(req.params.id);
-        console.log(product);
         if (!product) {
           res
             .status(404)

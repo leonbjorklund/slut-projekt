@@ -31,7 +31,8 @@ function AdminCard({ product }: { product: Product }) {
       <Flex direction={{ base: "column", md: "row" }} flex='1'>
         <Image
           objectFit='cover'
-          maxW={{ base: "100%", md: "200px" }}
+          alignSelf='center'
+          maxW={{ base: "70%", md: "200px" }}
           w='auto'
           src={product.imageUrl}
           alt={product.name}

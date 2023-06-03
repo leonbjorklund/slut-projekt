@@ -13,7 +13,6 @@ export async function getFileById(req: Request, res: Response) {
   }
 
   res.setHeader("Content-Type", file.contentType);
-  // res.setHeader('Content-Disposition', `attachment; filename=${file.filename}`);
 
   const downloadStream = fileBucket.openDownloadStream(_id);
   downloadStream.pipe(res);

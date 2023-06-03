@@ -29,7 +29,7 @@ function OrderConfirmation() {
         </Box>
       ))}
       <Box w={{ base: "80%", md: "40%" }} textAlign='right'>
-        <Text fontSize='1.1rem'>Totalt: {totalPrice} SEK</Text>
+        <Text fontSize='1.1rem'>Total: {totalPrice} SEK</Text>
       </Box>
       <Box
         py={4}

@@ -29,7 +29,7 @@ function Home({ filterCategory }: ProductsLayoutProps) {
     : products;
 
   return (
-    <div>
+    <>
       <Flex
         w='full'
         p={{ base: "1rem", md: "0" }}
@@ -42,7 +42,7 @@ function Home({ filterCategory }: ProductsLayoutProps) {
         alignItems={{ base: "center", md: "flex-start" }}
       >
         <Box pl={{ base: 0, md: "18rem" }}>
-          <Text fontSize='lg'>Handmade ceramic vases</Text>
+          <Text fontSize='lg'>Handmade vases</Text>
           <Heading
             fontSize={{ base: "4xl", md: "6xl" }}
             fontFamily='losta-masta'
@@ -111,12 +111,15 @@ function Home({ filterCategory }: ProductsLayoutProps) {
           rowGap={8}
           py={8}
         >
-          {filteredProductList.map((product) => (
-            <OverviewCard key={product._id} product={product} />
-          ))}
+          {filteredProductList
+            .slice()
+            .reverse()
+            .map((product) => (
+              <OverviewCard key={product._id} product={product} />
+            ))}
         </Grid>
       </Center>
-    </div>
+    </>
   );
 }
 
